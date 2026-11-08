@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Andrea Miglioranza Portfolio</title><meta name="claude:viewport-fit-sides" content="cover"><meta name="description" content="Portfolio di Andrea Miglioranza, creativo con AI e marketing. Caso studio: Extillo Salted Gin, un sito scroll-film."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Instrument+Sans:wght@400;500;600&display=swap"><style>
+/* Direzione: studio. Sfondo beige, tutte le scritte in verde Rolex, lettering serif, un progetto per sezione: titolo e sito. */
+:root{
+  --bg:#EDE4D3; --surface:#F6F0E4; --fg:#006039; --muted:#2F6B50; --line:#CFC3AA; --gold:#9A7B3F; --btn:#006039; --btn-fg:#F3ECDD;
+  color-scheme:light;
+  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif; --text:"Instrument Sans",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--text);font-size:17px;line-height:1.65;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px;border-radius:3px}
+.wrap{max-width:1120px;margin:0 auto}
+
+header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:24px;border-bottom:1px solid var(--line);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
+header.top a{text-decoration:none}
+header.top a:hover{text-decoration:underline;text-underline-offset:4px}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);gap:clamp(20px,5vw,72px);align-items:end;padding-block:clamp(44px,8vw,104px) clamp(30px,5vw,56px)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr);gap:clamp(20px,5vw,72px);align-items:end}
+.hero-text{min-width:0}
+.portrait{margin:0;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--surface);aspect-ratio:10/9}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.contacts{list-style:none;margin:clamp(22px,3vw,34px) 0 0;padding:0;display:grid;gap:10px}
+.contacts li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;font-size:16px}
+.contacts span{width:5.6em;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.contacts b{font-weight:500;overflow-wrap:anywhere}
+.contacts a{text-underline-offset:3px}
+.contacts button{font:inherit;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px;border:1px solid var(--fg);background:transparent;color:var(--fg);cursor:pointer}
+.contacts button:hover{background:var(--fg);color:var(--bg)}
+@media (max-width:860px){ .hero{grid-template-columns:minmax(0,1fr)} .portrait{max-width:360px;order:-1} .hero h1{white-space:normal;font-size:clamp(40px,12vw,64px)} }
+.hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(42px,6.4vw,88px);line-height:1;white-space:nowrap;letter-spacing:-.015em;text-wrap:balance;animation:fade .9s ease both}
+.hero .role{margin:clamp(14px,2vw,22px) 0 0;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(20px,2.4vw,30px);animation:fade .9s .12s ease both}
+.hero .rule{display:block;width:64px;height:2px;background:var(--gold);margin:clamp(20px,3vw,32px) 0 0;border:0}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.proj{padding-block:clamp(36px,6vw,80px);border-top:1px solid var(--line)}
+.proj .idx{margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.proj h2{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(38px,6.4vw,88px);line-height:1;letter-spacing:-.012em;text-wrap:balance;max-width:16ch}
+.proj .line{margin:clamp(14px,2vw,22px) 0 0;max-width:56ch;font-size:clamp(17px,1.6vw,20px);color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:6px 18px;margin:16px 0 clamp(22px,3vw,34px);padding:0;list-style:none}
+.tags li{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.device{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 30px 70px -42px rgba(0,60,35,.55)}
+.device .bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+.device .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.device .bar span{margin-left:10px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--btn);color:var(--btn-fg);font-weight:600;font-size:14px;letter-spacing:.04em;text-decoration:none;transition:opacity .2s}
+.btn:hover{opacity:.88}
+.btn svg{width:17px;height:17px}
+.slot{display:grid;place-items:center;min-height:clamp(220px,34vw,420px);border:1px dashed var(--fg);border-radius:10px;font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.4vw,28px);opacity:.7;text-align:center;padding:24px}
+.soon h2{opacity:.55}
+
+
+.vetrina{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,56px);padding-block:clamp(26px,4vw,48px) clamp(8px,2vw,20px);border-top:1px solid var(--line);align-items:start}
+.proj{padding:0;border:0}
+.proj h2{font-size:clamp(30px,4.2vw,56px);max-width:none}
+.proj .line{margin-top:18px;font-size:16px}
+.tags{margin:12px 0 18px}
+.stage{position:relative;overflow:hidden;aspect-ratio:16/10;background:#8fb2c7}
+.stage iframe{position:absolute;left:0;top:0;width:1280px;height:800px;min-height:0;border:0;transform-origin:0 0;background:#8fb2c7}
+.device.ghost{box-shadow:none;border-style:dashed;background:transparent}
+.stage.slot{display:grid;place-items:center;background:transparent;font-family:var(--serif);font-style:italic;font-size:clamp(18px,2vw,24px);opacity:.75;text-align:center;padding:24px}
+.soon h2,.soon .line{opacity:.55}
+
+.sec-h{margin:0;padding-top:clamp(26px,4vw,48px);font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(34px,4.6vw,60px);line-height:1;border-top:1px solid var(--line)}
+.vetrina{border-top:0;padding-top:clamp(16px,2.4vw,28px)}
+.proj h2 em{font-style:italic;font-weight:500}
+.made{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+.made-h{margin:0 0 10px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:22px}
+.made ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.made li{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr);gap:4px 16px;align-items:baseline;font-size:15px}
+.made li b{font-weight:600}
+.made li span{color:var(--muted)}
+.soon .made{opacity:.55}
+@media (max-width:520px){ .made li{grid-template-columns:minmax(0,1fr)} }
+details.more{margin-top:clamp(18px,3vw,36px)}
+@media (max-width:860px){ .vetrina{grid-template-columns:minmax(0,1fr)} }
+
+/* dettagli del progetto (chiusi di default) */
+details.more{margin-top:clamp(26px,4vw,44px);border-top:1px solid var(--line)}
+details.more summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font-family:var(--serif);font-weight:600;font-size:clamp(24px,2.6vw,32px)}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"+";font-family:var(--text);font-weight:400;font-size:28px;line-height:1}
+details.more[open] summary::after{content:"–"}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,3vw,40px);padding-block:8px 24px}
+.meta dt{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.meta dd{margin:0;font-size:15px;font-weight:500}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,2vw,24px);padding-block:clamp(20px,3vw,30px);border-block:1px solid var(--line)}
+.num b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(40px,5.4vw,70px);line-height:1;font-variant-numeric:lining-nums tabular-nums}
+.num span{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
+.brief{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(24px,5vw,72px);margin-top:clamp(34px,5vw,64px)}
+.brief h3,.process h3,.strip h3{font-family:var(--serif);font-weight:600;font-size:clamp(28px,3.4vw,42px);line-height:1.05;margin:0}
+.brief p{margin:0 0 1em;max-width:58ch}
+.process,.strip{margin-top:clamp(36px,6vw,80px)}
+.steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,28px);counter-reset:s}
+.steps li{counter-increment:s;border-top:1px solid var(--fg);padding-top:14px}
+.steps li::before{content:counter(s,decimal-leading-zero);display:block;font-family:var(--serif);font-weight:600;font-size:34px;line-height:1;color:var(--gold);margin-bottom:10px;font-variant-numeric:lining-nums}
+.steps h4{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.1;margin:0 0 6px}
+.steps p{margin:0;font-size:15px;color:var(--muted)}
+.strip p.cap{margin:10px 0 0;max-width:62ch;color:var(--muted);font-size:15px}
+.frames{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
+.frames figure{margin:0}
+.frames img{aspect-ratio:16/9;object-fit:cover;width:100%;border-radius:5px;border:1px solid var(--line)}
+.frames figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.shot{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.duo{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:clamp(12px,2vw,24px);margin-top:clamp(36px,6vw,80px);align-items:start}
+.duo figure{margin:0}
+.duo figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+
+footer.end{padding-block:26px 44px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--fg)}
+
+@media (max-width:860px){
+  .brief{grid-template-columns:minmax(0,1fr)}
+  .meta,.nums,.steps,.frames{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .duo{grid-template-columns:minmax(0,1fr)}
+  .duo .mobile{max-width:260px}
+}
+@media (prefers-reduced-motion:reduce){ .hero h1,.hero .role{animation:none} .btn{transition:none} }
+</style></head><body>
+
+
+
+
+
+
+
+<div class="wrap">
+  <header class="top"><span>Portfolio · 2026</span><a href="#progetti-h">Progetti</a></header>
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Andrea Miglioranza</h1>
+        <p class="role">Creativo con AI: marketing, siti, video, immagini e direzione artistica</p>
+        <hr class="rule">
+        <ul class="contacts">
+          <li><span>Email</span><b id="mail">andreamiglioranza0711@gmail.com</b><button type="button" id="copy" aria-label="Copia l’indirizzo email">Copia</button></li>
+          <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/andreamiglioranza" target="_blank" rel="noopener">linkedin.com/in/andreamiglioranza</a></li>
+        </ul>
+      </div>
+      <figure class="portrait"><img src="img/andrea.jpg" width="640" height="580" alt="Ritratto di Andrea Miglioranza"></figure>
+    </section>
+
+    <h2 class="sec-h" id="progetti-h">Progetti</h2>
+    <section class="vetrina" id="progetti" aria-labelledby="progetti-h">
+      <article class="proj" aria-labelledby="t1">
+        <h2 id="t1">Sito scrolling per <em>Gin Extillo</em></h2>
+        <ul class="tags"><li>Sito web</li><li>Video AI</li><li>Immagini AI</li><li>Direzione artistica</li></ul>
+        <div class="device">
+          <div class="bar"><i></i><i></i><i></i><span>Extillo Salted Gin · sito interattivo</span></div>
+          <div class="stage" data-w="1280" data-h="800"><iframe src="extillo/index.html" title="Il sito di Extillo Salted Gin, interattivo" loading="lazy"></iframe></div>
+        </div>
+        <div class="actions"><a class="btn" href="extillo/index.html" target="_blank" rel="noopener">Apri a schermo intero <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        <p class="line">Un sito scroll-film per un gin artigianale italiano: una ripresa continua, dal Lago d’Iseo alle saline pugliesi fino al bicchiere.</p>
+        <div class="made"><p class="made-h">Realizzato utilizzando</p>
+          <ul>
+            <li><b>Claude Sonnet 5.5</b><span>concept, direzione artistica, copy e codice del sito, tramite Claude Code</span></li>
+            <li><b>Nano Banana</b><span>fotogrammi chiave e immagini</span></li>
+            <li><b>Seedance 2.0</b><span>video image-to-video (ByteDance)</span></li>
+          </ul></div>
+      </article>
+
+      <article class="proj soon" aria-labelledby="t2">
+        <h2 id="t2">Titolo <em>Progetto 2</em></h2>
+        <ul class="tags"><li>Abilità</li></ul>
+        <div class="device ghost">
+          <div class="bar"><i></i><i></i><i></i><span>In arrivo</span></div>
+          <div class="stage slot"><span>Qui comparirà il prossimo lavoro.</span></div>
+        </div>
+        <p class="line">Descrizione del progetto.</p>
+        <div class="made"><p class="made-h">Realizzato utilizzando</p>
+          <ul><li><b>—</b><span>Modelli e strumenti del progetto.</span></li></ul></div>
+      </article>
+    </section>
+
+    <details class="more"><summary>Progetto 01 · Come l’ho realizzato</summary>
+      <dl class="meta">
+        <div><dt>Marchio</dt><dd>Extillo Salted Gin</dd></div>
+        <div><dt>Ruolo</dt><dd>Concept, direzione artistica, immagini e video, sviluppo web</dd></div>
+        <div><dt>Strumenti</dt><dd>Claude Code (Sonnet 5.5), Nano Banana, Seedance 2.0, HTML, CSS, JavaScript</dd></div>
+        <div><dt>Anno</dt><dd>2026</dd></div>
+      </dl>
+
+      <div class="nums" role="list">
+        <div class="num" role="listitem"><b>6</b><span>clip video generate e incatenate</span></div>
+        <div class="num" role="listitem"><b>25 s</b><span>di film, in 1080p</span></div>
+        <div class="num" role="listitem"><b>601</b><span>frame guidati dallo scroll</span></div>
+        <div class="num" role="listitem"><b>60 fps</b><span>di scorrimento misurato</span></div>
+      </div>
+
+      <div class="brief">
+        <h3>Il brief</h3>
+        <div>
+          <p>Extillo è un gin sapido, distillato in un alambicco da 45 litri con botaniche del Lago d’Iseo e sale delle saline pugliesi. Serviva un sito che facesse sentire questo viaggio, e che portasse all’acquisto.</p>
+          <p>L’idea: una ripresa unica che parte dal lago, attraversa gli agrumi, entra in un fiore d’arancio, lo trasforma in cristalli di sale e arriva al calice. La bottiglia, vera, scivola nell’inquadratura alla fine.</p>
+        </div>
+      </div>
+
+      <section class="process" aria-labelledby="pr">
+        <h3 id="pr">Il processo</h3>
+        <ol class="steps">
+          <li><h4>Concept e direzione</h4><p>Tre proposte, messe alla prova prima di sceglierne una. Palette, font e tono presi dall’etichetta della bottiglia.</p></li>
+          <li><h4>Fotogrammi chiave</h4><p>Immagini generate in sequenza, ognuna a partire dalla precedente, per tenere luce e colori coerenti.</p></li>
+          <li><h4>Film</h4><p>Sei clip image-to-video incatenate: ognuna parte dall’ultimo frame reale della precedente. Ogni giuntura misurata, non solo guardata.</p></li>
+          <li><h4>Sito</h4><p>Pagina scroll-film su canvas con 601 frame, testi che entrano a tempo, sezione di acquisto e versione mobile.</p></li>
+        </ol>
+      </section>
+
+      <section class="strip" aria-labelledby="st">
+        <h3 id="st">Dal petalo al sale</h3>
+        <p class="cap">Il passaggio più difficile: un petalo che si riempie di cristalli e diventa un cumulo di sale. Ho costruito la sequenza fotogramma per fotogramma, poi l’ho affidata al modello video.</p>
+        <div class="frames">
+          <figure><img src="img/fr-01-petalo.jpg" width="900" height="506" alt="Petalo di cristallo con nervature rosa" loading="lazy"><figcaption>Il petalo</figcaption></figure>
+          <figure><img src="img/fr-02-bordo.jpg" width="900" height="506" alt="Cristalli di sale che nascono sul bordo del petalo" loading="lazy"><figcaption>Il sale sul bordo</figcaption></figure>
+          <figure><img src="img/fr-03-meta.jpg" width="900" height="506" alt="Petalo coperto per metà di sale" loading="lazy"><figcaption>Metà petalo</figcaption></figure>
+          <figure><img src="img/fr-05-inclinato.jpg" width="900" height="506" alt="Il petalo coperto di sale visto in prospettiva" loading="lazy"><figcaption>Quasi tutto sale</figcaption></figure>
+          <figure><img src="img/fr-06-lastra.jpg" width="900" height="506" alt="Lastra di sale appoggiata su un bancone di marmo" loading="lazy"><figcaption>Sul bancone</figcaption></figure>
+          <figure><img src="img/fr-07-cumulo-che-nasce.jpg" width="900" height="506" alt="La lastra di sale che si alza in un cumulo" loading="lazy"><figcaption>Prende volume</figcaption></figure>
+          <figure><img src="img/fr-08-cumulo-finale.jpg" width="900" height="506" alt="Cumulo di sale grosso con il sole dietro" loading="lazy"><figcaption>Il cumulo</figcaption></figure>
+          <figure><img src="img/sito-puglia.jpg" width="1800" height="1125" alt="Nel sito: il testo Sale di Puglia sul cumulo di sale" loading="lazy"><figcaption>Nel sito</figcaption></figure>
+        </div>
+      </section>
+
+      <div class="duo">
+        <figure class="shot-wrap"><div class="shot"><img src="img/sito-lago.jpg" width="1800" height="1125" alt="L’apertura del sito: il Lago d’Iseo all’alba con il logo Extillo che si disegna" loading="lazy"></div><figcaption>L’apertura: il logo si disegna sul lago.</figcaption></figure>
+        <figure class="mobile"><div class="shot"><img src="img/sito-mobile.jpg" width="600" height="1300" alt="Versione mobile del finale del sito" loading="lazy"></div><figcaption>Versione mobile.</figcaption></figure>
+      </div>
+    
+      </details>
+  </main>
+  <footer class="end"><b>Andrea Miglioranza</b><span>Portfolio · 2026</span></footer>
+</div>
+<script>
+(function(){
+  function fit(){
+    document.querySelectorAll('.stage[data-w]').forEach(function(st){
+      var f=st.querySelector('iframe'); if(!f) return;
+      var w=+st.dataset.w, k=st.clientWidth/w;
+      f.style.transform='scale('+k+')';
+    });
+  }
+  window.addEventListener('resize',fit); window.addEventListener('load',fit); fit();
+  if(window.ResizeObserver){ var ro=new ResizeObserver(fit); document.querySelectorAll('.stage[data-w]').forEach(function(s){ro.observe(s)}); }
+})();
+</script>
+<script>
+(function(){
+  var b=document.getElementById('copy'); if(!b) return;
+  b.addEventListener('click',function(){
+    var t=document.getElementById('mail').textContent;
+    function ok(){ b.textContent='Copiato'; setTimeout(function(){b.textContent='Copia'},1800); }
+    function fallback(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('mail')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selezionato'; setTimeout(function(){b.textContent='Copia'},1800); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fallback); } else fallback();
+  });
+})();
+</script>
+</body></html>
