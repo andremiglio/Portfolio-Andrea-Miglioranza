@@ -1,0 +1,7 @@
+Sito scroll-film (POP Energy + MIXCRAFT)
+
+1) Metti questa cartella "scroll-film" nella radice del progetto del tuo portfolio, accanto a "extillo".
+2) Pubblica:
+   - se il progetto e' collegato a GitHub:  git add scroll-film && git commit -m "Aggiungi scroll-film" && git push
+   - oppure, dalla cartella del progetto:  vercel --prod
+3) Apri:  https://<il-tuo-dominio>.vercel.app/scroll-film/   (con la barra finale)
