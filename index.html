@@ -119,6 +119,12 @@ footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(-
   .duo .mobile{max-width:260px}
 }
 @media (prefers-reduced-motion:reduce){ .hero h1,.hero .role{animation:none} .btn{transition:none} }
+
+/* Align the two project cards row by row (title, tags, window, button, text) even when a title wraps to more lines */
+@media (min-width:861px){
+  .vetrina{row-gap:0}
+  .vetrina > .proj{display:grid;grid-template-rows:subgrid;grid-row:span 6;row-gap:0}
+}
 </style></head><body>
 
 
