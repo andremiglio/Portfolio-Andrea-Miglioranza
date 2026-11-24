@@ -324,6 +324,8 @@ IT = {
 "How did I get here?": "Come sono arrivato qui?",
 "International Baccalaureate diploma": "Diploma International Baccalaureate",
 "In progress": "In corso",
+"Andrea in cap and gown, smiling, on graduation day": "Andrea con toga e tocco, sorridente, il giorno del diploma",
+"Graduation day, IB Diploma, 2025": "Il giorno del diploma IB, 2025",
 "2025 – now": "2025 – oggi",
 "This portfolio": "Questo portfolio",
 "Five works made with AI, and two new ones every month.": "Cinque opere fatte con l’AI, e due nuove ogni mese.",
