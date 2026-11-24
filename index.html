@@ -215,6 +215,7 @@ main{overflow-x:clip}
 .bridge li>b{font-weight:400;font-size:14px;color:var(--accent);padding-top:6px}
 .bridge h5{margin:0 0 8px;font-size:clamp(21px,2vw,27px);line-height:1.12;font-weight:620;letter-spacing:-.025em}
 .bridge p{margin:0;color:var(--muted);font-size:16.5px;max-width:46ch}
+.bridge p.punch{margin:0 0 24px;color:var(--fg);font-size:clamp(22px,2.3vw,32px);line-height:1.15;font-weight:620;letter-spacing:-.025em;max-width:none}
 .btn{white-space:nowrap}
 .spot{position:relative;display:grid;place-items:center;text-align:center;overflow:hidden;padding:clamp(110px,18vh,190px) 0 clamp(50px,8vh,90px)}
 .spot::before{content:"";position:absolute;left:50%;top:-6%;width:min(70vw,780px);height:120%;transform:translateX(-50%);background:radial-gradient(ellipse 50% 100% at 50% 0%,oklch(98.5% .001 262/.13),transparent 70%);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);pointer-events:none}
@@ -600,12 +601,13 @@ main{overflow-x:clip}
       </section>
     </div></details>
   <div class="bridge">
-    <p class="kicker">Why there is a part 2</p>
-    <h4 data-words>Selling furniture takes two things.</h4>
+    <p class="kicker">Why the proposal has two parts</p>
+    <h4 data-words>Selling furniture happens in two moments.</h4>
     <ol>
-      <li><b>01</b><div><h5 data-words>Make people want it.</h5><p data-words>The film sells Cattelan a printed catalogue: the piece that carries the collection into people’s homes and makes them want to buy.</p></div></li>
-      <li><b>02</b><div><h5 data-words>Help them choose, even far from the showroom.</h5><p data-words>Desire raises questions: will it fit eight people, does it come in bronze, where can I see it? Not everyone can walk into a showroom to ask. So, with Cattelan in mind, I also built a chatbot on their catalogue that answers for them, any time, and hands the interested ones to a consultant.</p></div></li>
+      <li><b>01</b><div><h5 data-words>The moment of desire</h5><p data-words>At home, someone leafs through the catalogue and falls for a table. That is the film’s job: to convince Cattelan that a well-made printed catalogue is still the best way into people’s homes.</p></div></li>
+      <li><b>02</b><div><h5 data-words>The moment of doubt</h5><p data-words>Right after desire come the questions: will eight people fit? Does it come in bronze? Where can I see it? The showroom is closed, or an hour’s drive away, and doubt is exactly where a sale slips away. So, with Cattelan in mind, I also built a chatbot on their catalogue: it answers at any hour, suggests the right piece and hands whoever is ready to buy to a consultant.</p></div></li>
     </ol>
+    <p class="punch" data-words>The catalogue sparks the desire. The chatbot clears the doubt.</p>
     <a class="btn" href="#assistant">Try the chatbot <span aria-hidden="true">↓</span></a>
   </div>
 </article></div>
@@ -615,7 +617,7 @@ main{overflow-x:clip}
 <section class="room" id="assistant" data-theme="dark" data-bg="oklch(22% .025 60)" aria-labelledby="assistant-h"><div class="wrap">
   <div class="spot"><div class="in">
     <small>Cattelan Italia, part 2 of 2</small>
-    <p class="big" data-words>Help them choose, even far from the showroom.</p>
+    <p class="big" data-words>Clear the doubt, even far from the showroom.</p>
     <p data-words>A chatbot built on the Cattelan catalogue.</p>
   </div></div>
   <div class="talk">
