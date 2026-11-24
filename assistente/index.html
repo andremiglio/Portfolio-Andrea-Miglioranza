@@ -16,7 +16,7 @@
   .brand b { font-family:var(--serif); font-weight:400; letter-spacing:.32em; font-size:15px; }
   .brand span { font-family:var(--serif); font-style:italic; color:var(--muted); font-size:16px; }
   .badge { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:4px 10px; white-space:nowrap; }
-  main { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(300px,.9fr); gap:clamp(12px,2vw,22px); padding:clamp(12px,2vw,22px); height:calc(100% - 59px - 38px); }
+  main { display:grid; grid-template-columns:minmax(0,1fr); max-width:860px; margin:0 auto; padding:clamp(12px,2vw,22px); height:calc(100% - 59px - 38px); }
   @media (max-width:880px){ main { grid-template-columns:1fr; height:auto; } .chat { height:78vh; } }
   .chat, .side { background:var(--panel); border:1px solid var(--line); border-radius:16px; min-height:0; }
   .chat { display:flex; flex-direction:column; overflow:hidden; }
@@ -110,35 +110,6 @@
       <button id="send" type="button">Invia</button>
     </div>
   </section>
-  <aside class="side">
-    <div class="tabs" role="tablist">
-      <button role="tab" aria-selected="true" data-tab="t-demo">Conversazioni</button>
-      <button role="tab" aria-selected="false" data-tab="t-leads">Lead <span id="lead-count"></span></button>
-      <button role="tab" aria-selected="false" data-tab="t-how">Come funziona</button>
-    </div>
-    <div class="tab on" id="t-demo">
-      <h2>Prova una conversazione</h2>
-      <p>Clicca un esempio: la chat lo riproduce passo passo, con le risposte vere dell'assistente. Oppure scrivi tu.</p>
-      <div id="demos"></div>
-    </div>
-    <div class="tab" id="t-leads">
-      <h2>Lead raccolti</h2>
-      <p>Ogni richiesta di preventivo o contatto finisce qui, pronta per il CRM dello showroom. Nella demo restano solo in questo browser.</p>
-      <div><button class="small-btn" id="copy-csv" type="button">Copia CSV</button><button class="small-btn" id="clear" type="button">Svuota</button></div>
-      <div id="leads" style="margin-top:12px"></div>
-    </div>
-    <div class="tab how" id="t-how">
-      <h2>Come funziona</h2>
-      <div class="stat"><div><b id="n-prod">0</b><span>prodotti dal catalogo</span></div><div><b>17</b><span>categorie</span></div><div><b>0</b><span>server o chiavi API</span></div></div>
-      <ol>
-        <li><b>Conosce il catalogo.</b> Nomi, designer, materiali, finiture e misure vengono dal catalogo 10_2026 Collection. Le misure sono riportate solo dove il catalogo le indica chiaramente; altrimenti l'assistente offre la scheda tecnica.</li>
-        <li><b>Capisce la richiesta.</b> Riconosce tipo di mobile, materiale, forma, uso esterno, numero di persone e domande su misure, finiture, designer e prezzo.</li>
-        <li><b>Ricorda il contesto.</b> Dopo un consiglio, “che misure ha?” o “e le finiture?” si riferiscono al prodotto di cui si sta parlando.</li>
-        <li><b>Trasforma l'interesse in contatto.</b> Alle domande sul prezzo o sulle schede tecniche apre un breve modulo in chat: nome, contatto, città e consenso, con i prodotti di interesse già compilati.</li>
-        <li><b>Prossimo passo in produzione:</b> collegare i lead al CRM e alle email del team commerciale e aggiungere un modello linguistico per le domande più libere, mantenendo il catalogo come unica fonte.</li>
-      </ol>
-    </div>
-  </aside>
 </main>
 <footer>Dati prodotto dal catalogo Cattelan Italia 10_2026 Collection · Demo non ufficiale realizzata da Miglioranza Studio · Prezzi non inclusi: li fornisce il rivenditore</footer>
 <script>// Product knowledge base, from the Cattelan Italia "10_2026 Collection" catalogue (used with permission).
@@ -1074,7 +1045,6 @@ window.PRODUCTS = [
   const msgs = $('msgs'), inp = $('inp'), form = $('form'), send = $('send');
   const imgSrc = (k) => (window.IMGS && window.IMGS[k]) || ('img/' + k + '.jpg');
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  $('n-prod').textContent = window.PRODUCTS.length;
   let busy = false, playing = null, leads = [];
   try { leads = JSON.parse(localStorage.getItem('showroom-leads') || '[]'); } catch (e) {}
   const save = () => { try { localStorage.setItem('showroom-leads', JSON.stringify(leads)); } catch (e) {} };
@@ -1124,48 +1094,7 @@ window.PRODUCTS = [
 
   // ---------- leads ----------
   function addLead(l) { leads.unshift({ name: l.name, contact: l.contact, city: l.city, interest: l.interest, at: new Date(l.at).toISOString(), fresh: true }); save(); renderLeads(); }
-  function renderLeads() {
-    $('lead-count').textContent = leads.length ? '(' + leads.length + ')' : '';
-    const box = $('leads');
-    if (!leads.length) { box.innerHTML = '<div class="empty">Nessun lead ancora. Prova la conversazione “Preventivo”.</div>'; return; }
-    box.innerHTML = leads.map((l, i) => `<div class="lead"><div class="top"><span>${esc(l.name)} ${i === 0 && l.fresh ? '<span class="tag-new">nuovo</span>' : ''}</span><small>${new Date(l.at).toLocaleString('it-IT', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</small></div>
-      <dl><dt>Contatto</dt><dd>${esc(l.contact)}</dd><dt>Città</dt><dd>${esc(l.city)}</dd><dt>Interesse</dt><dd>${esc(l.interest && l.interest.length ? l.interest.join(', ') : 'Collezione 2026')}</dd><dt>Fonte</dt><dd>Chat showroom</dd></dl></div>`).join('');
-  }
-  $('clear').addEventListener('click', () => { leads = []; save(); renderLeads(); });
-  $('copy-csv').addEventListener('click', async (e) => {
-    const rows = [['data', 'nome', 'contatto', 'citta', 'interesse']].concat(leads.map((l) => [l.at, l.name, l.contact, l.city, (l.interest || []).join('; ')]));
-    const csv = rows.map((r) => r.map((x) => '"' + String(x).replace(/"/g, '""') + '"').join(',')).join('\n');
-    try { await navigator.clipboard.writeText(csv); e.target.textContent = 'Copiato'; } catch (err) { e.target.textContent = 'Copia non disponibile'; }
-    setTimeout(() => (e.target.textContent = 'Copia CSV'), 1600);
-  });
-
-  // ---------- tabs ----------
-  document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
-  function showTab(id) { document.querySelectorAll('.tabs button').forEach((x) => x.setAttribute('aria-selected', x.dataset.tab === id)); document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('on', x.id === id)); }
-
-  // ---------- example conversations, played through the real engine ----------
-  const DEMOS = [
-    { t: 'Tavolo per 8 persone', s: 'Consiglio, misure e finiture con il contesto', q: ['Cerco un tavolo in marmo per 8 persone', 'Che misure ha lo Skorpio Marble?', 'E le finiture della base?'] },
-    { t: 'Arredo da esterno', s: 'Avvisa quando un prodotto va solo all’esterno coperto', q: ['Mi serve un tavolo da esterno', 'Il Napoleon può stare sotto la pioggia?', 'Mostrami le sedie da esterno'] },
-    { t: 'Cucina con interni rossi', s: 'Capisce stanza e colori e spiega ogni proposta', q: ['Mi serve un tavolo da mettere in cucina per mangiare, ho gli interni rossi', 'Che misure ha il Gotham?', 'Dove posso vederlo dal vivo?'] },
-    { t: 'Soggiorno', s: 'Tavolino e tappeto nel formato giusto', q: ['Vorrei un tavolino rotondo in vetro', 'Che misure ha il Lagoon?', 'E un tappeto 300x400?'] },
-    { t: 'Preventivo', s: 'Dalla domanda sul prezzo a un lead nel CRM', q: ['Quanto costa il Bilbao Glass?', 'Giulia Rossi', 'giulia.rossi@esempio.it', 'Treviso', 'Acconsento'], then: 't-leads' },
-    { t: 'Divano', s: 'Categoria, designer e dove vederlo dal vivo', q: ['Cerco un divano componibile', 'Chi ha disegnato il Murphy?', 'Dove posso vederlo dal vivo?'] },
-  ];
-  const dbox = $('demos');
-  DEMOS.forEach((d, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'demo'; b.innerHTML = `<b>${esc(d.t)}</b><span>${esc(d.s)}</span>`; b.addEventListener('click', () => play(i, b)); dbox.appendChild(b); });
-  async function play(i, btn) {
-    if (playing) return; playing = DEMOS[i]; btn.classList.add('playing'); setDisabled(true); reset();
-    if (window.matchMedia('(max-width:880px)').matches) document.querySelector('.chat').scrollIntoView({ behavior: 'smooth' });
-    for (const q of playing.q) {
-      await sleep(700);
-      for (let k = 1; k <= q.length; k++) { inp.value = q.slice(0, k); await sleep(18); }
-      inp.value = ''; await ask(q); await sleep(500);
-    }
-    if (playing.then) { await sleep(600); showTab(playing.then); }
-    btn.classList.remove('playing'); playing = null; setDisabled(false);
-  }
-  window.__play = play; window.__demos = DEMOS;
+  function renderLeads() {}
 
   renderLeads(); reset();
 })();

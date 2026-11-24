@@ -110,7 +110,7 @@ main{overflow-x:clip}
 .piece{padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--line)}
 .piece:first-child{border-top:0;padding-top:0}
 .status{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:14.5px;color:var(--muted)}
-.status b{color:var(--fg);font-weight:600;display:inline-flex;align-items:center;gap:7px}
+.status b{color:var(--fg);font-weight:600;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
 .status b::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
 .piece h3{margin:0;font-size:clamp(40px,5.4vw,80px);line-height:.98;font-weight:620;letter-spacing:-.04em}
 .piece .sub{margin:12px 0 0;font-size:clamp(18px,1.5vw,21px);color:var(--muted)}
@@ -165,13 +165,22 @@ main{overflow-x:clip}
 .duo figure{margin:0}.duo img{border-radius:8px}
 
 /* Room 4: the assistant, under a spotlight */
+.bridge{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,3vw,40px);align-items:center;margin-top:clamp(40px,7vh,70px);padding:clamp(16px,2vw,22px);border-radius:18px;text-decoration:none;background:color-mix(in oklch,var(--fg) 6%,transparent);box-shadow:inset 0 0 0 1px var(--line);transition:background .3s}
+.bridge:hover{background:color-mix(in oklch,var(--fg) 10%,transparent)}
+.bridge img{border-radius:10px;width:100%}
+.bridge small{display:block;color:var(--muted);font-size:14px;margin-bottom:8px}
+.bridge b{display:block;font-size:clamp(24px,2.6vw,38px);line-height:1.08;font-weight:620;letter-spacing:-.03em}
+.bridge em{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-style:normal;font-weight:600;font-size:15px;border-radius:999px;padding:9px 16px;background:var(--fg);color:var(--bg)}
+.bridge em::after{content:"↓"}
 .spot{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden}
 .spot::before{content:"";position:absolute;left:50%;top:-6%;width:min(70vw,780px);height:120%;transform:translateX(-50%);background:radial-gradient(ellipse 50% 100% at 50% 0%,oklch(98.5% .001 262/.13),transparent 70%);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);pointer-events:none}
 .spot::after{content:"";position:absolute;left:50%;bottom:12%;width:min(60vw,640px);height:90px;transform:translateX(-50%);background:radial-gradient(ellipse at center,oklch(98.5% .001 262/.1),transparent 70%);pointer-events:none}
 .spot .in{position:relative;z-index:1}
 .spot small{display:block;color:var(--muted);font-size:14.5px;margin-bottom:12px}
-.spot strong{display:block;font-size:clamp(110px,19vw,280px);line-height:.85;font-weight:700;letter-spacing:-.06em}
-.spot p{margin:14px 0 0;font-size:clamp(20px,2vw,28px);font-weight:550}
+.still{margin:6px auto 0;width:min(78vw,620px)}
+.still img{width:100%;border-radius:10px;box-shadow:0 0 0 1px oklch(98.5% .001 262/.12),0 40px 90px -30px rgba(0,0,0,.8),0 0 120px -20px oklch(85% .08 80/.25)}
+.still figcaption{margin-top:12px;color:var(--muted);font-size:14px}
+.spot p{margin:26px auto 0;font-size:clamp(26px,3.2vw,46px);line-height:1.08;font-weight:620;letter-spacing:-.03em;max-width:20ch}
 .spot p span{color:var(--muted);font-weight:450}
 .talk{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(24px,4vw,60px);align-items:start;padding-bottom:12vh}
 .talk .screen{margin:0}
@@ -263,7 +272,7 @@ main{overflow-x:clip}
 <div class="index" id="index" role="dialog" aria-modal="true" aria-labelledby="index-h"><div class="sheet">
   <button type="button" class="x" id="index-x">Close</button>
   <h2 id="index-h">In a hurry?</h2><p>Seven rooms. Jump to the one you need.</p>
-  <ol><li><a href="#hello"><b>01</b><span>Hello<small>Who I am and what I do now</small></span></a></li><li><a href="#approach"><b>02</b><span>Approach<small>Three rules behind every work</small></span></a></li><li><a href="#work"><b>03</b><span>Work<small>Three websites and a film</small></span></a></li><li><a href="#assistant"><b>04</b><span>Assistant<small>A showroom chat you can try</small></span></a></li><li><a href="#path"><b>05</b><span>Path<small>School, college, work</small></span></a></li><li><a href="#tools"><b>06</b><span>Tools<small>What I make things with</small></span></a></li><li><a href="#card"><b>07</b><span>Card<small>Contacts, and a card to take</small></span></a></li></ol>
+  <ol><li><a href="#hello"><b>01</b><span>Hello<small>Who I am and what I do now</small></span></a></li><li><a href="#approach"><b>02</b><span>Approach<small>Three rules behind every work</small></span></a></li><li><a href="#work"><b>03</b><span>Work<small>Three websites and a film</small></span></a></li><li><a href="#assistant"><b>04</b><span>Assistant<small>Part 2 of the Cattelan proposal, live</small></span></a></li><li><a href="#path"><b>05</b><span>Path<small>School, college, work</small></span></a></li><li><a href="#tools"><b>06</b><span>Tools<small>What I make things with</small></span></a></li><li><a href="#card"><b>07</b><span>Card<small>Contacts, and a card to take</small></span></a></li></ol>
 </div></div>
 <main id="main">
 
@@ -301,8 +310,8 @@ main{overflow-x:clip}
     <aside class="inroom"><nav aria-label="In this room"><p>In this room</p><ol>
       <li><a href="#w-extillo" data-piece="w-extillo"><b>01</b>Extillo Gin</a></li>
       <li><a href="#w-pop" data-piece="w-pop"><b>02</b>POP and MIXCRAFT</a></li>
-      <li><a href="#w-film" data-piece="w-film"><b>03</b>Cattelan film</a></li>
-      <li><a href="#assistant"><b>04</b>Cattelan assistant</a></li>
+      <li><a href="#w-film" data-piece="w-film"><b>03</b>Cattelan, the film</a></li>
+      <li><a href="#assistant"><b>04</b>Cattelan, the assistant</a></li>
     </ol></nav></aside>
     <div><article class="piece" id="w-extillo" data-bg="oklch(31% .055 215)" data-theme="dark" aria-labelledby="w-extillo-t">
   <p class="status"><b>Shipped</b>2026</p>
@@ -419,9 +428,9 @@ main{overflow-x:clip}
       </section>
     </div></details>
 </article><article class="piece" id="w-film" data-bg="oklch(22% .025 60)" data-theme="dark" aria-labelledby="w-film-t">
-  <p class="status"><b>Shipped</b>2026, a proposal by Miglioranza Studio</p>
+  <p class="status"><b>Part 1 of 2</b>A proposal by Miglioranza Studio for Cattelan Italia, 2026</p>
   <h3 id="w-film-t" data-words>Cattelan Italia</h3>
-  <p class="sub" data-words>A 22-second sales pitch for a printed catalogue</p>
+  <p class="sub" data-words>The film: a 22-second pitch for their next printed catalogue</p>
   <div class="screen"><div class="stage film"><video src="cattelan/spot-cattelan-1080p.mp4" poster="cattelan/poster.jpg" controls playsinline preload="metadata" aria-label="Sales pitch video for Cattelan Italia, 22 seconds"></video></div></div>
   <div class="cols">
     <div><p class="desc" data-words>A B2B pitch that offers a design furniture brand its next printed catalogue. Their real 10_2026 Collection falls into a spotlight and turns its own pages, while research on print appears beside it.</p>
@@ -470,37 +479,45 @@ main{overflow-x:clip}
         </div>
       </section>
     </div></details>
+  <a class="bridge" href="#assistant">
+    <img src="cattelan/fr-05-accende.jpg" width="900" height="506" alt="Last scene of the film: a line of light runs from the catalogue to a laptop" loading="lazy">
+    <span><small>How the film ends</small><b data-words>Paper doesn’t compete with digital. It switches it on.</b><em>Part 2: the same catalogue, switched on as a showroom assistant</em></span>
+  </a>
 </article></div>
   </div>
 </div></section>
 
-<section class="room" id="assistant" data-theme="dark" data-bg="oklch(13% .004 262)" aria-labelledby="assistant-h"><div class="wrap">
-  <div class="spot"><div class="in"><small>Exhibit 004, for Cattelan Italia</small><strong>50/50</strong><p>questions answered <span>by a showroom assistant with no AI inside</span></p></div></div>
+<section class="room" id="assistant" data-theme="dark" data-bg="oklch(22% .025 60)" aria-labelledby="assistant-h"><div class="wrap">
+  <div class="spot"><div class="in">
+    <small>Cattelan Italia, part 2 of 2</small>
+    <figure class="still"><img src="cattelan/fr-05-accende.jpg" width="900" height="506" alt="The film’s last scene: light runs from the catalogue to a laptop" loading="lazy"><figcaption>From the film: “Lo accende.”</figcaption></figure>
+    <p data-words>The film promised that paper switches on digital. Here is what it switches on.</p>
+  </div></div>
   <div class="talk">
     <div class="screen"><div class="stage" data-w="1280" data-h="800" data-native="1"><iframe id="bot" src="assistente/index.html" title="Showroom assistant for Cattelan Italia, interactive demo" loading="lazy"></iframe></div></div>
     <div>
-      <p class="status"><b>Shipped</b>2026, demo concept by Miglioranza Studio</p>
+      <p class="status"><b>Part 2 of 2</b>Demo concept by Miglioranza Studio, 2026</p>
       <h2 id="assistant-h" data-words style="margin:0;font-size:clamp(36px,4vw,60px);line-height:1;font-weight:620;letter-spacing:-.04em">Can a catalogue talk?</h2>
-      <p class="sub" data-words style="margin:14px 0 0;color:var(--muted);font-size:18px">A chat that knows all 49 products of the 10_2026 Collection, recommends for a room, a colour or a number of guests, and collects leads for a consultant. It speaks Italian. Try one:</p>
+      <p class="sub" data-words style="margin:14px 0 0;color:var(--muted);font-size:18px">The same 10_2026 Collection you saw turning its pages in the film, now answering questions: it knows all 49 products, recommends for a room, a colour or a number of guests, and collects leads for a consultant. It speaks Italian. Try one:</p>
       <ul class="samples"><li><button type="button" data-ask="Il tavolo più grande che avete?">Il tavolo più grande che avete?<span>Biggest table, indoors and out</span></button></li><li><button type="button" data-ask="Ho gli interni rossi, mi serve un tavolo per la cucina">Ho gli interni rossi, mi serve un tavolo per la cucina<span>Room and colour, with a reason for each pick</span></button></li><li><button type="button" data-ask="Che sedie stanno bene con il Gotham?">Che sedie stanno bene con il Gotham?<span>Chairs that share the table’s finish</span></button></li><li><button type="button" data-ask="Fate cucine?">Fate cucine?<span>Says no, and points to what fits</span></button></li></ul>
       <div class="links"><a class="btn" href="assistente/index.html" target="_blank" rel="noopener">Open full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
     </div>
   </div>
   <details class="making" style="margin:-6vh 0 14vh"><summary>How I made it</summary><div><div class="nums" role="list">
+    <div class="num" role="listitem"><b>1</b><span>catalogue, the same one in the film</span></div>
     <div class="num" role="listitem"><b>49</b><span>products turned into data, with sizes and finishes</span></div>
-    <div class="num" role="listitem"><b>50/50</b><span>real questions answered in the automatic test</span></div>
-    <div class="num" role="listitem"><b>~130</b><span>more free questions read and fixed one by one</span></div>
-    <div class="num" role="listitem"><b>0</b><span>calls to an AI model: it all runs in the page</span></div>
+    <div class="num" role="listitem"><b>17</b><span>categories, from tables to rugs</span></div>
+    <div class="num" role="listitem"><b>0</b><span>servers or AI models: it all runs in the page</span></div>
   </div>
   <div class="brief"><h3>The brief</h3><div>
-    <p>A furniture showroom gets the same questions every day: what fits eight people, which finishes a table comes in, where to see it. The assistant answers them from the brand’s own catalogue and hands the visitor to a consultant with name, contact and city.</p>
+    <p>The second half of the proposal. The film sells Cattelan the idea of a printed catalogue; the assistant shows what the same catalogue can do online. A furniture showroom gets the same questions every day: what fits eight people, which finishes a table comes in, where to see it. The assistant answers them from the brand’s own catalogue and hands the visitor to a consultant with name, contact and city.</p>
     <p>The idea: no AI model and no server, so it is fast, free to run and answers only from the catalogue. When the catalogue has no answer, it says so and offers a consultant.</p>
   </div></div>
   <section class="process" aria-labelledby="pr4"><h3 id="pr4">The process</h3><ol class="steps">
     <li><h4>Catalogue to data</h4><p>49 products with sizes, finishes and designers, checked against the catalogue drawings.</p></li>
     <li><h4>Understanding</h4><p>Category, room, colour, material, guests, small typos. A new request starts from zero; a refinement keeps the context.</p></li>
     <li><h4>Answers with a reason</h4><p>Every suggestion says why it fits. Missing data is said plainly, never invented.</p></li>
-    <li><h4>Leads and testing</h4><p>A contact form inside the chat, then 50 real questions as an automatic test, run after every change.</p></li>
+    <li><h4>Leads and testing</h4><p>A contact form inside the chat, and a set of real visitor questions run again after every change.</p></li>
   </ol></section></div></details>
 </div></section>
 
