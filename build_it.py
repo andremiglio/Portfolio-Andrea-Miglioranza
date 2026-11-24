@@ -55,6 +55,7 @@ out = out.replace('aria-label="Language"', 'aria-label="Lingua"')
 out = out.replace('var SITE_LANG = \'en\'', 'var SITE_LANG = \'it\'')
 # assets live one folder up
 for d in ('img/', 'extillo/', 'scroll-film/', 'cattelan/', 'assistente/'):
+    out = out.replace(f'data-src="{d}', f'data-src="../{d}')
     out = out.replace(f'src="{d}', f'src="../{d}').replace(f'href="{d}', f'href="../{d}').replace(f'srcset="{d}', f'srcset="../{d}').replace(f"open('{d}", f"open('../{d}").replace(f'poster="{d}', f'poster="../{d}')
 
 os.makedirs('it', exist_ok=True)
