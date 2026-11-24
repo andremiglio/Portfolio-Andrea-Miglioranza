@@ -27,6 +27,7 @@ IT = {
 "Right now": "In questo momento",
 "Student at H-FARM College": "Studente presso H-FARM College",
 "H-FARM College logo": "Logo di H-FARM College",
+"H-FARM International School logo": "Logo di H-FARM International School",
 "Business student": "Studente di business",
 "Two new projects a month": "Due nuovi progetti al mese",
 "Andrea Miglioranza in a white t-shirt, smiling": "Andrea Miglioranza con una t-shirt bianca, sorridente",
