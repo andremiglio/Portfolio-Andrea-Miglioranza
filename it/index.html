@@ -170,6 +170,11 @@ main{overflow-x:clip}
 .vs{align-self:center;writing-mode:vertical-rl;transform:rotate(180deg);margin:0;font-size:clamp(18px,1.6vw,22px);font-weight:600;letter-spacing:-.01em;color:var(--muted);white-space:nowrap}
 .lead-in{margin:clamp(26px,4vh,40px) 0 0;font-size:clamp(19px,1.6vw,23px);font-weight:550;letter-spacing:-.015em}
 #w-pop .screen{margin-top:16px}
+.try{margin:clamp(24px,4vh,36px) 0 0;padding:14px 18px;border-radius:14px;background:color-mix(in oklch,var(--fg) 7%,transparent);box-shadow:inset 0 0 0 1px var(--line);font-size:15.5px;line-height:1.5;max-width:760px}
+.try b{font-weight:650}
+.try span{color:var(--muted)}
+.try code{font:inherit;font-weight:600;color:var(--fg);background:color-mix(in oklch,var(--fg) 10%,transparent);padding:1px 7px;border-radius:6px}
+.try+.screen{margin-top:14px}
 .making{margin-top:30px;border-radius:16px;background:color-mix(in oklch,var(--fg) 4%,transparent);box-shadow:inset 0 0 0 1px var(--line)}
 .making>summary{cursor:pointer;list-style:none;padding:16px 20px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .making>summary::-webkit-details-marker{display:none}
@@ -422,6 +427,7 @@ main{overflow-x:clip}
   <p class="status"><b>Tra i 10 migliori team</b>H-ACK Audi, Co-Design the Future, H-FARM, 2026</p>
   <h3 id="w-audi-t" data-words>Audi Match</h3>
   <p class="sub" data-words>E se scegliere un’auto fosse semplice come uno swipe?</p>
+  <p class="try"><b>Provalo, ci vuole un minuto.</b> <span>Quando ti chiede l’email, scrivi qualsiasi indirizzo, per esempio <code>ciao@ciao.com</code>. È una demo: non riceverai niente. Poi otto swipe e qualche scelta veloce, e hai il tuo match.</span></p>
   <div class="screen"><div class="stage" data-w="1280" data-h="800" data-native="1"><iframe src="https://match-farm.netlify.app/" title="Prototipo di Audi Match, interattivo" loading="lazy"></iframe></div></div>
   <div class="cols">
     <div><p class="desc" data-words>La nostra risposta al Brief 3 di Audi: rendere semplice la scelta. I giovani non hanno paura di spendere, hanno paura di pentirsi della scelta. Quindi niente moduli lunghi né schede tecniche: otto scene di vita quotidiana, a destra se ti rappresenta, a sinistra se non fa per te. Con il mio gruppo siamo stati selezionati tra i 10 migliori team e l’abbiamo presentato alla giuria.</p>
