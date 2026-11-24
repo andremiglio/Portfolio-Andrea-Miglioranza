@@ -255,7 +255,9 @@ main{overflow-x:clip}
 .path h3{margin:0;font-size:clamp(30px,3.4vw,48px);line-height:1.05;font-weight:620;letter-spacing:-.03em}
 .path p{margin:8px 0 0;font-size:clamp(17px,1.4vw,20px);color:var(--muted)}
 .path p.more{margin-top:10px;font-size:16px;line-height:1.5;max-width:58ch}
-.pathlogo{display:block;height:78px;width:auto;margin:0 0 16px}
+.path .side{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.logotile{display:grid;place-items:center;width:168px;height:132px;background:#fff;border-radius:18px;box-shadow:0 0 0 1px var(--line),0 16px 34px -24px rgba(0,0,0,.35)}
+.pathlogo{display:block;width:auto;height:auto;max-width:124px;max-height:92px}
 .pathpic{margin:18px 0 0;width:min(100%,300px)}
 .pathpic img{width:100%;border-radius:4px;background:#fff;padding:8px;box-shadow:0 0 0 1px var(--line),0 24px 40px -26px rgba(0,0,0,.45);transform:rotate(-1.5deg)}
 .pathpic figcaption{margin-top:12px;font-size:13.5px;color:var(--muted)}
@@ -331,7 +333,8 @@ main{overflow-x:clip}
   .lines li{grid-template-columns:34px minmax(0,1fr)}
   .say p:nth-child(even){justify-self:start;text-align:left}.say p small{margin-left:0}
   .now{display:flex;gap:16px;padding:14px 18px 14px 14px;border-radius:18px}.now-logo{height:62px}.now-txt{padding-left:16px}.now-txt strong{font-size:19px}.now-txt span{font-size:14.5px}
-  .pathlogo{height:60px;margin-bottom:12px}
+  .path .side{flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:14px;margin-bottom:12px}.path .side time{padding-top:0}
+  .logotile{width:96px;height:76px;border-radius:14px}.pathlogo{max-width:72px;max-height:54px}
 }
 @media (max-width:370px){.hurry{font-size:0;gap:0;padding:9px 11px}.hurry i{margin:0}.hurry::after{content:"?";font-size:14px;margin-left:6px}}
 @media (prefers-reduced-motion:reduce){
@@ -667,8 +670,8 @@ main{overflow-x:clip}
 <section class="room" id="path" data-theme="light" aria-labelledby="path-h"><div class="wrap">
   <div class="door"><h2 id="path-h" data-words>Come sono arrivato qui?</h2></div>
   <ol class="path">
-    <li><time>2021 – 2025</time><div><picture><source srcset="../img/hfarm-school.webp" type="image/webp"><img class="pathlogo" src="../img/hfarm-school.png" width="360" height="245" alt="Logo di H-FARM International School" loading="lazy"></picture><h3 data-words>H-FARM International School</h3><p data-words>International Baccalaureate, con indirizzo Business Management &amp; Economics.</p><p class="more" data-words>Progetti di business, ricerca e lavoro di squadra in una classe internazionale, dove è nato il mio interesse per imprenditorialità, strategia e innovazione.</p><figure class="pathpic"><img src="../img/diploma.jpg" width="600" height="800" alt="Andrea con toga e tocco, sorridente, il giorno del diploma" loading="lazy"><figcaption>Il giorno del diploma IB, 2025</figcaption></figure></div></li>
-    <li><time>2025 – oggi</time><div><picture><source srcset="../img/hfarm-college.webp" type="image/webp"><img class="pathlogo" src="../img/hfarm-college.png" width="300" height="276" alt="Logo di H-FARM College" loading="lazy"></picture><h3 data-words>H-FARM College</h3><p data-words>Laurea triennale in Business Creation &amp; Entrepreneurship, secondo anno.</p><p class="more" data-words>Primo anno: economia, matematica per il business, finanza e contabilità, statistica, marketing e management. Secondo anno: big data e AI per il business, decisioni basate sui dati, Python, cybersecurity e project management.</p><span class="tag">Secondo anno</span></div></li>
+    <li><div class="side"><time>2021 – 2025</time><span class="logotile"><picture><source srcset="../img/hfarm-school.webp" type="image/webp"><img class="pathlogo" src="../img/hfarm-school.png" width="360" height="245" alt="Logo di H-FARM International School" loading="lazy"></picture></span></div><div><h3 data-words>H-FARM International School</h3><p data-words>International Baccalaureate, con indirizzo Business Management &amp; Economics.</p><p class="more" data-words>Progetti di business, ricerca e lavoro di squadra in una classe internazionale, dove è nato il mio interesse per imprenditorialità, strategia e innovazione.</p><figure class="pathpic"><img src="../img/diploma.jpg" width="600" height="800" alt="Andrea con toga e tocco, sorridente, il giorno del diploma" loading="lazy"><figcaption>Il giorno del diploma IB, 2025</figcaption></figure></div></li>
+    <li><div class="side"><time>2025 – oggi</time><span class="logotile"><picture><source srcset="../img/hfarm-college.webp" type="image/webp"><img class="pathlogo" src="../img/hfarm-college.png" width="300" height="276" alt="Logo di H-FARM College" loading="lazy"></picture></span></div><div><h3 data-words>H-FARM College</h3><p data-words>Laurea triennale in Business Creation &amp; Entrepreneurship, secondo anno.</p><p class="more" data-words>Primo anno: economia, matematica per il business, finanza e contabilità, statistica, marketing e management. Secondo anno: big data e AI per il business, decisioni basate sui dati, Python, cybersecurity e project management.</p><span class="tag">Secondo anno</span></div></li>
     <li><time>2026</time><div><h3 data-words>Questo portfolio</h3><p data-words>Cinque opere fatte con l’AI, e due nuove ogni mese.</p><span class="tag">In crescita</span></div></li>
   </ol>
 </div></section>
