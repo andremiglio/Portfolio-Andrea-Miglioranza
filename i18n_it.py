@@ -205,7 +205,7 @@ IT = {
 "Part 2 of 2": "Parte 2 di 2",
 "Demo concept by Miglioranza Studio, 2026": "Demo concept di Miglioranza Studio, 2026",
 "Can a catalogue talk?": "Un catalogo può parlare?",
-"The same 10_2026 Collection that turns its pages in the film, now answering the questions a showroom hears every day. It knows all 49 products, suggests the right piece for a room, a colour or a number of guests, and passes interested visitors to a consultant. It speaks Italian. Try one:": "La stessa 10_2026 Collection che sfoglia le sue pagine nel video, ora risponde alle domande che uno showroom sente ogni giorno. Conosce tutti i 49 prodotti, suggerisce il pezzo giusto per una stanza, un colore o un numero di ospiti, e passa i visitatori interessati a un consulente. Provane una:",
+"The same 10_2026 Collection that turns its pages in the film, now answering the questions a showroom hears every day. It knows all 49 products, suggests the right piece for a room, a colour or a number of guests, and passes interested visitors to a consultant. It speaks Italian, and you can type or just tap the microphone and talk. Try one:": "La stessa 10_2026 Collection che sfoglia le sue pagine nel video, ora risponde alle domande che uno showroom sente ogni giorno. Conosce tutti i 49 prodotti, suggerisce il pezzo giusto per una stanza, un colore o un numero di ospiti, e passa i visitatori interessati a un consulente. Puoi scrivere oppure toccare il microfono e parlare. Provane una:",
 "Biggest table, indoors and out": "Il tavolo più grande, per interni ed esterni",
 "Room and colour, with a reason for each pick": "Stanza e colori, con il motivo di ogni proposta",
 "Chairs that share the table’s finish": "Sedie con la stessa finitura del tavolo",

@@ -60,6 +60,12 @@
   div.input input:focus { border-color:var(--ink); }
   div.input button { font:inherit; font-weight:600; padding:0 18px; border-radius:12px; border:0; background:var(--ink); color:#f6f2ea; cursor:pointer; }
   div.input button:disabled, div.input input:disabled { opacity:.5; cursor:default; }
+  div.input button.mic { padding:0; width:46px; flex:0 0 46px; display:grid; place-items:center; background:#fff; color:var(--ink); border:1px solid var(--line); position:relative; }
+  div.input button.mic:hover { border-color:var(--ink); }
+  div.input button.mic.on { background:#b3261e; border-color:#b3261e; color:#fff; }
+  div.input button.mic.on::after { content:""; position:absolute; inset:-5px; border-radius:15px; border:2px solid #b3261e; opacity:.5; animation:ping 1.2s ease-out infinite; }
+  @keyframes ping { from { transform:scale(.9); opacity:.6; } to { transform:scale(1.15); opacity:0; } }
+  @media (prefers-reduced-motion: reduce) { div.input button.mic.on::after { animation:none; } }
   .lead-ok { background:#eef5ee; border:1px solid #cfe3d2; }
   .side { display:flex; flex-direction:column; overflow:hidden; }
   .tabs { display:flex; border-bottom:1px solid var(--line); }
@@ -107,6 +113,7 @@
     <div class="msgs" id="msgs" aria-live="polite"></div>
     <div class="input" id="form" role="group" aria-label="Scrivi un messaggio">
       <input id="inp" type="text" placeholder="Scrivi un messaggio…" aria-label="Messaggio" enterkeyhint="send" autocomplete="off">
+      <button id="mic" type="button" class="mic" aria-label="Parla: detta la domanda a voce" aria-pressed="false" title="Parla"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
       <button id="send" type="button">Invia</button>
     </div>
   </section>
@@ -1082,13 +1089,34 @@ window.PRODUCTS = [
     t.remove(); addBot(r);
     busy = false; if (!playing) setDisabled(false);
   }
-  function setDisabled(v) { inp.disabled = v; send.disabled = v; if (!v) inp.focus({ preventScroll: true }); }
+  function setDisabled(v) { inp.disabled = v; send.disabled = v; const m = $('mic'); if (m) m.disabled = v; if (!v) inp.focus({ preventScroll: true }); }
   function reset() { E.reset(); msgs.innerHTML = ''; addBot(E.start()); }
 
   // no <form> submit: sandboxed previews block form submission, so Enter and the button call ask() directly
   const submit = () => { const v = inp.value; if (!v.trim() || busy || playing) return; inp.value = ''; ask(v); };
   inp.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); submit(); } });
   send.addEventListener('click', submit);
+
+  // ---------- voice: the browser's own speech recognition, in Italian; the words appear in the box as you speak, then the question is sent
+  (function () {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition, mic = $('mic');
+    if (!SR) { mic.hidden = true; return; }
+    const PH = inp.placeholder;
+    let rec = null, listening = false, said = '', before = '', tm;
+    const hint = (t) => { inp.placeholder = t; clearTimeout(tm); tm = setTimeout(() => { inp.placeholder = PH; }, 3500); };
+    const state = (on) => { listening = on; mic.classList.toggle('on', on); mic.setAttribute('aria-pressed', on); mic.setAttribute('aria-label', on ? 'Smetti di ascoltare' : 'Parla: detta la domanda a voce'); if (on) inp.placeholder = 'Ti ascolto…'; else if (inp.placeholder === 'Ti ascolto…') inp.placeholder = PH; };
+    mic.addEventListener('click', () => {
+      if (listening) { rec && rec.stop(); return; }
+      if (busy || playing) return;
+      rec = new SR(); rec.lang = 'it-IT'; rec.interimResults = true; rec.continuous = false; rec.maxAlternatives = 1;
+      said = ''; before = inp.value.trim() ? inp.value.trim() + ' ' : '';
+      rec.onstart = () => state(true);
+      rec.onresult = (e) => { let live = ''; for (let i = e.resultIndex; i < e.results.length; i++) { const t = e.results[i][0].transcript; if (e.results[i].isFinal) said += t; else live += t; } inp.value = before + said + live; };
+      rec.onerror = (e) => { hint(e.error === 'not-allowed' || e.error === 'service-not-allowed' ? 'Consenti il microfono nel browser per parlare' : e.error === 'no-speech' ? 'Non ho sentito nulla: riprova' : 'Voce non disponibile ora: scrivi pure'); };
+      rec.onend = () => { state(false); if (said.trim()) { inp.value = (before + said).trim(); submit(); } };
+      try { rec.start(); } catch (err) { state(false); hint('Voce non disponibile ora: scrivi pure'); }
+    });
+  })();
   msgs.addEventListener('click', (e) => { const b = e.target.closest('button[data-q]'); if (b && !playing) ask(b.dataset.q === 'Annulla' ? 'annulla' : b.dataset.q); });
   $('reset').addEventListener('click', () => { if (!playing) reset(); });
 
