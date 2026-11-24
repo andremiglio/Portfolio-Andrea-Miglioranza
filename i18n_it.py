@@ -25,6 +25,7 @@ IT = {
 "I’m Andrea Miglioranza": "sono Andrea Miglioranza",
 "I make marketing with AI: websites you scroll like a film, product videos and assistants that sell.": "Faccio marketing con l’intelligenza artificiale: siti che si scorrono come un film, video di prodotto e assistenti che vendono.",
 "Right now": "In questo momento",
+"Student at H-FARM College, Business Creation & Entrepreneurship": "Studente presso H-FARM College, facoltà Business Creation & Entrepreneurship",
 "Business student": "Studente di business",
 "Two new projects a month": "Due nuovi progetti al mese",
 "Andrea Miglioranza in a white t-shirt, smiling": "Andrea Miglioranza con una t-shirt bianca, sorridente",
