@@ -249,8 +249,8 @@ main{overflow-x:clip}
 /* Room 5: path */
 .path{list-style:none;margin:0 auto;padding:0 0 4vh;max-width:900px;position:relative}
 .path::before{content:"";position:absolute;left:7px;top:10px;bottom:4vh;width:1px;background:var(--line)}
-.path li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:0 0 clamp(34px,6vh,60px) 40px;position:relative}
-.path li::before{content:"";position:absolute;left:3px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--fg)}
+.path>li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:0 0 clamp(34px,6vh,60px) 40px;position:relative}
+.path>li::before{content:"";position:absolute;left:3px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--fg)}
 .path time{font-size:14px;color:var(--muted);padding-top:10px;font-variant-numeric:tabular-nums}
 .path h3{margin:0;font-size:clamp(30px,3.4vw,48px);line-height:1.05;font-weight:620;letter-spacing:-.03em}
 .path p{margin:8px 0 0;font-size:clamp(17px,1.4vw,20px);color:var(--muted)}
@@ -261,6 +261,15 @@ main{overflow-x:clip}
 .pathpic{margin:18px 0 0;width:min(100%,300px)}
 .pathpic img{width:100%;border-radius:4px;background:#fff;padding:8px;box-shadow:0 0 0 1px var(--line),0 24px 40px -26px rgba(0,0,0,.45);transform:rotate(-1.5deg)}
 .pathpic figcaption{margin-top:12px;font-size:13.5px;color:var(--muted)}
+.years{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px;max-width:640px}
+.yr{background:#fff;border-radius:18px;padding:18px 20px 20px;box-shadow:0 0 0 1px var(--line)}
+.yr.cur{background:#21264d;color:#fff;box-shadow:0 18px 36px -22px rgba(33,38,77,.7)}
+.yr h4{margin:0 0 12px;font-size:19px;font-weight:650;letter-spacing:-.01em;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.yr h4 span{font-size:12.5px;font-weight:550;border-radius:999px;padding:3px 10px;background:var(--snow);color:var(--muted)}
+.yr.cur h4 span{background:rgba(255,255,255,.14);color:#fff}
+.yr ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:15.5px}
+.yr li{display:flex;gap:10px;align-items:baseline}
+.yr li::before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.45;transform:translateY(-2px)}
 .path .tag{display:inline-block;margin-top:14px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:550}
 
 /* Room 6: tools */
@@ -313,7 +322,7 @@ main{overflow-x:clip}
   .brand{min-height:0}
   .tools{grid-template-columns:1fr 1fr}
   .nums{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.brief{grid-template-columns:1fr;gap:8px}
-  .path li{grid-template-columns:1fr;gap:4px}
+  .path>li{grid-template-columns:1fr;gap:4px}
 }
 @media (max-width:600px){
   body{font-size:16px}
@@ -334,6 +343,7 @@ main{overflow-x:clip}
   .say p:nth-child(even){justify-self:start;text-align:left}.say p small{margin-left:0}
   .now{display:flex;gap:16px;padding:14px 18px 14px 14px;border-radius:18px}.now-logo{height:62px}.now-txt{padding-left:16px}.now-txt strong{font-size:19px}.now-txt span{font-size:14.5px}
   .path .side{flex-direction:row-reverse;justify-content:flex-end;align-items:center;gap:14px;margin-bottom:12px}.path .side time{padding-top:0}
+  .years{grid-template-columns:1fr}
   .logotile{width:96px;height:76px;border-radius:14px}.pathlogo{max-width:72px;max-height:54px}
 }
 @media (max-width:370px){.hurry{font-size:0;gap:0;padding:9px 11px}.hurry i{margin:0}.hurry::after{content:"?";font-size:14px;margin-left:6px}}
@@ -671,7 +681,7 @@ main{overflow-x:clip}
   <div class="door"><h2 id="path-h" data-words>Come sono arrivato qui?</h2></div>
   <ol class="path">
     <li><div class="side"><time>2021 – 2025</time><span class="logotile"><picture><source srcset="../img/hfarm-school.webp" type="image/webp"><img class="pathlogo" src="../img/hfarm-school.png" width="360" height="245" alt="Logo di H-FARM International School" loading="lazy"></picture></span></div><div><h3 data-words>H-FARM International School</h3><p data-words>International Baccalaureate, con indirizzo Business Management &amp; Economics.</p><p class="more" data-words>Progetti di business, ricerca e lavoro di squadra in una classe internazionale, dove è nato il mio interesse per imprenditorialità, strategia e innovazione.</p><figure class="pathpic"><img src="../img/diploma.jpg" width="600" height="800" alt="Andrea con toga e tocco, sorridente, il giorno del diploma" loading="lazy"><figcaption>Il giorno del diploma IB, 2025</figcaption></figure></div></li>
-    <li><div class="side"><time>2025 – oggi</time><span class="logotile"><picture><source srcset="../img/hfarm-college.webp" type="image/webp"><img class="pathlogo" src="../img/hfarm-college.png" width="300" height="276" alt="Logo di H-FARM College" loading="lazy"></picture></span></div><div><h3 data-words>H-FARM College</h3><p data-words>Laurea triennale in Business Creation &amp; Entrepreneurship, secondo anno.</p><p class="more" data-words>Primo anno: economia, matematica per il business, finanza e contabilità, statistica, marketing e management. Secondo anno: big data e AI per il business, decisioni basate sui dati, Python, cybersecurity e project management.</p><span class="tag">Secondo anno</span></div></li>
+    <li><div class="side"><time>2025 – oggi</time><span class="logotile"><picture><source srcset="../img/hfarm-college.webp" type="image/webp"><img class="pathlogo" src="../img/hfarm-college.png" width="300" height="276" alt="Logo di H-FARM College" loading="lazy"></picture></span></div><div><h3 data-words>H-FARM College</h3><p data-words>Laurea triennale in Business Creation &amp; Entrepreneurship, secondo anno.</p><div class="years"><div class="yr"><h4>Primo anno <span>Completato</span></h4><ul><li>Economia</li><li>Matematica per il business</li><li>Finanza e contabilità</li><li>Statistica</li><li>Marketing</li><li>Management</li></ul></div><div class="yr cur"><h4>Secondo anno <span>In corso</span></h4><ul><li>Big data e AI per il business</li><li>Decisioni basate sui dati</li><li>Python</li><li>Cybersecurity</li><li>Project management</li></ul></div></div></div></li>
     <li><time>2026</time><div><h3 data-words>Questo portfolio</h3><p data-words>Cinque opere fatte con l’AI, e due nuove ogni mese.</p><span class="tag">In crescita</span></div></li>
   </ol>
 </div></section>
