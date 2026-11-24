@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Andrea Miglioranza Portfolio</title><meta name="claude:viewport-fit-sides" content="cover"><meta name="description" content="Portfolio of Andrea Miglioranza: marketing, websites, video, images and art direction. Projects: Extillo Salted Gin, POP Energy and MIXCRAFT, scroll-film websites."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Instrument+Sans:wght@400;500;600&display=swap"><style>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Andrea Miglioranza Portfolio</title><meta name="claude:viewport-fit-sides" content="cover"><meta name="description" content="Portfolio of Andrea Miglioranza: marketing, websites, video, images and art direction. Projects: Extillo Salted Gin, POP Energy and MIXCRAFT scroll-film websites, and a pitch spot for Cattelan Italia."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Instrument+Sans:wght@400;500;600&display=swap"><style>
 /* Direction: studio. Beige background, all text in Rolex green, serif lettering, one project per section: title and site. */
 :root{
   --bg:#EDE4D3; --surface:#F6F0E4; --fg:#006039; --muted:#2F6B50; --line:#CFC3AA; --gold:#9A7B3F; --btn:#006039; --btn-fg:#F3ECDD;
@@ -120,6 +120,10 @@ footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(-
 }
 @media (prefers-reduced-motion:reduce){ .hero h1,.hero .role{animation:none} .btn{transition:none} }
 
+/* Video project: 16:9 player inside the same device frame */
+.stage.film{aspect-ratio:16/9;background:#0e0e0e}
+.stage.film video{position:absolute;inset:0;width:100%;height:100%;display:block;background:#0e0e0e}
+
 /* Align the two project cards row by row (title, tags, window, button, text) even when a title wraps to more lines */
 @media (min-width:861px){
   .vetrina{row-gap:0}
@@ -185,6 +189,24 @@ footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(-
             <li><b>Seedance 2.0</b><span>image-to-video clips (ByteDance)</span></li>
             <li><b>FFmpeg</b><span>film assembly and frame extraction</span></li>
             <li><b>HTML, CSS, JavaScript</b><span>the sites themselves and their scroll engine</span></li>
+          </ul></div>
+      </article>
+
+      <article class="proj" aria-labelledby="t3">
+        <h2 id="t3">Pitch spot for <em>Cattelan Italia</em></h2>
+        <ul class="tags"><li>Video</li><li>Motion design</li><li>Sound design</li><li>Copy</li></ul>
+        <div class="device">
+          <div class="bar"><i></i><i></i><i></i><span>Miglioranza Studio · proposal for Cattelan Italia · 22 s</span></div>
+          <div class="stage film"><video src="cattelan/spot-cattelan-1080p.mp4" poster="cattelan/poster.jpg" controls playsinline preload="metadata" aria-label="Pitch spot for Cattelan Italia, 22 seconds"></video></div>
+        </div>
+        <div class="actions"><a class="btn" href="cattelan/spot-cattelan-1080p.mp4" target="_blank" rel="noopener">Watch full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        <p class="line">A 22-second spot that pitches printed catalogues to a design furniture brand. Their real 10_2026 Collection falls into a spotlight, opens and turns its own pages, while research on print sits beside it: catalogues are remembered more and make people buy more.</p>
+        <div class="made"><p class="made-h">Built with</p>
+          <ul>
+            <li><b>Claude Opus 5.5</b><span>concept, research, storyboard, copy, animation and sound code</span></li>
+            <li><b>Canvas and Web Audio</b><span>every frame drawn in code, every sound synthesised and synced to the frame</span></li>
+            <li><b>FFmpeg</b><span>1080p export and audio mix</span></li>
+            <li><b>Cattelan Italia catalogue</b><span>cover and photographs from the 10_2026 Collection, used with permission</span></li>
           </ul></div>
       </article>
     </section>
@@ -289,6 +311,53 @@ footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(-
           <figure><img src="img/p2-06-scorza.jpg" width="900" height="506" alt="The finished cocktail with an orange twist on the rim" loading="lazy"><figcaption>The twist</figcaption></figure>
           <figure><img src="img/p2-sito-pop.jpg" width="1440" height="900" alt="In the POP Energy site: the real can with the Buy now button" loading="lazy"><figcaption>In the site: POP</figcaption></figure>
           <figure><img src="img/p2-sito-mixcraft.jpg" width="1440" height="900" alt="In the MIXCRAFT site: the title Pour it over the pouring moment" loading="lazy"><figcaption>In the site: MIXCRAFT</figcaption></figure>
+        </div>
+      </section>
+    </details>
+
+    <details class="more"><summary>Project 03 · How I made it</summary>
+      <dl class="meta">
+        <div><dt>Client</dt><dd>Cattelan Italia (proposal by Miglioranza Studio)</dd></div>
+        <div><dt>Role</dt><dd>Concept, research, copy, motion design, sound design</dd></div>
+        <div><dt>Tools</dt><dd>Claude Opus 5.5, HTML Canvas, Web Audio, FFmpeg</dd></div>
+        <div><dt>Year</dt><dd>2026</dd></div>
+      </dl>
+
+      <div class="nums" role="list">
+        <div class="num" role="listitem"><b>22 s</b><span>spot, cut to a 96 bpm grid</span></div>
+        <div class="num" role="listitem"><b>660</b><span>frames rendered in 1080p</span></div>
+        <div class="num" role="listitem"><b>2</b><span>published studies behind the numbers</span></div>
+        <div class="num" role="listitem"><b>0</b><span>stock clips: every frame and sound made in code</span></div>
+      </div>
+
+      <div class="brief">
+        <h3>The brief</h3>
+        <div>
+          <p>A studio that wants to print a furniture brand's next catalogue has to answer one question first: why still print, when everything is online? Furniture is a good place to ask it, because with fashion it is the sector where people receive the most catalogues.</p>
+          <p>The idea: the brand's own catalogue is the hero. It drops into a spotlight, opens and turns its pages, while two findings appear beside it: physical media gives 70% higher brand recall than digital ads (Canada Post and True Impact, 2015), and 52% of people say they buy more than they planned when shopping from a printed catalogue (Royal Mail MarketReach, 2017). The close: paper does not compete with digital, it switches it on.</p>
+        </div>
+      </div>
+
+      <section class="process" aria-labelledby="pr3">
+        <h3 id="pr3">The process</h3>
+        <ol class="steps">
+          <li><h4>Research and story</h4><p>Which sectors catalogues really sell in, which numbers hold up, and how to word a survey result so it is not overstated.</p></li>
+          <li><h4>Storyboard</h4><p>Key frames drawn with the same code as the final film and approved before animating. Two earlier directions were dropped along the way.</p></li>
+          <li><h4>Animation</h4><p>Every frame is a function of time: page turns, light cone, floating dust, counters. The catalogue's own pages are used as the turning pages.</p></li>
+          <li><h4>Sound and export</h4><p>Page turns, ticks, hits and a warm pulse, synthesised and placed on the exact frame of each event. Rendered frame by frame to 1080p.</p></li>
+        </ol>
+      </section>
+
+      <section class="strip" aria-labelledby="st3">
+        <h3 id="st3">From spotlight to proposal</h3>
+        <p class="cap">The catalogue never leaves the stage: the numbers arrive beside it instead of on full-screen cards, and it turns its own page between them.</p>
+        <div class="frames">
+          <figure><img src="cattelan/fr-01-apertura.jpg" width="900" height="506" alt="The opening line, Certe cose vanno sfogliate, under a cone of light" loading="lazy"><figcaption>The hook</figcaption></figure>
+          <figure><img src="cattelan/fr-02-catalogo.jpg" width="900" height="506" alt="The Cattelan Italia catalogue open on a spread with a marble table" loading="lazy"><figcaption>The catalogue opens</figcaption></figure>
+          <figure><img src="cattelan/fr-03-settanta.jpg" width="900" height="506" alt="Plus seventy percent brand recall, next to the open catalogue" loading="lazy"><figcaption>+70% recall</figcaption></figure>
+          <figure><img src="cattelan/fr-04-pagina.jpg" width="900" height="506" alt="Fifty-two percent, beside the catalogue after it turns to a lake-view dining room" loading="lazy"><figcaption>The page turns</figcaption></figure>
+          <figure><img src="cattelan/fr-05-accende.jpg" width="900" height="506" alt="A line of light runs from the catalogue to a laptop: Lo accende" loading="lazy"><figcaption>Paper switches on digital</figcaption></figure>
+          <figure><img src="cattelan/fr-06-finale.jpg" width="900" height="506" alt="End card: Il vostro prossimo catalogo, stampiamolo insieme, Miglioranza Studio" loading="lazy"><figcaption>The proposal</figcaption></figure>
         </div>
       </section>
     </details>
