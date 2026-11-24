@@ -58,7 +58,7 @@ button{font:inherit;color:inherit}
 main{overflow-x:clip}
 .room{position:relative;padding:0 var(--gut)}
 .wrap{max-width:1180px;margin:0 auto}
-.door{min-height:100svh;display:grid;place-items:center;text-align:center;padding:90px 0}
+.door{display:grid;place-items:center;text-align:center;padding:clamp(110px,18vh,190px) 0 clamp(40px,7vh,80px)}
 .door h2{margin:0;font-size:clamp(46px,7.4vw,112px);line-height:1.02;font-weight:620;letter-spacing:-.035em;max-width:12ch}
 .w{display:inline-block;opacity:var(--o,1);transform:translateY(calc((1 - var(--o,1)) * .32em));filter:blur(calc((1 - var(--o,1)) * 3px))}
 
@@ -92,14 +92,14 @@ main{overflow-x:clip}
 .plaque span{display:block;color:var(--muted)}
 
 /* Room 2: statements that light up word by word */
-.say{padding:6vh 0 18vh;display:grid;gap:clamp(60px,14vh,160px)}
+.say{padding:2vh 0 6vh;display:grid;gap:clamp(36px,7vh,80px)}
 .say p{margin:0;font-size:clamp(40px,6.6vw,104px);line-height:1;font-weight:600;letter-spacing:-.035em;max-width:11ch}
 .say p:nth-child(2){justify-self:end;text-align:right}
 .say p small{display:block;margin-top:18px;font-size:16px;font-weight:450;letter-spacing:0;line-height:1.5;color:var(--muted);max-width:34ch;margin-left:auto;margin-right:0}
 .say p:nth-child(odd) small{margin-left:0}
 
 /* Room 3: work */
-.work{display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-bottom:12vh}
+.work{display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-bottom:4vh}
 .inroom{position:sticky;top:96px;align-self:start}
 .inroom p{margin:0 0 10px;font-size:13.5px;color:var(--muted)}
 .inroom ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
@@ -107,7 +107,7 @@ main{overflow-x:clip}
 .inroom a b{font-weight:400;font-size:13px;font-variant-numeric:tabular-nums;padding-top:2px}
 .inroom a[aria-current="true"]{color:var(--fg)}
 .inroom a[aria-current="true"] b{color:var(--accent)}
-.piece{padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--line)}
+.piece{padding:clamp(36px,6vh,70px) 0;border-top:1px solid var(--line)}
 .piece:first-child{border-top:0;padding-top:0}
 .status{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:14.5px;color:var(--muted)}
 .status b{color:var(--fg);font-weight:600;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
@@ -165,14 +165,16 @@ main{overflow-x:clip}
 .duo figure{margin:0}.duo img{border-radius:8px}
 
 /* Room 4: the assistant, under a spotlight */
-.bridge{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,3vw,40px);align-items:center;margin-top:clamp(40px,7vh,70px);padding:clamp(16px,2vw,22px);border-radius:18px;text-decoration:none;background:color-mix(in oklch,var(--fg) 6%,transparent);box-shadow:inset 0 0 0 1px var(--line);transition:background .3s}
-.bridge:hover{background:color-mix(in oklch,var(--fg) 10%,transparent)}
-.bridge img{border-radius:10px;width:100%}
-.bridge small{display:block;color:var(--muted);font-size:14px;margin-bottom:8px}
-.bridge b{display:block;font-size:clamp(24px,2.6vw,38px);line-height:1.08;font-weight:620;letter-spacing:-.03em}
-.bridge em{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-style:normal;font-weight:600;font-size:15px;border-radius:999px;padding:9px 16px;background:var(--fg);color:var(--bg)}
-.bridge em::after{content:"↓"}
-.spot{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden}
+.bridge{margin-top:clamp(36px,6vh,60px);padding:clamp(22px,3vw,40px);border-radius:20px;background:color-mix(in oklch,var(--fg) 6%,transparent);box-shadow:inset 0 0 0 1px var(--line)}
+.bridge .kicker{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+.bridge h4{margin:0 0 clamp(22px,3vh,34px);font-size:clamp(32px,4vw,58px);line-height:1;font-weight:620;letter-spacing:-.04em}
+.bridge ol{list-style:none;margin:0 0 28px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px)}
+.bridge li{display:grid;grid-template-columns:34px minmax(0,1fr);border-top:1px solid var(--line);padding-top:16px}
+.bridge li>b{font-weight:400;font-size:14px;color:var(--accent);padding-top:6px}
+.bridge h5{margin:0 0 8px;font-size:clamp(21px,2vw,27px);line-height:1.12;font-weight:620;letter-spacing:-.025em}
+.bridge p{margin:0;color:var(--muted);font-size:16.5px;max-width:46ch}
+.btn{white-space:nowrap}
+.spot{position:relative;display:grid;place-items:center;text-align:center;overflow:hidden;padding:clamp(110px,18vh,190px) 0 clamp(50px,8vh,90px)}
 .spot::before{content:"";position:absolute;left:50%;top:-6%;width:min(70vw,780px);height:120%;transform:translateX(-50%);background:radial-gradient(ellipse 50% 100% at 50% 0%,oklch(98.5% .001 262/.13),transparent 70%);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);pointer-events:none}
 .spot::after{content:"";position:absolute;left:50%;bottom:12%;width:min(60vw,640px);height:90px;transform:translateX(-50%);background:radial-gradient(ellipse at center,oklch(98.5% .001 262/.1),transparent 70%);pointer-events:none}
 .spot .in{position:relative;z-index:1}
@@ -180,9 +182,10 @@ main{overflow-x:clip}
 .still{margin:6px auto 0;width:min(78vw,620px)}
 .still img{width:100%;border-radius:10px;box-shadow:0 0 0 1px oklch(98.5% .001 262/.12),0 40px 90px -30px rgba(0,0,0,.8),0 0 120px -20px oklch(85% .08 80/.25)}
 .still figcaption{margin-top:12px;color:var(--muted);font-size:14px}
-.spot p{margin:26px auto 0;font-size:clamp(26px,3.2vw,46px);line-height:1.08;font-weight:620;letter-spacing:-.03em;max-width:20ch}
+.spot p.big{margin:0 auto;font-size:clamp(44px,6.4vw,100px);line-height:.98;font-weight:640;letter-spacing:-.045em;max-width:13ch;color:var(--fg)}
+.spot p{margin:22px auto 0;color:var(--muted);font-size:clamp(26px,3.2vw,46px);line-height:1.08;font-weight:620;letter-spacing:-.03em;max-width:20ch}
 .spot p span{color:var(--muted);font-weight:450}
-.talk{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(24px,4vw,60px);align-items:start;padding-bottom:12vh}
+.talk{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(24px,4vw,60px);align-items:start;padding-bottom:4vh}
 .talk .screen{margin:0}
 .samples{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
 .samples button{width:100%;text-align:left;background:color-mix(in oklch,var(--fg) 6%,transparent);border:0;border-radius:12px;padding:11px 14px;cursor:pointer;font-size:15px;transition:background .25s}
@@ -190,9 +193,9 @@ main{overflow-x:clip}
 .samples button span{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
 
 /* Room 5: path */
-.path{list-style:none;margin:0 auto;padding:0 0 14vh;max-width:900px;position:relative}
-.path::before{content:"";position:absolute;left:7px;top:10px;bottom:14vh;width:1px;background:var(--line)}
-.path li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:0 0 clamp(60px,12vh,120px) 40px;position:relative}
+.path{list-style:none;margin:0 auto;padding:0 0 4vh;max-width:900px;position:relative}
+.path::before{content:"";position:absolute;left:7px;top:10px;bottom:4vh;width:1px;background:var(--line)}
+.path li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:0 0 clamp(34px,6vh,60px) 40px;position:relative}
 .path li::before{content:"";position:absolute;left:3px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--fg)}
 .path time{font-size:14px;color:var(--muted);padding-top:10px;font-variant-numeric:tabular-nums}
 .path h3{margin:0;font-size:clamp(30px,3.4vw,48px);line-height:1.05;font-weight:620;letter-spacing:-.03em}
@@ -200,7 +203,7 @@ main{overflow-x:clip}
 .path .tag{display:inline-block;margin-top:14px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:550}
 
 /* Room 6: tools */
-.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-bottom:14vh}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-bottom:4vh}
 .tool{border-radius:18px;padding:22px;background:var(--surface);box-shadow:0 0 0 1px var(--line),0 20px 40px -30px rgba(0,0,0,.4)}
 .tool h3{margin:0 0 4px;font-size:22px;font-weight:620;letter-spacing:-.02em}
 .tool p{margin:0 0 14px;color:var(--muted);font-size:15px}
@@ -208,13 +211,13 @@ main{overflow-x:clip}
 .tool li{border-radius:999px;padding:5px 12px;font-size:14px;font-weight:550;background:color-mix(in oklch,var(--fg) 6%,transparent)}
 
 /* Room 7: lines and the card */
-.lines{padding:14vh 0 10vh}
+.lines{padding:clamp(90px,14vh,150px) 0 6vh}
 .lines>p{margin:0 0 30px;color:var(--muted);font-size:17px}
 .lines ol{list-style:none;margin:0;padding:0;display:grid;gap:clamp(18px,3vh,34px)}
 .lines li{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:baseline}
 .lines li b{font-weight:400;font-size:14px;color:var(--muted)}
 .lines li span{font-size:clamp(34px,4.6vw,66px);line-height:1.04;font-weight:620;letter-spacing:-.035em;max-width:17ch}
-.desk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center;padding:6vh 0 16vh}
+.desk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center;padding:2vh 0 10vh}
 .desk h2{margin:0 0 26px;font-size:clamp(32px,3.3vw,50px);line-height:1.02;font-weight:620;letter-spacing:-.035em}
 .card{perspective:1200px;width:100%;max-width:560px;aspect-ratio:1.75/1;cursor:pointer;border:0;padding:0;background:none;display:block;text-align:left;color:var(--ink)}
 .card .in{display:block;position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.7,.2,1);transform:rotateX(var(--rx,0deg)) rotateY(calc(var(--ry,0deg) + var(--flip,0deg)))}
@@ -244,7 +247,7 @@ main{overflow-x:clip}
   .hello .grid{grid-template-columns:1fr}
   .hang{width:min(78%,340px)}
   .work{grid-template-columns:1fr}.inroom{display:none}
-  .cols,.talk,.desk{grid-template-columns:1fr}
+  .cols,.talk,.desk,.bridge ol{grid-template-columns:1fr}
   .tools{grid-template-columns:1fr 1fr}
   .nums{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.brief{grid-template-columns:1fr;gap:8px}
   .path li{grid-template-columns:1fr;gap:4px}
@@ -479,10 +482,15 @@ main{overflow-x:clip}
         </div>
       </section>
     </div></details>
-  <a class="bridge" href="#assistant">
-    <img src="cattelan/fr-05-accende.jpg" width="900" height="506" alt="Last scene of the film: a line of light runs from the catalogue to a laptop" loading="lazy">
-    <span><small>How the film ends</small><b data-words>Paper doesn’t compete with digital. It switches it on.</b><em>Part 2: the same catalogue, switched on as a showroom assistant</em></span>
-  </a>
+  <div class="bridge">
+    <p class="kicker">Why there is a part 2</p>
+    <h4 data-words>Selling furniture takes two things.</h4>
+    <ol>
+      <li><b>01</b><div><h5 data-words>Make people want it.</h5><p data-words>The film sells Cattelan a printed catalogue: the piece that carries the collection into people’s homes and makes them want to buy.</p></div></li>
+      <li><b>02</b><div><h5 data-words>Help them choose, even far from the showroom.</h5><p data-words>Desire raises questions: will it fit eight people, does it come in bronze, where can I see it? Not everyone can walk into a showroom to ask. So, with Cattelan in mind, I also built a chatbot on their catalogue that answers for them, any time, and hands the interested ones to a consultant.</p></div></li>
+    </ol>
+    <a class="btn" href="#assistant">Try the chatbot <span aria-hidden="true">↓</span></a>
+  </div>
 </article></div>
   </div>
 </div></section>
@@ -490,27 +498,27 @@ main{overflow-x:clip}
 <section class="room" id="assistant" data-theme="dark" data-bg="oklch(22% .025 60)" aria-labelledby="assistant-h"><div class="wrap">
   <div class="spot"><div class="in">
     <small>Cattelan Italia, part 2 of 2</small>
-    <figure class="still"><img src="cattelan/fr-05-accende.jpg" width="900" height="506" alt="The film’s last scene: light runs from the catalogue to a laptop" loading="lazy"><figcaption>From the film: “Lo accende.”</figcaption></figure>
-    <p data-words>The film promised that paper switches on digital. Here is what it switches on.</p>
+    <p class="big" data-words>Help them choose, even far from the showroom.</p>
+    <p data-words>A chatbot built on the Cattelan catalogue.</p>
   </div></div>
   <div class="talk">
     <div class="screen"><div class="stage" data-w="1280" data-h="800" data-native="1"><iframe id="bot" src="assistente/index.html" title="Showroom assistant for Cattelan Italia, interactive demo" loading="lazy"></iframe></div></div>
     <div>
       <p class="status"><b>Part 2 of 2</b>Demo concept by Miglioranza Studio, 2026</p>
       <h2 id="assistant-h" data-words style="margin:0;font-size:clamp(36px,4vw,60px);line-height:1;font-weight:620;letter-spacing:-.04em">Can a catalogue talk?</h2>
-      <p class="sub" data-words style="margin:14px 0 0;color:var(--muted);font-size:18px">The same 10_2026 Collection you saw turning its pages in the film, now answering questions: it knows all 49 products, recommends for a room, a colour or a number of guests, and collects leads for a consultant. It speaks Italian. Try one:</p>
+      <p class="sub" data-words style="margin:14px 0 0;color:var(--muted);font-size:18px">The same 10_2026 Collection that turns its pages in the film, now answering the questions a showroom hears every day. It knows all 49 products, suggests the right piece for a room, a colour or a number of guests, and passes interested visitors to a consultant. It speaks Italian. Try one:</p>
       <ul class="samples"><li><button type="button" data-ask="Il tavolo più grande che avete?">Il tavolo più grande che avete?<span>Biggest table, indoors and out</span></button></li><li><button type="button" data-ask="Ho gli interni rossi, mi serve un tavolo per la cucina">Ho gli interni rossi, mi serve un tavolo per la cucina<span>Room and colour, with a reason for each pick</span></button></li><li><button type="button" data-ask="Che sedie stanno bene con il Gotham?">Che sedie stanno bene con il Gotham?<span>Chairs that share the table’s finish</span></button></li><li><button type="button" data-ask="Fate cucine?">Fate cucine?<span>Says no, and points to what fits</span></button></li></ul>
       <div class="links"><a class="btn" href="assistente/index.html" target="_blank" rel="noopener">Open full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
     </div>
   </div>
-  <details class="making" style="margin:-6vh 0 14vh"><summary>How I made it</summary><div><div class="nums" role="list">
+  <details class="making" style="margin:0 0 6vh"><summary>How I made it</summary><div><div class="nums" role="list">
     <div class="num" role="listitem"><b>1</b><span>catalogue, the same one in the film</span></div>
     <div class="num" role="listitem"><b>49</b><span>products turned into data, with sizes and finishes</span></div>
     <div class="num" role="listitem"><b>17</b><span>categories, from tables to rugs</span></div>
     <div class="num" role="listitem"><b>0</b><span>servers or AI models: it all runs in the page</span></div>
   </div>
   <div class="brief"><h3>The brief</h3><div>
-    <p>The second half of the proposal. The film sells Cattelan the idea of a printed catalogue; the assistant shows what the same catalogue can do online. A furniture showroom gets the same questions every day: what fits eight people, which finishes a table comes in, where to see it. The assistant answers them from the brand’s own catalogue and hands the visitor to a consultant with name, contact and city.</p>
+    <p>The second half of the proposal. The film makes people want the collection; the chatbot helps them choose it when nobody from the showroom is there. A furniture showroom gets the same questions every day: what fits eight people, which finishes a table comes in, where to see it. The assistant answers them from the brand’s own catalogue and hands the visitor to a consultant with name, contact and city.</p>
     <p>The idea: no AI model and no server, so it is fast, free to run and answers only from the catalogue. When the catalogue has no answer, it says so and offers a consultant.</p>
   </div></div>
   <section class="process" aria-labelledby="pr4"><h3 id="pr4">The process</h3><ol class="steps">
