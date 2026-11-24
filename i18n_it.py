@@ -162,7 +162,7 @@ IT = {
 "Two invented brands, to show what I can make for yours, 2026": "Due marchi inventati, per mostrare cosa posso creare per il tuo, 2026",
 "Your product, in motion": "Il tuo prodotto, in movimento",
 "POP Energy and MIXCRAFT don’t exist. I invented them, at opposite ends of the market, to show what I can do for a real brand: turn its product into an animation people want to watch, and then buy.": "POP Energy e MIXCRAFT non esistono. Li ho inventati io, ai due estremi del mercato, per mostrare cosa posso fare per un marchio vero: trasformare il suo prodotto in un’animazione che le persone vogliono guardare, e poi comprare.",
-"Two opposite brands, two animations. Open them and scroll to play them, then picture your product here:": "Due marchi opposti, due animazioni. Aprile e scorri per avviarle, poi immagina qui il tuo prodotto:",
+"Two opposite brands, two animations. Scroll inside to play them, then picture your product here:": "Due marchi opposti, due animazioni. Scorri dentro per avviarle, poi immagina qui il tuo prodotto:",
 "Loud or quiet, playful or premium: whatever your brand sounds like, I can make your product move in its voice. These two are the proof, built from nothing, name, voice and look included.": "Rumoroso o discreto, giocoso o premium: qualunque sia la voce del tuo marchio, posso far muovere il tuo prodotto con quella voce. Questi due ne sono la prova, costruiti dal nulla, compresi nome, voce e immagine.",
 "What you get": "Cosa ottieni",
 "A cinematic animation of your product that plays as people scroll, and ends on your buy button.": "Un’animazione cinematografica del tuo prodotto che si avvia mentre le persone scorrono, e finisce sul tuo pulsante d’acquisto.",
