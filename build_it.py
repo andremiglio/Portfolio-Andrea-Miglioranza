@@ -49,11 +49,11 @@ out = re.sub(r'<meta name="description" content="[^"]*">',
              '<meta name="description" content="Portfolio di Andrea Miglioranza, studente di business che fa marketing con l’intelligenza artificiale: siti scroll-film per Extillo Gin, POP Energy e MIXCRAFT, un video di proposta commerciale e un assistente showroom per Cattelan Italia.">', out, count=1)
 out = out.replace("say('Email copied')", "say('Email copiata')")
 # link previews and canonical address for the Italian page
-out = out.replace('<link rel="canonical" href="https://andreamiglioranza.com/">', '<link rel="canonical" href="https://andreamiglioranza.com/it/">')
-out = out.replace('<meta property="og:url" content="https://andreamiglioranza.com/">', '<meta property="og:url" content="https://andreamiglioranza.com/it/">')
+out = out.replace('<link rel="canonical" href="https://www.andreamiglioranza.com/">', '<link rel="canonical" href="https://www.andreamiglioranza.com/it/">')
+out = out.replace('<meta property="og:url" content="https://www.andreamiglioranza.com/">', '<meta property="og:url" content="https://www.andreamiglioranza.com/it/">')
 out = out.replace('<meta property="og:title" content="Andrea Miglioranza, portfolio">', '<meta property="og:title" content="Andrea Miglioranza, portfolio">')
 out = re.sub(r'<meta property="og:description" content="[^"]*">', '<meta property="og:description" content="Marketing con l’intelligenza artificiale: siti, animazioni di prodotto, video e assistenti che vendono. Progetti per Cattelan Italia, Audi Match e altri.">', out, count=1)
-out = out.replace('https://andreamiglioranza.com/img/og.jpg', 'https://andreamiglioranza.com/img/og-it.jpg')
+out = out.replace('https://www.andreamiglioranza.com/img/og.jpg', 'https://www.andreamiglioranza.com/img/og-it.jpg')
 out = re.sub(r'<meta property="og:image:alt" content="[^"]*">', '<meta property="og:image:alt" content="Andrea Miglioranza, sorridente, accanto alla scritta Ciao, sono Andrea Miglioranza">', out, count=1)
 out = out.replace('<meta property="og:locale" content="en_GB"><meta property="og:locale:alternate" content="it_IT">', '<meta property="og:locale" content="it_IT"><meta property="og:locale:alternate" content="en_GB">')
 # language switch: Italian is the current one here
