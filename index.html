@@ -149,6 +149,27 @@ main{overflow-x:clip}
 .btn svg{width:14px;height:14px}
 
 /* the making-of */
+.duel{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(14px,2vw,26px);align-items:stretch;margin:clamp(26px,4vh,40px) 0 0}
+.brand{border-radius:20px;padding:clamp(20px,2.6vw,32px);display:flex;flex-direction:column;gap:12px;min-height:340px}
+.brand.pop{background:#ff2d8a;color:#111;box-shadow:inset 0 0 0 3px #111}
+.brand.mix{background:#0d0907;color:#f3e9dc;box-shadow:inset 0 0 0 1px #5a2e25}
+.bname{margin:0;line-height:.86;letter-spacing:-.04em}
+.pop .bname{font-size:clamp(46px,5.4vw,76px);font-weight:800;color:#ffe500;-webkit-text-stroke:2px #111;paint-order:stroke fill}
+.mix .bname{font-size:clamp(26px,2.8vw,40px);font-weight:300;letter-spacing:.32em;color:#d08a5a;padding:14px 0 6px}
+.brand .tag{margin:0;font-size:clamp(26px,2.6vw,36px);font-weight:700;letter-spacing:-.03em}
+.mix .tag{font-weight:400;color:#efb98a;font-style:italic;letter-spacing:-.01em}
+.brand .voice{margin:0;font-size:16px;opacity:.85}
+.traits{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.traits li{border-radius:999px;padding:4px 12px;font-size:13.5px;font-weight:650}
+.pop .traits li{background:#111;color:#ffe500}
+.mix .traits li{border:1px solid #d08a5a;color:#efb98a;font-weight:500}
+.brand .prod{margin:auto 0 0;font-size:15px;line-height:1.45}
+.sw{list-style:none;margin:0;padding:0;display:flex;gap:10px;font-size:12px;font-variant-numeric:tabular-nums}
+.sw li{display:flex;align-items:center;gap:6px;opacity:.9}
+.sw li::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--c);box-shadow:0 0 0 1px rgba(127,127,127,.5)}
+.vs{align-self:center;writing-mode:vertical-rl;transform:rotate(180deg);margin:0;font-size:clamp(18px,1.6vw,22px);font-weight:600;letter-spacing:-.01em;color:var(--muted);white-space:nowrap}
+.lead-in{margin:clamp(26px,4vh,40px) 0 0;font-size:clamp(19px,1.6vw,23px);font-weight:550;letter-spacing:-.015em}
+#w-pop .screen{margin-top:16px}
 .making{margin-top:30px;border-radius:16px;background:color-mix(in oklch,var(--fg) 4%,transparent);box-shadow:inset 0 0 0 1px var(--line)}
 .making>summary{cursor:pointer;list-style:none;padding:16px 20px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .making>summary::-webkit-details-marker{display:none}
@@ -260,7 +281,9 @@ main{overflow-x:clip}
   .hello .grid{grid-template-columns:1fr}
   .hang{width:min(78%,340px)}
   .work{grid-template-columns:1fr}.inroom{display:none}
-  .cols,.talk,.desk,.bridge ol{grid-template-columns:1fr}
+  .cols,.talk,.desk,.bridge ol,.duel{grid-template-columns:1fr}
+  .vs{writing-mode:horizontal-tb;transform:none;text-align:center}
+  .brand{min-height:0}
   .tools{grid-template-columns:1fr 1fr}
   .nums{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.brief{grid-template-columns:1fr;gap:8px}
   .path li{grid-template-columns:1fr;gap:4px}
@@ -430,15 +453,40 @@ main{overflow-x:clip}
     </ol></section>
   </div></details>
 </article><article class="piece" id="w-pop" data-bg="oklch(30% .11 350)" data-theme="dark" aria-labelledby="w-pop-t">
-  <p class="status"><b>Shipped</b>2026</p>
-  <h3 id="w-pop-t" data-words>POP Energy and MIXCRAFT</h3>
-  <p class="sub" data-words>Two scroll-film websites for invented products</p>
+  <p class="status"><b>Brands from zero</b>Two brand concepts and their launch sites, 2026</p>
+  <h3 id="w-pop-t" data-words>Two brands, invented</h3>
+  <p class="sub" data-words>POP Energy and MIXCRAFT don’t exist. I made them up, at opposite ends of the market, and launched both.</p>
+  <div class="duel">
+    <div class="brand pop">
+      <p class="bname">POP<br>ENERGY</p>
+      <p class="tag">Turn it up.</p>
+      <p class="voice">“Loud on the outside. Colder on the inside.”</p>
+      <ul class="traits"><li>Loud</li><li>Playful</li><li>Ice cold</li></ul>
+      <p class="prod" data-words>A berry energy drink in a 500 ml pop-art can: strawberry, raspberry, blackberry.</p>
+      <ul class="sw" aria-label="POP palette"><li style="--c:#ff2d8a">#FF2D8A</li><li style="--c:#ffe500">#FFE500</li><li style="--c:#111111">#111111</li></ul>
+    </div>
+    <p class="vs" data-words>One shouts, one whispers.</p>
+    <div class="brand mix">
+      <p class="bname">MIXCRAFT</p>
+      <p class="tag">Craft it.</p>
+      <p class="voice">“Five tools, one black box.”</p>
+      <ul class="traits"><li>Quiet</li><li>Crafted</li><li>Premium</li></ul>
+      <p class="prod" data-words>A home cocktail kit: shaker, jigger, muddler, bar spoon and tongs, in steel and walnut.</p>
+      <ul class="sw" aria-label="MIXCRAFT palette"><li style="--c:#d08a5a">#D08A5A</li><li style="--c:#f3e9dc">#F3E9DC</li><li style="--c:#0d0907">#0D0907</li></ul>
+    </div>
+  </div>
+  <p class="lead-in" data-words>Underneath, the same scroll-film engine as Extillo, tuned to each voice. Try both:</p>
   <div class="screen"><div class="stage" data-w="1280" data-h="800"><iframe src="scroll-film/index.html" title="POP Energy and MIXCRAFT websites, interactive" loading="lazy"></iframe></div></div>
   <div class="cols">
-    <div><p class="desc" data-words>The same format in two opposite worlds: a pop-art energy drink can and a luxury cocktail kit in black and copper. Each page is one shot that arrives at the real product.</p>
-      <div class="gave"><p>What it took</p><ul><li>Storyboarding</li><li>Product films</li><li>Performance testing</li><li>FFmpeg</li></ul></div>
+    <div><p class="desc" data-words>Extillo tells the story of a brand that already exists. Here there was no brand at all: I invented two products at opposite ends of the market, gave each a name, a voice and a look, and built the page that launches it.</p>
+      <div class="gave"><p>What it took</p><ul><li>Branding</li><li>Positioning</li><li>Tone of voice</li><li>Launch pages</li></ul></div>
       <div class="links"><a class="btn" href="scroll-film/index.html" target="_blank" rel="noopener">Open the sites <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
-    <dl class="facts"><div><dt>Storyboard</dt><dd data-words>One camera move per film, checked before generating, so no credits go into the wrong direction.</dd></div><div><dt>Key frames</dt><dd data-words>Five for POP, six for MIXCRAFT, corrected one by one: realer fruit and ice, no hands in frame.</dd></div><div><dt>Film</dt><dd data-words>Nine chained clips, 36 seconds in 1080p. Where the camera stalled at the end of a clip, I cut it.</dd></div><div><dt>Website</dt><dd data-words>854 frames driven by scroll, slowest frame under 50 ms, and a diagonal transition between the two worlds.</dd></div></dl>
+    <dl class="facts">
+      <div><dt>Positioning</dt><dd data-words>POP is the loud, playful energy hit. MIXCRAFT is the quiet ritual of a good cocktail at home.</dd></div>
+      <div><dt>Voice</dt><dd data-words>Short, loud imperatives for POP. Calm, crafted lines for MIXCRAFT, one step at a time: shake, pour, finish.</dd></div>
+      <div><dt>Look</dt><dd data-words>A pink and yellow pop-art can, against a black box with copper foil, steel and walnut.</dd></div>
+      <div><dt>Launch</dt><dd data-words>One scroll-film page each, ending on the product and the buy button, linked by a diagonal transition.</dd></div>
+    </dl>
   </div>
   <details class="making"><summary>How I made it</summary><div>
       
