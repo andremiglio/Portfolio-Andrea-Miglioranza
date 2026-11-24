@@ -89,11 +89,12 @@ main{overflow-x:clip}
 .hello h1{margin:0;font-size:clamp(52px,7.6vw,118px);line-height:.98;font-weight:560;letter-spacing:-.035em}
 .hello h1 .hi{display:block;font-weight:250;color:var(--muted)}
 .hello .lede{font-size:clamp(19px,1.6vw,23px);line-height:1.42;margin:28px 0 0;max-width:32ch}
-.now{margin-top:34px}
-.now p{margin:0 0 8px;color:var(--muted);font-size:14.5px}
-.now ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 22px;font-weight:550;font-size:15.5px}
-.now li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--fg);margin-right:9px;vertical-align:middle}
-.now li span{color:var(--accent)}
+.now{margin-top:34px;display:inline-flex;align-items:center;gap:22px;padding:18px 28px 18px 20px;background:#fff;border:1px solid rgba(33,38,77,.12);border-radius:22px;box-shadow:0 1px 0 rgba(33,38,77,.04),0 18px 40px -22px rgba(33,38,77,.35)}
+.now-logo{display:block;width:auto;height:84px;flex:none}
+.now-txt{display:flex;flex-direction:column;gap:3px;padding-left:22px;border-left:1px solid rgba(33,38,77,.14)}
+.now-txt p{margin:0 0 2px;color:var(--muted);font-size:14px}
+.now-txt strong{font-size:24px;line-height:1.15;font-weight:700;color:#21264d;letter-spacing:-.01em}
+.now-txt span{font-size:16px;font-weight:500;color:var(--fg)}
 .welcome{display:block;text-align:center;text-decoration:none;padding:34px 0 30px}
 .welcome b{display:block;font-weight:600;font-size:16px}
 .welcome span{color:var(--muted);font-size:15px}
@@ -328,6 +329,7 @@ main{overflow-x:clip}
   .frames{grid-auto-columns:80%}.duo{grid-template-columns:1fr}
   .lines li{grid-template-columns:34px minmax(0,1fr)}
   .say p:nth-child(even){justify-self:start;text-align:left}.say p small{margin-left:0}
+  .now{display:flex;gap:16px;padding:14px 18px 14px 14px;border-radius:18px}.now-logo{height:62px}.now-txt{padding-left:16px}.now-txt strong{font-size:19px}.now-txt span{font-size:14.5px}
 }
 @media (max-width:370px){.hurry{font-size:0;gap:0;padding:9px 11px}.hurry i{margin:0}.hurry::after{content:"?";font-size:14px;margin-left:6px}}
 @media (prefers-reduced-motion:reduce){
@@ -355,9 +357,8 @@ main{overflow-x:clip}
     <div>
       <h1 id="hello-h"><span class="hi">Ciao,</span>sono Andrea Miglioranza</h1>
       <p class="lede">Faccio marketing con l’intelligenza artificiale: siti che si scorrono come un film, video di prodotto e assistenti che vendono.</p>
-      <div class="now"><p>In questo momento</p><ul>
-        <li>Studente presso H-FARM College, facoltà Business Creation &amp; Entrepreneurship</li>
-      </ul></div>
+      <div class="now"><picture><source srcset="../img/hfarm-college.webp" type="image/webp"><img class="now-logo" src="../img/hfarm-college.png" width="300" height="276" alt="Logo di H-FARM College"></picture>
+        <div class="now-txt"><p>In questo momento</p><strong>Studente presso H-FARM College</strong><span>Business Creation &amp; Entrepreneurship</span></div></div>
     </div>
     <figure class="exhibit-fig">
       <div class="figure" id="hang"><div class="tilt"><picture><source srcset="../img/andrea-cutout.webp" type="image/webp"><img src="../img/andrea-cutout.png" width="501" height="585" alt="Andrea Miglioranza con una t-shirt bianca, sorridente"></picture></div><span class="floor" aria-hidden="true"></span></div>
