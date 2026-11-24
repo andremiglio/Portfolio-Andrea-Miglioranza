@@ -1,202 +1,320 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Andrea Miglioranza, a portfolio you can walk through</title>
-<meta name="description" content="Portfolio of Andrea Miglioranza, laid out as a small exhibition in nine rooms: scroll-film websites for Extillo Gin, POP Energy and MIXCRAFT, a sales pitch video and a showroom assistant for Cattelan Italia.">
-<meta name="theme-color" content="#E9EAE5">
+<title>Andrea Miglioranza, an exhibition in seven rooms</title>
+<meta name="description" content="Portfolio of Andrea Miglioranza, a business student who makes marketing with AI: scroll-film websites for Extillo Gin, POP Energy and MIXCRAFT, a sales pitch video and a showroom assistant for Cattelan Italia.">
+<meta name="theme-color" content="#fafafa">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Archivo:wdth,wght@75..125,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
 <style>
 :root{
-  --plaster:#E9EAE5;      /* lobby walls: cool gallery white */
-  --ink:#1B1D1B;
-  --brass:#A9824A;        /* the one accent: label rails, the "you are here" mark */
-  --paper:#FBFBF8;        /* wall labels */
-  --wall:var(--plaster); --fg:var(--ink); --soft:rgba(27,29,27,.62); --line:rgba(27,29,27,.16);
-  --serif:"Bodoni Moda",Didot,"Bodoni 72",serif; --sans:"Archivo",system-ui,sans-serif;
-  --rail:212px;
+  --snow:oklch(98.5% .001 262); --ink:oklch(15.5% .004 262); --muted:oklch(43% .004 262); --faint:oklch(72% .003 262);
+  --line:oklch(15.5% .004 262/.12); --surface:#fff; --accent:oklch(50% .22 262);
+  --bg:var(--snow); --fg:var(--ink);
+  --gut:clamp(18px,3.2vw,48px);
+  --f:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--wall);color:var(--fg);font:400 17px/1.55 var(--sans);font-variation-settings:"wdth" 96;transition:background-color .9s ease,color .9s ease}
-body.dark{--fg:#EDEDE6;--soft:rgba(237,237,230,.66);--line:rgba(237,237,230,.2)}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.55 var(--f);font-optical-sizing:auto;transition:background-color .7s ease,color .7s ease;-webkit-font-smoothing:antialiased}
+body.dark{--bg:oklch(13% .004 262);--fg:oklch(97% .002 262);--muted:oklch(76% .003 262);--faint:oklch(46% .004 262);--line:oklch(98.5% .001 262/.14);--surface:oklch(20% .004 262)}
 a{color:inherit}
 img,video{display:block;max-width:100%;height:auto}
-:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
-.skip{position:absolute;left:-999px;top:8px;background:var(--paper);color:var(--ink);padding:8px 12px;z-index:50}
-.skip:focus{left:8px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:10px;z-index:200;background:var(--ink);color:var(--snow);padding:8px 14px;border-radius:999px}
+.skip:focus{left:10px}
 
-/* ---------- floor plan (desktop rail) ---------- */
-.plan{position:fixed;inset:0 auto 0 0;width:var(--rail);padding:34px 22px;display:flex;flex-direction:column;gap:22px;z-index:20}
-.plan .who{font:500 15px/1.25 var(--serif);text-decoration:none}
-.plan .who span{display:block;font:400 13px/1.4 var(--sans);color:var(--soft);margin-top:4px}
-.plan h2{font:500 13px/1 var(--sans);color:var(--soft);margin:12px 0 0;letter-spacing:.01em}
-.plan ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
-.plan a.r{position:relative;display:grid;grid-template-columns:22px 1fr;gap:6px;align-items:baseline;padding:5px 0;text-decoration:none;font-size:14px;color:var(--soft);transition:color .3s}
-.plan a.r b{font:500 12px/1 var(--sans);font-variant-numeric:tabular-nums}
-.plan a.r:hover,.plan a.r[aria-current="true"]{color:var(--fg)}
-.plan a.r[aria-current="true"] b{color:var(--brass)}
-.plan a.r[aria-current="true"]::before{content:"";position:absolute;left:-13px;top:50%;width:6px;height:6px;margin-top:-3px;background:var(--brass)}
-.plan .foot{margin-top:auto;font-size:12.5px;color:var(--soft)}
+/* ---------- header pills ---------- */
+.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px var(--gut);pointer-events:none}
+.top>*{pointer-events:auto}
+.pill{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:4px 16px 4px 4px;font-weight:600;font-size:15px;text-decoration:none;background:color-mix(in oklch,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 1px var(--line),0 6px 24px -14px rgba(0,0,0,.35)}
+.pill img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 22%}
+.hurry{border:0;cursor:pointer;padding:9px 16px 9px 14px;background:var(--fg);color:var(--bg);gap:9px}
+.hurry i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in oklch,var(--accent) 30%,transparent)}
 
-/* ---------- mobile "you are here" bar ---------- */
-.here{display:none}
-@media (max-width:980px){
-  :root{--rail:0px}
-  .plan{display:none}
-  .plan.open{display:flex;position:fixed;inset:0;width:auto;background:var(--wall);padding:76px 28px 28px;overflow:auto}
-  .plan.open a.r{font-size:20px;padding:9px 0}
-  .here{display:flex;position:sticky;top:0;z-index:30;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:var(--wall);border-bottom:1px solid var(--line);font-size:14px;transition:background-color .9s ease}
-  .here button{font:500 14px var(--sans);background:none;border:1px solid var(--line);color:inherit;padding:7px 12px;border-radius:999px;cursor:pointer}
-}
+/* ---------- room rail ---------- */
+.rail{position:fixed;right:clamp(10px,1.6vw,24px);top:50%;transform:translateY(-50%);z-index:40}
+.rail ol{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:10px;height:14px;text-decoration:none;font-size:12.5px;font-weight:500}
+.rail a span{opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s;white-space:nowrap}
+.rail a span b{font-weight:400;color:var(--muted);margin-right:6px;font-variant-numeric:tabular-nums}
+.rail a::after{content:"";width:10px;height:1px;background:var(--faint);transition:width .35s,background .35s}
+.rail a:hover span,.rail a[aria-current="true"] span{opacity:1;transform:none}
+.rail a[aria-current="true"]::after{width:26px;height:1.5px;background:var(--accent)}
+
+/* ---------- quick index ---------- */
+.index{position:fixed;inset:0;z-index:120;background:color-mix(in oklch,var(--ink) 55%,transparent);display:none;align-items:flex-start;justify-content:flex-end;padding:64px var(--gut)}
+.index.open{display:flex}
+.index .sheet{background:var(--snow);color:var(--ink);border-radius:22px;padding:22px;width:min(420px,100%);box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
+.index h2{margin:0 0 6px;font-size:22px;font-weight:600;letter-spacing:-.02em}
+.index p{margin:0 0 14px;color:oklch(43% .004 262);font-size:15px}
+.index ol{list-style:none;margin:0;padding:0}
+.index a{display:grid;grid-template-columns:34px 1fr;gap:6px;padding:10px 4px;border-top:1px solid oklch(15.5% .004 262/.1);text-decoration:none}
+.index a b{font-weight:400;color:oklch(60% .004 262);font-variant-numeric:tabular-nums}
+.index a span small{display:block;color:oklch(43% .004 262);font-size:13.5px}
+.index .x{float:right;border:0;background:oklch(15.5% .004 262/.07);border-radius:999px;padding:6px 12px;cursor:pointer}
 
 /* ---------- rooms ---------- */
-main{margin-left:var(--rail)}
-.room{min-height:100vh;padding:clamp(56px,9vh,110px) clamp(20px,5vw,72px) clamp(64px,10vh,120px);max-width:1240px}
-.room-h{margin:0 0 clamp(28px,5vh,52px)}
-.room-h small{display:block;font:500 14px/1 var(--sans);color:var(--soft);margin-bottom:14px;font-variant-numeric:tabular-nums}
-.room-h h2{font:400 clamp(40px,6.2vw,92px)/.98 var(--serif);margin:0;letter-spacing:-.015em;max-width:14ch}
-.room-h p{max-width:56ch;color:var(--soft);margin:18px 0 0;font-size:18px}
+main{overflow-x:clip}
+.room{position:relative;padding:0 var(--gut)}
+.wrap{max-width:1180px;margin:0 auto}
+.door{min-height:100svh;display:grid;place-items:center;text-align:center;padding:90px 0}
+.door h2{margin:0;font-size:clamp(46px,7.4vw,112px);line-height:1.02;font-weight:620;letter-spacing:-.035em;max-width:12ch}
+.door h2 .w{display:inline-block;opacity:var(--o,1);transform:translateY(calc((1 - var(--o,1)) * 18px))}
 
-/* Room 1: entrance */
-.entrance{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(28px,5vw,80px);align-items:center;min-height:calc(100vh - 180px)}
-.hung img{max-height:58vh;width:auto;margin:0 auto}
-.entrance h1{font:400 clamp(54px,8.2vw,140px)/.88 var(--serif);letter-spacing:-.03em;margin:0}
-.entrance h1 i{display:block;font-style:italic;font-weight:400}
-.entrance .lede{font-size:clamp(19px,1.7vw,23px);line-height:1.45;max-width:30ch;margin:34px 0 0}
-.ticket{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:38px;padding-top:18px;border-top:1px solid var(--line);font-size:15px}
-.ticket b{font-weight:600}
-.now{margin:34px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:16px}
-.now li{display:grid;grid-template-columns:118px 1fr;gap:12px}
-.now li span{color:var(--soft)}
-.hung{margin:0}
-.hung .frame{background:#fff;padding:clamp(14px,1.6vw,22px);box-shadow:0 1px 0 rgba(0,0,0,.05),0 22px 40px -26px rgba(0,0,0,.45)}
-.hung figcaption,.caption{font-size:13.5px;color:var(--soft);margin-top:12px;line-height:1.45}
-.hung figcaption i,.caption i{font-family:var(--serif);font-size:15px;color:var(--fg)}
+/* Room 1 */
+.hello{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding-top:96px}
+.hello .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,80px);align-items:center}
+.hello h1{margin:0;font-size:clamp(52px,7.6vw,118px);line-height:.98;font-weight:560;letter-spacing:-.035em}
+.hello h1 .hi{display:block;font-weight:250;color:var(--muted)}
+.hello .lede{font-size:clamp(19px,1.6vw,23px);line-height:1.42;margin:28px 0 0;max-width:32ch}
+.now{margin-top:34px}
+.now p{margin:0 0 8px;color:var(--muted);font-size:14.5px}
+.now ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px 22px;font-weight:550;font-size:15.5px}
+.now li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--fg);margin-right:9px;vertical-align:middle}
+.now li span{color:var(--accent)}
+.welcome{display:block;text-align:center;text-decoration:none;padding:34px 0 30px}
+.welcome b{display:block;font-weight:600;font-size:16px}
+.welcome span{color:var(--muted);font-size:15px}
 
-/* Room 2: method */
-.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,44px);margin:0;padding:0;list-style:none}
-.rules li{border-top:2px solid var(--fg);padding-top:18px}
-.rules h3{font:italic 400 clamp(26px,2.6vw,36px)/1.08 var(--serif);margin:0 0 12px}
-.rules p{margin:0;color:var(--soft);max-width:36ch}
-.rules .proof{display:block;margin-top:14px;color:var(--fg);font-size:14.5px}
+/* framed exhibit on the wall */
+.exhibit-fig{margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.hang{position:relative;perspective:1100px;width:min(100%,420px)}
+.hang .shadow{position:absolute;inset:12%;background:rgba(0,0,0,.22);filter:blur(34px);transform:translate(18px,30px)}
+.frame{position:relative;background:var(--ink);padding:clamp(6px,.6vw,9px);border-radius:3px;transform:rotateX(var(--rx,6deg)) rotateY(var(--ry,-8deg));transition:transform .5s cubic-bezier(.2,.7,.2,1);box-shadow:0 1px 0 rgba(255,255,255,.08) inset}
+.mat{background:var(--snow);padding:clamp(14px,2.2vw,34px)}
+.mat img{width:100%;aspect-ratio:4/4.3;object-fit:cover;object-position:50% 25%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.plaque{font-size:14px;line-height:1.45}
+.plaque b{display:block;font-weight:650}
+.plaque span{display:block;color:var(--muted)}
 
-/* exhibits: the work on the wall, the label beside it */
-.exhibit{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(22px,3vw,44px);align-items:start}
-.work{background:#0d0e0d;box-shadow:0 30px 60px -34px rgba(0,0,0,.7);overflow:hidden}
+/* Room 2: statements that light up word by word */
+.say{padding:6vh 0 18vh;display:grid;gap:clamp(60px,14vh,160px)}
+.say p{margin:0;font-size:clamp(40px,6.6vw,104px);line-height:1;font-weight:600;letter-spacing:-.035em;max-width:11ch}
+.say p:nth-child(2){justify-self:end;text-align:right}
+.say p .w{color:color-mix(in oklch,var(--fg) calc(var(--o,1) * 100%),var(--faint))}
+.say p small{display:block;margin-top:18px;font-size:16px;font-weight:450;letter-spacing:0;line-height:1.5;color:var(--muted);max-width:34ch;margin-left:auto;margin-right:0}
+.say p:nth-child(odd) small{margin-left:0}
+
+/* Room 3: work */
+.work{display:grid;grid-template-columns:190px minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-bottom:12vh}
+.inroom{position:sticky;top:96px;align-self:start}
+.inroom p{margin:0 0 10px;font-size:13.5px;color:var(--muted)}
+.inroom ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.inroom a{display:flex;gap:12px;padding:6px 0;text-decoration:none;font-weight:550;font-size:15.5px;color:var(--muted);transition:color .3s}
+.inroom a b{font-weight:400;font-size:13px;font-variant-numeric:tabular-nums;padding-top:2px}
+.inroom a[aria-current="true"]{color:var(--fg)}
+.inroom a[aria-current="true"] b{color:var(--accent)}
+.piece{padding:clamp(40px,8vh,90px) 0;border-top:1px solid var(--line)}
+.piece:first-child{border-top:0;padding-top:0}
+.status{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:14.5px;color:var(--muted)}
+.status b{color:var(--fg);font-weight:600;display:inline-flex;align-items:center;gap:7px}
+.status b::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.piece h3{margin:0;font-size:clamp(40px,5.4vw,80px);line-height:.98;font-weight:620;letter-spacing:-.04em}
+.piece .sub{margin:12px 0 0;font-size:clamp(18px,1.5vw,21px);color:var(--muted)}
+.screen{margin:clamp(26px,4vh,40px) 0;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 0 0 1px var(--line),0 40px 80px -50px rgba(0,0,0,.6)}
 .stage{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#000}
 .stage iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0}
 .stage.film{aspect-ratio:16/9}
 .stage.film video{width:100%;height:100%;object-fit:cover}
 .stage.native iframe{width:100%;height:100%;transform:none!important}
-.label{background:var(--paper);color:var(--ink);padding:20px 20px 18px;font-size:14px;line-height:1.5;border-top:3px solid var(--brass);position:sticky;top:28px}
-.label h3{font:italic 400 25px/1.12 var(--serif);margin:0}
-.label .kind{margin:4px 0 14px;color:rgba(27,29,27,.66)}
-.label dl{margin:0;display:grid;gap:9px}
-.label dt{font-weight:600;font-size:12.5px}
-.label dd{margin:1px 0 0}
-.label p.txt{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(27,29,27,.14)}
-.label .inv{margin:14px 0 0;font-size:12px;color:rgba(27,29,27,.55);font-variant-numeric:tabular-nums}
-.label .go{display:inline-block;margin-top:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px)}
+.cols .desc{font-size:clamp(19px,1.55vw,22px);line-height:1.42;margin:0}
+.facts{margin:0;display:grid}
+.facts>div{padding:14px 0;border-top:1px solid var(--line);position:relative}
+.facts>div:last-child{border-bottom:1px solid var(--line)}
+.facts dt{font-weight:600;font-size:15.5px}
+.facts dd{margin:3px 0 0;color:var(--muted);font-size:15.5px}
+.gave{margin-top:26px}
+.gave p{margin:0 0 9px;font-size:13.5px;color:var(--muted)}
+.gave ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:7px}
+.gave li{border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:14.5px;font-weight:500}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:10px 18px;font-weight:600;font-size:15px;text-decoration:none;background:var(--fg);color:var(--bg);border:0;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.btn svg{width:14px;height:14px}
 
-/* the making-of, closed by default */
-.making{margin-top:clamp(26px,4vh,40px);border-top:1px solid var(--line)}
-.making>summary{cursor:pointer;list-style:none;padding:18px 0;font:500 17px var(--sans);display:flex;align-items:center;gap:12px}
+/* the making-of */
+.making{margin-top:30px;border-radius:16px;background:color-mix(in oklch,var(--fg) 4%,transparent);box-shadow:inset 0 0 0 1px var(--line)}
+.making>summary{cursor:pointer;list-style:none;padding:16px 20px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .making>summary::-webkit-details-marker{display:none}
-.making>summary::before{content:"+";display:inline-grid;place-items:center;width:26px;height:26px;border:1px solid var(--line);border-radius:50%;font-weight:400;transition:transform .3s}
-.making[open]>summary::before{transform:rotate(45deg)}
+.making>summary::after{content:"+";font-weight:300;font-size:24px;line-height:1;transition:transform .35s}
+.making[open]>summary::after{transform:rotate(45deg)}
+.making>div{padding:4px 20px 24px}
 .making .meta{display:none}
-.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:8px 0 34px}
-.num b{display:block;font:400 clamp(30px,3.4vw,46px)/1 var(--serif)}
-.num span{display:block;font-size:14px;color:var(--soft);margin-top:6px;max-width:22ch}
-.brief{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;margin-bottom:34px}
-.brief h3,.process h3,.strip h3{font:italic 400 24px/1.1 var(--serif);margin:0}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:6px 0 30px}
+.num b{display:block;font-size:clamp(34px,3.6vw,52px);line-height:1;font-weight:620;letter-spacing:-.035em}
+.num span{display:block;font-size:14px;color:var(--muted);margin-top:8px;max-width:22ch}
+.brief{display:grid;grid-template-columns:160px minmax(0,1fr);gap:20px;margin-bottom:30px}
+.brief h3,.process h3,.strip h3{margin:0;font-size:19px;font-weight:650;letter-spacing:-.01em}
 .brief p{margin:0 0 12px;max-width:66ch}
-.process{margin-bottom:34px}
-.steps{margin:16px 0 0;padding:0;list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.process{margin-bottom:30px}
+.steps{margin:14px 0 0;padding:0;list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
 .steps li{counter-increment:s;border-top:1px solid var(--line);padding-top:12px}
-.steps li::before{content:counter(s);font:500 13px var(--sans);color:var(--brass)}
-.steps h4{margin:6px 0 6px;font:600 16px/1.3 var(--sans)}
-.steps p{margin:0;font-size:15px;color:var(--soft)}
-.strip .cap{color:var(--soft);max-width:66ch;margin:8px 0 16px}
-.frames{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,26%);gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory}
+.steps li::before{content:"0" counter(s);font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums}
+.steps h4{margin:6px 0 6px;font-size:16px;font-weight:650}
+.steps p{margin:0;font-size:15px;color:var(--muted)}
+.strip .cap{color:var(--muted);max-width:66ch;margin:8px 0 16px}
+.frames{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,26%);gap:12px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
 .frames figure{margin:0;scroll-snap-align:start}
-.frames figcaption{font-size:13px;color:var(--soft);margin-top:6px}
-.duo{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:18px;margin-top:26px;align-items:end}
-.duo figure{margin:0}.duo figcaption{font-size:13px;color:var(--soft);margin-top:6px}
-.chat-samples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:34px}
-.chat-samples div{border-top:1px solid var(--line);padding-top:12px;font-size:15px}
-.chat-samples q{display:block;font:italic 400 19px/1.25 var(--serif);quotes:none;margin-bottom:8px}
-.chat-samples span{color:var(--soft)}
+.frames img{border-radius:8px}
+.frames figcaption,.duo figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.duo{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:16px;margin-top:22px;align-items:end}
+.duo figure{margin:0}.duo img{border-radius:8px}
 
-/* Room 7: tools, as a display case */
-.case{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.case div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px}
-.case h3{font:italic 400 26px/1.1 var(--serif);margin:0 0 10px}
-.case ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
-.case li span{color:var(--soft);font-size:14px}
+/* Room 4: the assistant, under a spotlight */
+.spot{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;overflow:hidden}
+.spot::before{content:"";position:absolute;left:50%;top:-6%;width:min(70vw,780px);height:120%;transform:translateX(-50%);background:radial-gradient(ellipse 50% 100% at 50% 0%,oklch(98.5% .001 262/.13),transparent 70%);clip-path:polygon(38% 0,62% 0,100% 100%,0 100%);pointer-events:none}
+.spot::after{content:"";position:absolute;left:50%;bottom:12%;width:min(60vw,640px);height:90px;transform:translateX(-50%);background:radial-gradient(ellipse at center,oklch(98.5% .001 262/.1),transparent 70%);pointer-events:none}
+.spot .in{position:relative;z-index:1}
+.spot small{display:block;color:var(--muted);font-size:14.5px;margin-bottom:12px}
+.spot strong{display:block;font-size:clamp(110px,19vw,280px);line-height:.85;font-weight:700;letter-spacing:-.06em}
+.spot p{margin:14px 0 0;font-size:clamp(20px,2vw,28px);font-weight:550}
+.spot p span{color:var(--muted);font-weight:450}
+.talk{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(24px,4vw,60px);align-items:start;padding-bottom:12vh}
+.talk .screen{margin:0}
+.samples{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:8px}
+.samples button{width:100%;text-align:left;background:color-mix(in oklch,var(--fg) 6%,transparent);border:0;border-radius:12px;padding:11px 14px;cursor:pointer;font-size:15px;transition:background .25s}
+.samples button:hover{background:color-mix(in oklch,var(--fg) 12%,transparent)}
+.samples button span{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
 
-/* Room 8: path, a real timeline */
-.path{list-style:none;margin:0;padding:0;max-width:820px}
-.path li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;padding:20px 0;border-top:1px solid var(--line)}
-.path time{font-variant-numeric:tabular-nums;color:var(--soft);font-size:15px}
-.path h3{margin:0;font:400 26px/1.15 var(--serif)}
-.path p{margin:4px 0 0;color:var(--soft)}
+/* Room 5: path */
+.path{list-style:none;margin:0 auto;padding:0 0 14vh;max-width:900px;position:relative}
+.path::before{content:"";position:absolute;left:7px;top:10px;bottom:14vh;width:1px;background:var(--line)}
+.path li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:0 0 clamp(60px,12vh,120px) 40px;position:relative;opacity:var(--o,1);transition:opacity .4s}
+.path li::before{content:"";position:absolute;left:3px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--fg)}
+.path time{font-size:14px;color:var(--muted);padding-top:10px;font-variant-numeric:tabular-nums}
+.path h3{margin:0;font-size:clamp(30px,3.4vw,48px);line-height:1.05;font-weight:620;letter-spacing:-.03em}
+.path p{margin:8px 0 0;font-size:clamp(17px,1.4vw,20px);color:var(--muted)}
+.path .tag{display:inline-block;margin-top:14px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:550}
 
-/* Room 9: the card you take home */
-.desk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center}
-.card{display:block;perspective:1400px;width:100%;max-width:520px;aspect-ratio:1.75/1;cursor:pointer;background:none;border:0;padding:0;color:var(--ink);font:inherit;text-align:left}
-.card .in{display:block;position:relative;width:100%;height:100%;transition:transform .8s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
-.card.flipped .in{transform:rotateY(180deg)}
-.card .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--paper);padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 30px 50px -30px rgba(0,0,0,.6)}
-.card .back{transform:rotateY(180deg);border-top:4px solid var(--brass)}
-.card .front b{font:400 clamp(30px,3.6vw,46px)/1 var(--serif)}
-.card .front span,.card .back span{font-size:14px;color:rgba(27,29,27,.64)}
-.card .back ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:clamp(14px,1.4vw,17px)}
-.contact-list{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px;font-size:17px}
-.contact-list li{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
-.contact-list small{width:70px;color:var(--soft);font-size:14px}
-.copy{font:500 13px var(--sans);background:none;border:1px solid var(--line);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer}
-.exit{margin-left:var(--rail);padding:28px clamp(20px,5vw,72px) 40px;font-size:13.5px;color:var(--soft);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+/* Room 6: tools */
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-bottom:14vh}
+.tool{border-radius:18px;padding:22px;background:var(--surface);box-shadow:0 0 0 1px var(--line),0 20px 40px -30px rgba(0,0,0,.4)}
+.tool h3{margin:0 0 4px;font-size:22px;font-weight:620;letter-spacing:-.02em}
+.tool p{margin:0 0 14px;color:var(--muted);font-size:15px}
+.tool ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.tool li{border-radius:999px;padding:5px 12px;font-size:14px;font-weight:550;background:color-mix(in oklch,var(--fg) 6%,transparent)}
 
-@media (max-width:1100px){.exhibit{grid-template-columns:1fr}.label{position:static;max-width:560px}}
-@media (max-width:980px){.room{min-height:auto}.entrance{grid-template-columns:1fr;min-height:auto}.hung{max-width:420px}.rules{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.nums{grid-template-columns:1fr 1fr}.brief{grid-template-columns:1fr;gap:10px}.desk{grid-template-columns:1fr}.chat-samples{grid-template-columns:1fr}}
-@media (max-width:560px){body{font-size:16px}.steps{grid-template-columns:1fr}.path li{grid-template-columns:1fr;gap:4px}.now li{grid-template-columns:1fr;gap:0}.frames{grid-auto-columns:78%}.duo{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}body,.here{transition:none}.card .in{transition:none}}
+/* Room 7: lines and the card */
+.lines{padding:14vh 0 10vh}
+.lines>p{margin:0 0 30px;color:var(--muted);font-size:17px}
+.lines ol{list-style:none;margin:0;padding:0;display:grid;gap:clamp(18px,3vh,34px)}
+.lines li{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:baseline}
+.lines li b{font-weight:400;font-size:14px;color:var(--muted)}
+.lines li span{font-size:clamp(34px,4.6vw,66px);line-height:1.04;font-weight:620;letter-spacing:-.035em;max-width:17ch}
+.lines .w{color:color-mix(in oklch,var(--fg) calc(var(--o,1) * 100%),var(--faint))}
+.desk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center;padding:6vh 0 16vh}
+.desk h2{margin:0 0 26px;font-size:clamp(32px,3.3vw,50px);line-height:1.02;font-weight:620;letter-spacing:-.035em}
+.card{perspective:1200px;width:100%;max-width:560px;aspect-ratio:1.75/1;cursor:pointer;border:0;padding:0;background:none;display:block;text-align:left;color:var(--ink)}
+.card .in{display:block;position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.2,.7,.2,1);transform:rotateX(var(--rx,0deg)) rotateY(calc(var(--ry,0deg) + var(--flip,0deg)))}
+.card.flipped{--flip:180deg}
+.card .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;background:#fff;padding:clamp(18px,2.6vw,30px);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 40px 70px -40px rgba(0,0,0,.55)}
+.card .front .row{display:flex;justify-content:space-between;gap:16px}
+.card .front strong{font-size:clamp(28px,3vw,40px);line-height:.95;font-weight:650;letter-spacing:-.035em}
+.card .front em{display:block;font-style:normal;color:oklch(43% .004 262);font-size:14px;margin-top:10px;max-width:24ch}
+.card .front img{width:clamp(64px,7vw,92px);height:clamp(64px,7vw,92px);border-radius:10px;object-fit:cover;object-position:50% 22%}
+.card .front ul{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:14px}
+.card .front li{display:flex;justify-content:space-between;border-top:1px solid oklch(15.5% .004 262/.1);padding-top:3px}
+.card .front li span{color:oklch(43% .004 262)}
+.card .back{transform:rotateY(180deg);background:var(--ink);color:var(--snow);justify-content:space-between}
+.card .back strong{font-size:clamp(60px,8vw,110px);font-weight:700;letter-spacing:-.06em;line-height:.8}
+.card .back span{color:oklch(76% .003 262);font-size:14px}
+.hint{margin:16px 0 0;color:var(--muted);font-size:14.5px}
+.reach{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.note{margin:22px 0 0;color:var(--muted);max-width:42ch}
+.foot{border-top:1px solid var(--line);padding:26px var(--gut) 34px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted)}
+.foot b{color:var(--fg);font-size:22px;letter-spacing:-.02em;font-weight:620;display:block;margin-bottom:4px}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--snow);padding:10px 18px;border-radius:999px;font-weight:600;font-size:14.5px;transition:opacity .3s,transform .3s;z-index:130;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:980px){
+  .rail{display:none}
+  .hello .grid{grid-template-columns:1fr}
+  .hang{width:min(78%,340px)}
+  .work{grid-template-columns:1fr}.inroom{display:none}
+  .cols,.talk,.desk{grid-template-columns:1fr}
+  .tools{grid-template-columns:1fr 1fr}
+  .nums{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr 1fr}.brief{grid-template-columns:1fr;gap:8px}
+  .path li{grid-template-columns:1fr;gap:4px}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .pill .name-long{display:none}
+  .tools{grid-template-columns:1fr}.steps{grid-template-columns:1fr}
+  .frames{grid-auto-columns:80%}.duo{grid-template-columns:1fr}
+  .lines li{grid-template-columns:34px minmax(0,1fr)}
+  .say p:nth-child(2){justify-self:start;text-align:left}.say p small{margin-left:0}
+}
+@media (prefers-reduced-motion:reduce){
+  body,.card .in,.frame{transition:none}
+  .w{--o:1!important}
+}
 </style></head>
 <body>
-<a class="skip" href="#entrance">Skip to the entrance</a>
-<nav class="plan" id="plan" aria-label="Floor plan">
-  <a class="who" href="#entrance">Andrea Miglioranza<span>Portfolio, 2026</span></a>
-  <h2>Floor plan</h2>
-  <ol><li><a class="r" href="#entrance"><b>1</b>Entrance</a></li><li><a class="r" href="#method"><b>2</b>How I work</a></li><li><a class="r" href="#extillo"><b>3</b>Extillo Gin</a></li><li><a class="r" href="#pop"><b>4</b>POP Energy and MIXCRAFT</a></li><li><a class="r" href="#film"><b>5</b>Cattelan Italia, the film</a></li><li><a class="r" href="#assistant"><b>6</b>Cattelan Italia, the assistant</a></li><li><a class="r" href="#tools"><b>7</b>Tools</a></li><li><a class="r" href="#path"><b>8</b>Path</a></li><li><a class="r" href="#card"><b>9</b>Take a card</a></li></ol>
-  <p class="foot">Four works on show. Free entry.</p>
-</nav>
-<div class="here" aria-hidden="false"><span id="here-t">Room 1 of 9: Entrance</span><button type="button" id="plan-btn" aria-controls="plan" aria-expanded="false">Floor plan</button></div>
-<main id="top">
-<section class="room" id="entrance" data-wall="#E9EAE5" data-dark="0" data-n="1" data-t="Entrance" aria-labelledby="entrance-h"><div class="entrance">
-  <div>
-    <small class="sr" style="display:block;font-size:14px;color:var(--soft);margin-bottom:22px">Room 1 of 9</small>
-    <h1 id="entrance-h">Andrea <i>Miglioranza</i></h1>
-    <p class="lede">Marketing, websites, video and art direction, made with AI. This portfolio is laid out as an exhibition: nine rooms, four works. Scroll to walk in.</p>
-    <ul class="now" aria-label="Right now">
-      <li><span>Studying</span>Business Creation &amp; Entrepreneurship, H-FARM College</li>
-      <li><span>Working</span>Field Operations Assistant, SDG Group</li>
-      <li><span>Making</span>Two new projects a month, shown here</li>
-    </ul>
-    <p class="ticket"><b>Free entry</b><a href="#extillo">Go straight to the works</a><a href="#card">Get in touch</a></p>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="pill" href="#card"><img src="img/andrea.jpg" alt=""><span>Andrea<span class="name-long"> Miglioranza</span></span></a>
+  <button type="button" class="pill hurry" id="hurry" aria-haspopup="dialog" aria-controls="index"><i></i>In a hurry?</button>
+</header>
+<nav class="rail" aria-label="Rooms"><ol><li><a href="#hello" data-room="hello"><span><b>01</b>Hello</span></a></li><li><a href="#approach" data-room="approach"><span><b>02</b>Approach</span></a></li><li><a href="#work" data-room="work"><span><b>03</b>Work</span></a></li><li><a href="#assistant" data-room="assistant"><span><b>04</b>Assistant</span></a></li><li><a href="#path" data-room="path"><span><b>05</b>Path</span></a></li><li><a href="#tools" data-room="tools"><span><b>06</b>Tools</span></a></li><li><a href="#card" data-room="card"><span><b>07</b>Card</span></a></li></ol></nav>
+<div class="index" id="index" role="dialog" aria-modal="true" aria-labelledby="index-h"><div class="sheet">
+  <button type="button" class="x" id="index-x">Close</button>
+  <h2 id="index-h">In a hurry?</h2><p>Seven rooms. Jump to the one you need.</p>
+  <ol><li><a href="#hello"><b>01</b><span>Hello<small>Who I am and what I do now</small></span></a></li><li><a href="#approach"><b>02</b><span>Approach<small>Three rules behind every work</small></span></a></li><li><a href="#work"><b>03</b><span>Work<small>Three websites and a film</small></span></a></li><li><a href="#assistant"><b>04</b><span>Assistant<small>A showroom chat you can try</small></span></a></li><li><a href="#path"><b>05</b><span>Path<small>School, college, work</small></span></a></li><li><a href="#tools"><b>06</b><span>Tools<small>What I make things with</small></span></a></li><li><a href="#card"><b>07</b><span>Card<small>Contacts, and a card to take</small></span></a></li></ol>
+</div></div>
+<main id="main">
+
+<section class="room" id="hello" data-theme="light" aria-labelledby="hello-h"><div class="wrap hello">
+  <div class="grid">
+    <div>
+      <h1 id="hello-h"><span class="hi">Hi,</span>I’m Andrea Miglioranza</h1>
+      <p class="lede">I make marketing with AI: websites you scroll like a film, product videos and assistants that sell.</p>
+      <div class="now"><p>Right now</p><ul>
+        <li>Business student <span>@ H-FARM College</span></li>
+        <li>Field Operations Assistant <span>@ SDG Group</span></li>
+        <li>Two new projects a month</li>
+      </ul></div>
+    </div>
+    <figure class="exhibit-fig">
+      <div class="hang" id="hang"><div class="shadow" aria-hidden="true"></div><div class="frame"><div class="mat"><img src="img/andrea.jpg" width="640" height="619" alt="Portrait of Andrea Miglioranza in a white t-shirt"></div></div></div>
+      <figcaption class="plaque"><b>Exhibit 001</b><span>Andrea Miglioranza</span><span>Portrait, 2026</span></figcaption>
+    </figure>
   </div>
-  <figure class="hung"><div class="frame"><img src="img/andrea.jpg" width="640" height="619" alt="Portrait of Andrea Miglioranza"></div><figcaption><i>Andrea</i>, photograph</figcaption></figure>
+  <a class="welcome" href="#approach"><b>Welcome to my exhibition.</b><span>Seven rooms, four works. Scroll to walk in.</span></a>
 </div></section>
-<section class="room" id="method" data-wall="#E9EAE5" data-dark="0" data-n="2" data-t="How I work" aria-labelledby="method-h"><header class="room-h"><small>Room 2 of 9</small><h2 id="method-h">How I work</h2><p>Three rules behind every work in the next rooms.</p></header><ul class="rules">
-  <li><h3>Storyboard first</h3><p>Every film is drawn and approved as key frames before a single clip is generated, so no time or credits go into the wrong direction.</p><span class="proof">On the Cattelan film, two directions were dropped before any animation.</span></li>
-  <li><h3>Measure, don’t eyeball</h3><p>Seams between clips, scroll speed, answers of an assistant: checked with numbers, not by looking once.</p><span class="proof">POP and MIXCRAFT scroll test: slowest frame under 50 ms.</span></li>
-  <li><h3>Only numbers that hold up</h3><p>Statistics come from published studies, sizes from the catalogue drawings. If a figure can’t be checked, it stays out.</p><span class="proof">Both numbers in the Cattelan film are from published research.</span></li>
-</ul></section>
-<section class="room" id="extillo" data-wall="#2D4642" data-dark="1" data-n="3" data-t="Extillo Gin" aria-labelledby="extillo-h"><header class="room-h"><small>Room 3 of 9</small><h2 id="extillo-h">Extillo Gin</h2></header><div class="exhibit">
-  <div class="work"><div class="stage" data-w="1280" data-h="800"><iframe src="extillo/index.html" title="Extillo Salted Gin website, interactive" loading="lazy"></iframe></div></div>
-  <aside class="label" aria-label="Wall label"><h3>Scrolling website for Extillo Gin</h3><p class="kind">Scroll-film website, 2026</p><dl><div><dt>Medium</dt><dd>Claude Code (Sonnet 5.5), Nano Banana, Seedance 2.0, HTML, CSS, JavaScript</dd></div><div><dt>Dimensions</dt><dd>25 s of film in 1080p, 601 frames driven by scroll, 60 fps</dd></div><div><dt>Role</dt><dd>Concept, art direction, images and video, web development</dd></div></dl><p class="txt">A scroll-film website for an Italian craft gin: one continuous shot, from Lake Iseo to the salt pans of Puglia and into the glass.</p><a class="go" href="extillo/index.html" target="_blank" rel="noopener">Open full screen</a><p class="inv">Inventory AM 2026.01</p></aside>
-</div>
-<details class="making"><summary>Read how it was made</summary>
+
+<section class="room" id="approach" data-theme="light" aria-labelledby="approach-h"><div class="wrap">
+  <div class="door"><h2 id="approach-h" data-words>how do I work?</h2></div>
+  <div class="say">
+    <p data-words>storyboard before generating<small>Every film is drawn and approved as key frames before a single clip is made, so nothing is spent on the wrong direction.</small></p>
+    <p data-words>measure, don’t eyeball<small>Seams between clips, scroll speed, the answers of an assistant: checked with numbers, not by looking once.</small></p>
+    <p data-words>only numbers that hold up<small>Statistics from published studies, sizes from the catalogue drawings. If a figure can’t be checked, it stays out.</small></p>
+  </div>
+</div></section>
+
+<section class="room" id="work" data-theme="light" aria-labelledby="work-h"><div class="wrap">
+  <div class="door"><h2 id="work-h" data-words>What have I made?</h2></div>
+  <div class="work">
+    <aside class="inroom"><nav aria-label="In this room"><p>In this room</p><ol>
+      <li><a href="#w-extillo" data-piece="w-extillo"><b>01</b>Extillo Gin</a></li>
+      <li><a href="#w-pop" data-piece="w-pop"><b>02</b>POP and MIXCRAFT</a></li>
+      <li><a href="#w-film" data-piece="w-film"><b>03</b>Cattelan film</a></li>
+      <li><a href="#assistant"><b>04</b>Cattelan assistant</a></li>
+    </ol></nav></aside>
+    <div><article class="piece" id="w-extillo" aria-labelledby="w-extillo-t">
+  <p class="status"><b>Shipped</b>2026</p>
+  <h3 id="w-extillo-t">Extillo Gin</h3>
+  <p class="sub">Scroll-film website for an Italian craft gin</p>
+  <div class="screen"><div class="stage" data-w="1280" data-h="800"><iframe src="extillo/index.html" title="Extillo Salted Gin website, interactive" loading="lazy"></iframe></div></div>
+  <div class="cols">
+    <div><p class="desc">One continuous shot, driven by your scroll: from Lake Iseo to the salt pans of Puglia and into the glass, ending on the real bottle and the buy button.</p>
+      <div class="gave"><p>What it took</p><ul><li>Art direction</li><li>Image-to-video</li><li>Scroll engines</li><li>Claude Code</li></ul></div>
+      <div class="links"><a class="btn" href="extillo/index.html" target="_blank" rel="noopener">Open the site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
+    <dl class="facts"><div><dt>Concept</dt><dd>Three proposals, stress-tested before choosing one. Palette and tone taken from the bottle label.</dd></div><div><dt>Images</dt><dd>Key frames generated in sequence, each from the one before, so light and colour stay consistent.</dd></div><div><dt>Film</dt><dd>Six chained image-to-video clips, 25 seconds in 1080p. Every seam measured, not just looked at.</dd></div><div><dt>Website</dt><dd>601 frames on canvas, text on cue, purchase section and a mobile version, at 60 fps.</dd></div></dl>
+  </div>
+  <details class="making"><summary>How I made it</summary><div>
       
 
       <div class="nums" role="list">
@@ -244,12 +362,19 @@ main{margin-left:var(--rail)}
         <figure class="mobile"><div class="shot"><img src="img/sito-mobile.jpg" width="600" height="1300" alt="Mobile version of the site finale" loading="lazy"></div><figcaption>Mobile version.</figcaption></figure>
       </div>
     
-      </details></section>
-<section class="room" id="pop" data-wall="#3A2C39" data-dark="1" data-n="4" data-t="POP Energy and MIXCRAFT" aria-labelledby="pop-h"><header class="room-h"><small>Room 4 of 9</small><h2 id="pop-h">POP Energy and MIXCRAFT</h2></header><div class="exhibit">
-  <div class="work"><div class="stage" data-w="1280" data-h="800"><iframe src="scroll-film/index.html" title="POP Energy and MIXCRAFT websites, interactive" loading="lazy"></iframe></div></div>
-  <aside class="label" aria-label="Wall label"><h3>Scrolling websites for POP Energy and MIXCRAFT</h3><p class="kind">Two scroll-film websites, 2026</p><dl><div><dt>Medium</dt><dd>Claude Code (Sonnet 5.5), Nano Banana Pro, Seedance 2.0, FFmpeg, HTML, CSS, JavaScript</dd></div><div><dt>Dimensions</dt><dd>36 s of film in 1080p, 854 frames driven by scroll</dd></div><div><dt>Role</dt><dd>Concept, art direction, images and video, web development</dd></div></dl><p class="txt">Two websites for invented products: a pop-art energy drink can and a luxury cocktail kit. Each page is one continuous shot that arrives at the real product and the buy button.</p><a class="go" href="scroll-film/index.html" target="_blank" rel="noopener">Open full screen</a><p class="inv">Inventory AM 2026.02</p></aside>
-</div>
-<details class="making"><summary>Read how they were made</summary>
+      </div></details>
+</article><article class="piece" id="w-pop" aria-labelledby="w-pop-t">
+  <p class="status"><b>Shipped</b>2026</p>
+  <h3 id="w-pop-t">POP Energy and MIXCRAFT</h3>
+  <p class="sub">Two scroll-film websites for invented products</p>
+  <div class="screen"><div class="stage" data-w="1280" data-h="800"><iframe src="scroll-film/index.html" title="POP Energy and MIXCRAFT websites, interactive" loading="lazy"></iframe></div></div>
+  <div class="cols">
+    <div><p class="desc">The same format in two opposite worlds: a pop-art energy drink can and a luxury cocktail kit in black and copper. Each page is one shot that arrives at the real product.</p>
+      <div class="gave"><p>What it took</p><ul><li>Storyboarding</li><li>Product films</li><li>Performance testing</li><li>FFmpeg</li></ul></div>
+      <div class="links"><a class="btn" href="scroll-film/index.html" target="_blank" rel="noopener">Open the sites <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
+    <dl class="facts"><div><dt>Storyboard</dt><dd>One camera move per film, checked before generating, so no credits go into the wrong direction.</dd></div><div><dt>Key frames</dt><dd>Five for POP, six for MIXCRAFT, corrected one by one: realer fruit and ice, no hands in frame.</dd></div><div><dt>Film</dt><dd>Nine chained clips, 36 seconds in 1080p. Where the camera stalled at the end of a clip, I cut it.</dd></div><div><dt>Website</dt><dd>854 frames driven by scroll, slowest frame under 50 ms, and a diagonal transition between the two worlds.</dd></div></dl>
+  </div>
+  <details class="making"><summary>How I made it</summary><div>
       
 
       <div class="nums" role="list">
@@ -291,12 +416,19 @@ main{margin-left:var(--rail)}
           <figure><img src="img/p2-sito-mixcraft.jpg" width="1440" height="900" alt="In the MIXCRAFT site: the title Pour it over the pouring moment" loading="lazy"><figcaption>In the site: MIXCRAFT</figcaption></figure>
         </div>
       </section>
-    </details></section>
-<section class="room" id="film" data-wall="#1E1D1B" data-dark="1" data-n="5" data-t="Cattelan Italia, the film" aria-labelledby="film-h"><header class="room-h"><small>Room 5 of 9</small><h2 id="film-h">Cattelan Italia, the film</h2></header><div class="exhibit">
-  <div class="work"><div class="stage film"><video src="cattelan/spot-cattelan-1080p.mp4" poster="cattelan/poster.jpg" controls playsinline preload="metadata" aria-label="Sales pitch video for Cattelan Italia, 22 seconds"></video></div></div>
-  <aside class="label" aria-label="Wall label"><h3>Sales pitch video for Cattelan Italia</h3><p class="kind">Video, 22 seconds, 2026. A proposal by Miglioranza Studio</p><dl><div><dt>Medium</dt><dd>Claude Opus 5.5, HTML Canvas, Web Audio, FFmpeg; cover and photographs from the 10_2026 Collection, used with permission</dd></div><div><dt>Dimensions</dt><dd>1920 × 1080, 660 frames, cut to 96 bpm</dd></div><div><dt>Role</dt><dd>Concept, research, copy, motion design, sound design</dd></div></dl><p class="txt">A B2B pitch that offers a design furniture brand its next printed catalogue. Their real catalogue falls into a spotlight, opens and turns its own pages, while research on print appears beside it.</p><a class="go" href="cattelan/spot-cattelan-1080p.mp4" target="_blank" rel="noopener">Watch full screen</a><p class="inv">Inventory AM 2026.03</p></aside>
-</div>
-<details class="making"><summary>Read how it was made</summary>
+    </div></details>
+</article><article class="piece" id="w-film" aria-labelledby="w-film-t">
+  <p class="status"><b>Shipped</b>2026, a proposal by Miglioranza Studio</p>
+  <h3 id="w-film-t">Cattelan Italia</h3>
+  <p class="sub">A 22-second sales pitch for a printed catalogue</p>
+  <div class="screen"><div class="stage film"><video src="cattelan/spot-cattelan-1080p.mp4" poster="cattelan/poster.jpg" controls playsinline preload="metadata" aria-label="Sales pitch video for Cattelan Italia, 22 seconds"></video></div></div>
+  <div class="cols">
+    <div><p class="desc">A B2B pitch that offers a design furniture brand its next printed catalogue. Their real 10_2026 Collection falls into a spotlight and turns its own pages, while research on print appears beside it.</p>
+      <div class="gave"><p>What it took</p><ul><li>Copywriting</li><li>Motion design</li><li>Sound design</li><li>B2B sales</li></ul></div>
+      <div class="links"><a class="btn" href="cattelan/spot-cattelan-1080p.mp4" target="_blank" rel="noopener">Watch full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
+    <dl class="facts"><div><dt>Research</dt><dd>Which sectors catalogues really sell in, and two published studies whose numbers hold up.</dd></div><div><dt>Storyboard</dt><dd>Key frames drawn with the same code as the film. Two earlier directions dropped.</dd></div><div><dt>Animation</dt><dd>Every frame drawn in code as a function of time, with the catalogue’s own pages turning.</dd></div><div><dt>Sound</dt><dd>Page turns, ticks and a warm pulse, synthesised and placed on the exact frame. 660 frames in 1080p.</dd></div></dl>
+  </div>
+  <details class="making"><summary>How I made it</summary><div>
       
 
       <div class="nums" role="list">
@@ -336,13 +468,24 @@ main{margin-left:var(--rail)}
           <figure><img src="cattelan/fr-06-finale.jpg" width="900" height="506" alt="End card: Il vostro prossimo catalogo, stampiamolo insieme, Miglioranza Studio" loading="lazy"><figcaption>The proposal</figcaption></figure>
         </div>
       </section>
-    </details></section>
-<section class="room" id="assistant" data-wall="#D5D8D2" data-dark="0" data-n="6" data-t="Cattelan Italia, the assistant" aria-labelledby="assistant-h"><header class="room-h"><small>Room 6 of 9</small><h2 id="assistant-h">Cattelan Italia, the assistant</h2><p>A showroom chat that knows the whole catalogue. It speaks Italian: try “un tavolo per 8 in marmo” or “dove posso vederlo dal vivo?”.</p></header><div class="exhibit">
-  <div class="work"><div class="stage" data-w="1280" data-h="800" data-native="1"><iframe src="assistente/index.html" title="Showroom assistant for Cattelan Italia, interactive demo" loading="lazy"></iframe></div></div>
-  <aside class="label" aria-label="Wall label"><h3>Showroom assistant for Cattelan Italia</h3><p class="kind">Chat assistant, demo concept, 2026</p><dl><div><dt>Medium</dt><dd>JavaScript rules engine written with Claude Opus 5.5; products, sizes and finishes from the 10_2026 Collection catalogue</dd></div><div><dt>Dimensions</dt><dd>49 products, 17 categories, 50 of 50 test questions answered</dd></div><div><dt>Role</dt><dd>Conversation design, catalogue data, interface, testing</dd></div></dl><p class="txt">It recommends products for a room, a colour or a number of guests, answers on sizes and finishes, explains why it suggests each piece, and collects the visitor’s contact for a consultant. No AI model and no server: it runs in the browser.</p><a class="go" href="assistente/index.html" target="_blank" rel="noopener">Open the assistant</a><p class="inv">Inventory AM 2026.04</p></aside>
-</div>
-<details class="making"><summary>Read how it was made</summary>
-  <div class="nums" role="list">
+    </div></details>
+</article></div>
+  </div>
+</div></section>
+
+<section class="room" id="assistant" data-theme="dark" aria-labelledby="assistant-h"><div class="wrap">
+  <div class="spot"><div class="in"><small>Exhibit 004, for Cattelan Italia</small><strong>50/50</strong><p>questions answered <span>by a showroom assistant with no AI inside</span></p></div></div>
+  <div class="talk">
+    <div class="screen"><div class="stage" data-w="1280" data-h="800" data-native="1"><iframe id="bot" src="assistente/index.html" title="Showroom assistant for Cattelan Italia, interactive demo" loading="lazy"></iframe></div></div>
+    <div>
+      <p class="status"><b>Shipped</b>2026, demo concept by Miglioranza Studio</p>
+      <h2 id="assistant-h" style="margin:0;font-size:clamp(36px,4vw,60px);line-height:1;font-weight:620;letter-spacing:-.04em">Can a catalogue talk?</h2>
+      <p class="sub" style="margin:14px 0 0;color:var(--muted);font-size:18px">A chat that knows all 49 products of the 10_2026 Collection, recommends for a room, a colour or a number of guests, and collects leads for a consultant. It speaks Italian. Try one:</p>
+      <ul class="samples"><li><button type="button" data-ask="Il tavolo più grande che avete?">Il tavolo più grande che avete?<span>Biggest table, indoors and out</span></button></li><li><button type="button" data-ask="Ho gli interni rossi, mi serve un tavolo per la cucina">Ho gli interni rossi, mi serve un tavolo per la cucina<span>Room and colour, with a reason for each pick</span></button></li><li><button type="button" data-ask="Che sedie stanno bene con il Gotham?">Che sedie stanno bene con il Gotham?<span>Chairs that share the table’s finish</span></button></li><li><button type="button" data-ask="Fate cucine?">Fate cucine?<span>Says no, and points to what fits</span></button></li></ul>
+      <div class="links"><a class="btn" href="assistente/index.html" target="_blank" rel="noopener">Open full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+    </div>
+  </div>
+  <details class="making" style="margin:-6vh 0 14vh"><summary>How I made it</summary><div><div class="nums" role="list">
     <div class="num" role="listitem"><b>49</b><span>products turned into data, with sizes and finishes</span></div>
     <div class="num" role="listitem"><b>50/50</b><span>real questions answered in the automatic test</span></div>
     <div class="num" role="listitem"><b>~130</b><span>more free questions read and fixed one by one</span></div>
@@ -350,79 +493,147 @@ main{margin-left:var(--rail)}
   </div>
   <div class="brief"><h3>The brief</h3><div>
     <p>A furniture showroom gets the same questions every day: what fits eight people, which finishes a table comes in, where to see it. The assistant answers them from the brand’s own catalogue and hands the visitor to a consultant with name, contact and city.</p>
-    <p>The idea: no AI model and no server, so it is fast, free to run and answers only from the catalogue. Every product was written as data from the 10_2026 Collection; when the catalogue has no answer, the assistant says so and offers a consultant.</p>
+    <p>The idea: no AI model and no server, so it is fast, free to run and answers only from the catalogue. When the catalogue has no answer, it says so and offers a consultant.</p>
   </div></div>
-  <div class="chat-samples">
-    <div><q>What is your biggest table?</q><span>Napoleon Keramik Outdoor, 320 cm, but it is for outdoors. Indoors the largest reach 300 × 130 cm.</span></div>
-    <div><q>A kitchen table, my walls are red.</q><span>Gotham with a bronze base first: ceramic is the most practical top in a kitchen, and a dark base calms a strong colour.</span></div>
-    <div><q>Do you make kitchens?</q><span>Not in the 2026 Collection. For the kitchen there are tables, chairs and stools.</span></div>
-  </div>
   <section class="process" aria-labelledby="pr4"><h3 id="pr4">The process</h3><ol class="steps">
-    <li><h4>Catalogue to data</h4><p>49 products with sizes, finishes and designers, checked against the catalogue drawings. Sizes only where they are clear.</p></li>
-    <li><h4>Understanding</h4><p>Category, room, colour, material, number of guests, small typos. A new request starts from zero; a refinement keeps the context.</p></li>
+    <li><h4>Catalogue to data</h4><p>49 products with sizes, finishes and designers, checked against the catalogue drawings.</p></li>
+    <li><h4>Understanding</h4><p>Category, room, colour, material, guests, small typos. A new request starts from zero; a refinement keeps the context.</p></li>
     <li><h4>Answers with a reason</h4><p>Every suggestion says why it fits. Missing data is said plainly, never invented.</p></li>
     <li><h4>Leads and testing</h4><p>A contact form inside the chat, then 50 real questions as an automatic test, run after every change.</p></li>
-  </ol></section>
-</details></section>
-<section class="room" id="tools" data-wall="#E9EAE5" data-dark="0" data-n="7" data-t="Tools" aria-labelledby="tools-h"><header class="room-h"><small>Room 7 of 9</small><h2 id="tools-h">Tools</h2><p>What I use, grouped by what it makes.</p></header><div class="case">
-  <div><h3>Ideas, copy and code</h3><ul><li>Claude and Claude Code <span>concept, copy, research, code</span></li><li>ChatGPT</li></ul></div>
-  <div><h3>Images</h3><ul><li>Nano Banana and Nano Banana Pro <span>key frames, product images</span></li></ul></div>
-  <div><h3>Film</h3><ul><li>Seedance 2.0 <span>image-to-video</span></li><li>Higgsfield</li><li>FFmpeg <span>assembly and export</span></li></ul></div>
-  <div><h3>Sound</h3><ul><li>Web Audio <span>sound synthesised in code</span></li><li>Artlist</li></ul></div>
-  <div><h3>Web</h3><ul><li>HTML, CSS, JavaScript</li><li>Canvas <span>scroll engines, animation</span></li></ul></div>
-  <div><h3>Method</h3><ul><li>Agile Project Management <span>certified, H-FARM College</span></li></ul></div>
+  </ol></section></div></details>
 </div></section>
-<section class="room" id="path" data-wall="#E9EAE5" data-dark="0" data-n="8" data-t="Path" aria-labelledby="path-h"><header class="room-h"><small>Room 8 of 9</small><h2 id="path-h">Path</h2></header><ol class="path">
-  <li><time>2021 – 2025</time><div><h3>International Baccalaureate</h3><p>H-FARM International School</p></div></li>
-  <li><time>2025 – now</time><div><h3>Business Creation &amp; Entrepreneurship</h3><p>H-FARM College, with a certification in Agile Project Management</p></div></li>
-  <li><time>May 2026 – now</time><div><h3>Field Operations Assistant</h3><p>SDG Group</p></div></li>
-  <li><time>2026</time><div><h3>Four works, one portfolio</h3><p>Websites, a film and an assistant, all made with AI. You just walked past them.</p></div></li>
-</ol></section>
-<section class="room" id="card" data-wall="#2A3446" data-dark="1" data-n="9" data-t="Take a card" aria-labelledby="card-h"><header class="room-h"><small>Room 9 of 9</small><h2 id="card-h">Take a card</h2><p>Thanks for visiting. Turn the card over for my details, or copy them from here.</p></header><div class="desk">
-  <button type="button" class="card" id="card-btn" aria-pressed="false" aria-label="Business card. Press to turn it over">
-    <span class="in">
-      <span class="face front"><b>Andrea Miglioranza</b><span>Marketing, websites, video and art direction, made with AI</span></span>
-      <span class="face back"><span>Contacts</span><ul><li>andreamiglioranza0711@gmail.com</li><li>linkedin.com/in/andreamiglioranza</li></ul></span>
-    </span>
-  </button>
-  <ul class="contact-list">
-    <li><small>Email</small><b id="mail">andreamiglioranza0711@gmail.com</b><button type="button" class="copy" id="copy">Copy</button></li>
-    <li><small>LinkedIn</small><a href="https://www.linkedin.com/in/andreamiglioranza" target="_blank" rel="noopener">linkedin.com/in/andreamiglioranza</a></li>
-  </ul>
+
+<section class="room" id="path" data-theme="light" aria-labelledby="path-h"><div class="wrap">
+  <div class="door"><h2 id="path-h" data-words>How did I get here?</h2></div>
+  <ol class="path">
+    <li><time>2021 – 2025</time><div><h3>H-FARM International School</h3><p>International Baccalaureate diploma</p></div></li>
+    <li><time>2025 – now</time><div><h3>H-FARM College</h3><p>Business Creation &amp; Entrepreneurship, with a certification in Agile Project Management</p><span class="tag">In progress</span></div></li>
+    <li><time>May 2026 – now</time><div><h3>SDG Group</h3><p>Field Operations Assistant</p></div></li>
+    <li><time>2026</time><div><h3>This portfolio</h3><p>Four works made with AI, and two new ones every month.</p><span class="tag">Growing</span></div></li>
+  </ol>
+</div></section>
+
+<section class="room" id="tools" data-theme="light" aria-labelledby="tools-h"><div class="wrap">
+  <div class="door"><h2 id="tools-h" data-words>What do I make it with?</h2></div>
+  <div class="tools">
+    <div class="tool"><h3>Ideas and code</h3><p>Concept, copy, research and every line of the sites.</p><ul><li>Claude</li><li>Claude Code</li><li>ChatGPT</li></ul></div>
+    <div class="tool"><h3>Images</h3><p>Key frames and product shots.</p><ul><li>Nano Banana</li><li>Nano Banana Pro</li></ul></div>
+    <div class="tool"><h3>Film</h3><p>Image-to-video, ads and the final cut.</p><ul><li>Seedance 2.0</li><li>Higgsfield</li><li>FFmpeg</li></ul></div>
+    <div class="tool"><h3>Sound</h3><p>Synthesised in code, or licensed.</p><ul><li>Web Audio</li><li>Artlist</li></ul></div>
+    <div class="tool"><h3>Web</h3><p>Scroll engines, animation, interfaces.</p><ul><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Canvas</li></ul></div>
+    <div class="tool"><h3>Method</h3><p>How the work gets planned and shipped.</p><ul><li>Agile Project Management</li><li>Storyboards</li><li>Automatic tests</li></ul></div>
+  </div>
+</div></section>
+
+<section class="room" id="card" data-theme="light" aria-labelledby="card-h"><div class="wrap">
+  <div class="lines"><p>Andrea, in three lines</p><ol>
+    <li><b>01</b><span data-words>Business student who builds with AI.</span></li>
+    <li><b>02</b><span data-words>Websites, films and assistants that sell.</span></li>
+    <li><b>03</b><span data-words>Two new projects, every month.</span></li>
+  </ol></div>
+  <div class="desk">
+    <div>
+      <h2 id="card-h">Take a card on your way out</h2>
+      <button type="button" class="card" id="bcard" aria-pressed="false" aria-label="Andrea Miglioranza, business card. Press to turn it over">
+        <span class="in">
+          <span class="face front">
+            <span class="row"><span><strong>Andrea<br>Miglioranza</strong><em>Marketing, websites, video and art direction, made with AI</em></span><img src="img/andrea.jpg" alt=""></span>
+            <ul><li>H-FARM College <span>Business student</span></li><li>SDG Group <span>Field Operations</span></li><li>andreamiglioranza0711@gmail.com <span>Email</span></li></ul>
+          </span>
+          <span class="face back"><span>Treviso, Italy</span><strong>Andrea</strong><span>Portfolio 2026</span></span>
+        </span>
+      </button>
+      <p class="hint">Move around it. Click to turn it over.</p>
+    </div>
+    <div>
+      <div class="reach">
+        <a class="btn" href="https://www.linkedin.com/in/andreamiglioranza" target="_blank" rel="noopener">Connect on LinkedIn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+        <button type="button" class="btn ghost" id="copy">Copy email</button>
+      </div>
+      <p class="note">Working on a brand, a launch or a product page? I’m always up for a chat.</p>
+    </div>
+  </div>
 </div></section>
 </main>
-<footer class="exit"><span>Andrea Miglioranza, 2026</span><a href="#entrance">Back to the entrance</a></footer>
+<footer class="foot"><div><b>Thanks for visiting.</b>That’s the whole exhibition, for now.</div><div>© 2026 Andrea Miglioranza<br><a href="#hello">Back to the entrance</a></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
 (function(){
-  // scale the 1280×800 live sites to the wall; the assistant runs at real size on small screens
-  function fit(){ document.querySelectorAll('.stage[data-w]').forEach(function(st){ var f=st.querySelector('iframe'); if(!f) return;
-    var nat=st.dataset.native && st.clientWidth<760; st.classList.toggle('native',!!nat); st.style.aspectRatio=nat?'auto':''; st.style.height=nat?'640px':'';
-    if(!nat) f.style.transform='scale('+(st.clientWidth/+st.dataset.w)+')'; }); }
-  addEventListener('resize',fit); addEventListener('load',fit); fit();
-  if(window.ResizeObserver){ var ro=new ResizeObserver(fit); document.querySelectorAll('.stage[data-w]').forEach(function(s){ro.observe(s)}); }
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // split marked text into words for the scroll reveal (screen readers still read the plain text)
+  document.querySelectorAll('[data-words]').forEach(function(el){
+    var small = el.querySelector('small'); if (small) small.remove();
+    var label = el.textContent.trim(); el.setAttribute('aria-label', label);
+    el.innerHTML = label.split(/\s+/).map(function(w){ return '<span class="w" aria-hidden="true">' + w + '</span>'; }).join(' ');
+    if (small) el.appendChild(small);
+  });
+  var groups = [].slice.call(document.querySelectorAll('[data-words]'));
+  function reveal(){
+    var vh = innerHeight;
+    groups.forEach(function(el){
+      var r = el.getBoundingClientRect(), ws = el.querySelectorAll('.w'), n = ws.length;
+      var isDoor = el.closest('.door');
+      // doors fill in as they rise to the middle; statements fill in as they cross the lower half
+      var start = isDoor ? vh * .95 : vh * .9, end = isDoor ? vh * .45 : vh * .35;
+      var p = reduce ? 1 : Math.min(1, Math.max(0, (start - (r.top + r.height / 2)) / (start - end)));
+      for (var i = 0; i < n; i++) { var o = Math.min(1, Math.max(isDoor ? 0 : .0, p * n - i)); ws[i].style.setProperty('--o', isDoor ? o : o); }
+    });
+    document.querySelectorAll('.path li').forEach(function(li){ var r = li.getBoundingClientRect(); li.style.setProperty('--o', reduce ? 1 : (r.top < vh * .8 ? 1 : .25)); });
+  }
 
-  // walking from room to room repaints the walls
-  var rooms=[].slice.call(document.querySelectorAll('.room')), links={}, here=document.getElementById('here-t'), meta=document.querySelector('meta[name=theme-color]');
-  document.querySelectorAll('.plan a.r').forEach(function(a){ links[a.getAttribute('href').slice(1)]=a; });
-  function enter(r){ document.body.style.setProperty('--wall',r.dataset.wall); document.body.classList.toggle('dark',r.dataset.dark==='1'); if(meta) meta.content=r.dataset.wall;
-    Object.keys(links).forEach(function(k){ links[k].setAttribute('aria-current',k===r.id?'true':'false'); });
-    if(here) here.textContent='Room '+r.dataset.n+' of 9: '+r.dataset.t; }
-  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) enter(e.target); }); },{rootMargin:'-45% 0px -50% 0px'}); rooms.forEach(function(r){io.observe(r)}); }
-  enter(rooms[0]);
+  // which room are we in: theme, rail, "in this room"
+  var rooms = [].slice.call(document.querySelectorAll('.room'));
+  var rail = {}; document.querySelectorAll('.rail a').forEach(function(a){ rail[a.dataset.room] = a; });
+  var pieces = [].slice.call(document.querySelectorAll('.piece')), inroom = {}; document.querySelectorAll('.inroom a[data-piece]').forEach(function(a){ inroom[a.dataset.piece] = a; });
+  var current = null;
+  function track(){
+    var mid = innerHeight * .5, here = rooms[0];
+    rooms.forEach(function(r){ if (r.getBoundingClientRect().top <= mid) here = r; });
+    if (here !== current) { current = here; document.body.classList.toggle('dark', here.dataset.theme === 'dark');
+      Object.keys(rail).forEach(function(k){ rail[k].setAttribute('aria-current', k === here.id ? 'true' : 'false'); }); }
+    var hp = null; pieces.forEach(function(p){ if (p.getBoundingClientRect().top <= mid) hp = p; });
+    Object.keys(inroom).forEach(function(k){ inroom[k].setAttribute('aria-current', hp && k === hp.id ? 'true' : 'false'); });
+  }
+  var ticking = false;
+  function onScroll(){ if (!ticking) { ticking = true; requestAnimationFrame(function(){ reveal(); track(); ticking = false; }); } }
+  addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); reveal(); track();
 
-  // floor plan on small screens
-  var plan=document.getElementById('plan'), pb=document.getElementById('plan-btn');
-  if(pb) pb.addEventListener('click',function(){ var o=plan.classList.toggle('open'); pb.setAttribute('aria-expanded',o); pb.textContent=o?'Close':'Floor plan'; });
-  plan.addEventListener('click',function(e){ if(e.target.closest('a')&&plan.classList.contains('open')){ plan.classList.remove('open'); pb.setAttribute('aria-expanded','false'); pb.textContent='Floor plan'; } });
+  // live sites scaled to the wall; the assistant runs at real size on small screens
+  function fit(){ document.querySelectorAll('.stage[data-w]').forEach(function(st){ var f = st.querySelector('iframe'); if (!f) return;
+    var nat = st.dataset.native && st.clientWidth < 760; st.classList.toggle('native', !!nat); st.style.aspectRatio = nat ? 'auto' : ''; st.style.height = nat ? '620px' : '';
+    if (!nat) f.style.transform = 'scale(' + (st.clientWidth / +st.dataset.w) + ')'; }); }
+  addEventListener('resize', fit); addEventListener('load', fit); fit();
+  if (window.ResizeObserver) { var ro = new ResizeObserver(fit); document.querySelectorAll('.stage[data-w]').forEach(function(s){ ro.observe(s); }); }
 
-  // the card turns over
-  var c=document.getElementById('card-btn'); c.addEventListener('click',function(){ var f=c.classList.toggle('flipped'); c.setAttribute('aria-pressed',f); });
+  // the portrait and the card lean towards the pointer
+  function tilt(el, target, max){ if (reduce || !el) return;
+    el.addEventListener('pointermove', function(e){ var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+      target.style.setProperty('--ry', (x * max) + 'deg'); target.style.setProperty('--rx', (-y * max) + 'deg'); });
+    el.addEventListener('pointerleave', function(){ target.style.removeProperty('--ry'); target.style.removeProperty('--rx'); }); }
+  var hang = document.getElementById('hang'); tilt(hang, hang.querySelector('.frame'), 16);
+  var card = document.getElementById('bcard'); tilt(card, card, 14);
+  card.addEventListener('click', function(){ var f = card.classList.toggle('flipped'); card.setAttribute('aria-pressed', f); });
 
-  // copy email
-  var b=document.getElementById('copy'); b.addEventListener('click',function(){ var t=document.getElementById('mail').textContent;
-    function ok(){ b.textContent='Copied'; setTimeout(function(){b.textContent='Copy'},1800); }
-    function fb(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('mail')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected'; setTimeout(function(){b.textContent='Copy'},1800); }
-    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,fb); else fb(); });
+  // quick index
+  var idx = document.getElementById('index'), hb = document.getElementById('hurry');
+  function close(){ idx.classList.remove('open'); hb.focus(); }
+  hb.addEventListener('click', function(){ idx.classList.add('open'); idx.querySelector('a').focus(); });
+  document.getElementById('index-x').addEventListener('click', close);
+  idx.addEventListener('click', function(e){ if (e.target === idx) close(); if (e.target.closest('a')) idx.classList.remove('open'); });
+  addEventListener('keydown', function(e){ if (e.key === 'Escape' && idx.classList.contains('open')) close(); });
+
+  // toast + copy email
+  var toast = document.getElementById('toast'), tt;
+  function say(t){ toast.textContent = t; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove('on'); }, 1800); }
+  document.getElementById('copy').addEventListener('click', function(){ var m = 'andreamiglioranza0711@gmail.com';
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(m).then(function(){ say('Email copied'); }, function(){ say(m); }); else say(m); });
+
+  // sample questions are typed into the live assistant
+  var bot = document.getElementById('bot');
+  document.querySelectorAll('[data-ask]').forEach(function(b){ b.addEventListener('click', function(){
+    try { var d = bot.contentDocument, inp = d.querySelector('input, textarea'); inp.value = b.dataset.ask; inp.dispatchEvent(new Event('input', { bubbles: true }));
+      inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); bot.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); }
+    catch (e) { window.open('assistente/index.html', '_blank'); } }); });
 })();
 </script>
 </body></html>
