@@ -16,7 +16,7 @@
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:72px}
 body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.55 var(--f);font-optical-sizing:auto;transition:background-color .7s ease,color .7s ease;-webkit-font-smoothing:antialiased}
-body.dark{--bg:oklch(13% .004 262);--fg:oklch(97% .002 262);--muted:oklch(76% .003 262);--faint:oklch(46% .004 262);--line:oklch(98.5% .001 262/.14);--surface:oklch(20% .004 262)}
+body.dark{--fg:oklch(97% .002 262);--muted:oklch(76% .003 262);--faint:oklch(46% .004 262);--line:oklch(98.5% .001 262/.14);--surface:oklch(20% .004 262)}
 a{color:inherit}
 img,video{display:block;max-width:100%;height:auto}
 button{font:inherit;color:inherit}
@@ -28,7 +28,7 @@ button{font:inherit;color:inherit}
 .top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px var(--gut);pointer-events:none}
 .top>*{pointer-events:auto}
 .pill{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:4px 16px 4px 4px;font-weight:600;font-size:15px;text-decoration:none;background:color-mix(in oklch,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 1px var(--line),0 6px 24px -14px rgba(0,0,0,.35)}
-.pill img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 22%}
+.pill img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 8%;background:oklch(92% .01 262)}
 .hurry{border:0;cursor:pointer;padding:9px 16px 9px 14px;background:var(--fg);color:var(--bg);gap:9px}
 .hurry i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in oklch,var(--accent) 30%,transparent)}
 
@@ -60,7 +60,7 @@ main{overflow-x:clip}
 .wrap{max-width:1180px;margin:0 auto}
 .door{min-height:100svh;display:grid;place-items:center;text-align:center;padding:90px 0}
 .door h2{margin:0;font-size:clamp(46px,7.4vw,112px);line-height:1.02;font-weight:620;letter-spacing:-.035em;max-width:12ch}
-.door h2 .w{display:inline-block;opacity:var(--o,1);transform:translateY(calc((1 - var(--o,1)) * 18px))}
+.w{display:inline-block;opacity:var(--o,1);transform:translateY(calc((1 - var(--o,1)) * .32em));filter:blur(calc((1 - var(--o,1)) * 3px))}
 
 /* Room 1 */
 .hello{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding-top:96px}
@@ -79,7 +79,10 @@ main{overflow-x:clip}
 
 /* framed exhibit on the wall */
 .exhibit-fig{margin:0;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
-.hang{position:relative;perspective:1100px;width:min(100%,420px)}
+.figure{position:relative;width:min(100%,430px);perspective:1000px;padding-bottom:18px}
+.figure .tilt{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transform-origin:50% 100%;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.figure img{width:100%;height:auto;-webkit-mask-image:linear-gradient(#000 82%,transparent 100%);mask-image:linear-gradient(#000 82%,transparent 100%);filter:drop-shadow(0 24px 30px rgba(0,0,0,.14))}
+.figure .floor{position:absolute;left:8%;right:8%;bottom:6px;height:22px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.18),transparent);pointer-events:none}
 .hang .shadow{position:absolute;inset:12%;background:rgba(0,0,0,.22);filter:blur(34px);transform:translate(18px,30px)}
 .frame{position:relative;background:var(--ink);padding:clamp(6px,.6vw,9px);border-radius:3px;transform:rotateX(var(--rx,6deg)) rotateY(var(--ry,-8deg));transition:transform .5s cubic-bezier(.2,.7,.2,1);box-shadow:0 1px 0 rgba(255,255,255,.08) inset}
 .mat{background:var(--snow);padding:clamp(14px,2.2vw,34px)}
@@ -92,7 +95,6 @@ main{overflow-x:clip}
 .say{padding:6vh 0 18vh;display:grid;gap:clamp(60px,14vh,160px)}
 .say p{margin:0;font-size:clamp(40px,6.6vw,104px);line-height:1;font-weight:600;letter-spacing:-.035em;max-width:11ch}
 .say p:nth-child(2){justify-self:end;text-align:right}
-.say p .w{color:color-mix(in oklch,var(--fg) calc(var(--o,1) * 100%),var(--faint))}
 .say p small{display:block;margin-top:18px;font-size:16px;font-weight:450;letter-spacing:0;line-height:1.5;color:var(--muted);max-width:34ch;margin-left:auto;margin-right:0}
 .say p:nth-child(odd) small{margin-left:0}
 
@@ -181,7 +183,7 @@ main{overflow-x:clip}
 /* Room 5: path */
 .path{list-style:none;margin:0 auto;padding:0 0 14vh;max-width:900px;position:relative}
 .path::before{content:"";position:absolute;left:7px;top:10px;bottom:14vh;width:1px;background:var(--line)}
-.path li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:0 0 clamp(60px,12vh,120px) 40px;position:relative;opacity:var(--o,1);transition:opacity .4s}
+.path li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding:0 0 clamp(60px,12vh,120px) 40px;position:relative}
 .path li::before{content:"";position:absolute;left:3px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--fg)}
 .path time{font-size:14px;color:var(--muted);padding-top:10px;font-variant-numeric:tabular-nums}
 .path h3{margin:0;font-size:clamp(30px,3.4vw,48px);line-height:1.05;font-weight:620;letter-spacing:-.03em}
@@ -203,7 +205,6 @@ main{overflow-x:clip}
 .lines li{display:grid;grid-template-columns:60px minmax(0,1fr);align-items:baseline}
 .lines li b{font-weight:400;font-size:14px;color:var(--muted)}
 .lines li span{font-size:clamp(34px,4.6vw,66px);line-height:1.04;font-weight:620;letter-spacing:-.035em;max-width:17ch}
-.lines .w{color:color-mix(in oklch,var(--fg) calc(var(--o,1) * 100%),var(--faint))}
 .desk{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center;padding:6vh 0 16vh}
 .desk h2{margin:0 0 26px;font-size:clamp(32px,3.3vw,50px);line-height:1.02;font-weight:620;letter-spacing:-.035em}
 .card{perspective:1200px;width:100%;max-width:560px;aspect-ratio:1.75/1;cursor:pointer;border:0;padding:0;background:none;display:block;text-align:left;color:var(--ink)}
@@ -213,7 +214,7 @@ main{overflow-x:clip}
 .card .front .row{display:flex;justify-content:space-between;gap:16px}
 .card .front strong{font-size:clamp(28px,3vw,40px);line-height:.95;font-weight:650;letter-spacing:-.035em}
 .card .front em{display:block;font-style:normal;color:oklch(43% .004 262);font-size:14px;margin-top:10px;max-width:24ch}
-.card .front img{width:clamp(64px,7vw,92px);height:clamp(64px,7vw,92px);border-radius:10px;object-fit:cover;object-position:50% 22%}
+.card .front img{width:clamp(64px,7vw,92px);height:clamp(64px,7vw,92px);border-radius:10px;object-fit:cover;object-position:50% 6%;background:oklch(94% .006 262)}
 .card .front ul{list-style:none;margin:0;padding:0;display:grid;gap:3px;font-size:14px}
 .card .front li{display:flex;justify-content:space-between;border-top:1px solid oklch(15.5% .004 262/.1);padding-top:3px}
 .card .front li span{color:oklch(43% .004 262)}
@@ -249,13 +250,13 @@ main{overflow-x:clip}
 }
 @media (prefers-reduced-motion:reduce){
   body,.card .in,.frame{transition:none}
-  .w{--o:1!important}
+  .w{opacity:1!important;transform:none!important;filter:none!important}
 }
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
-  <a class="pill" href="#card"><img src="img/andrea.jpg" alt=""><span>Andrea<span class="name-long"> Miglioranza</span></span></a>
+  <a class="pill" href="#card"><img src="img/andrea-cutout.webp" alt=""><span>Andrea<span class="name-long"> Miglioranza</span></span></a>
   <button type="button" class="pill hurry" id="hurry" aria-haspopup="dialog" aria-controls="index"><i></i>In a hurry?</button>
 </header>
 <nav class="rail" aria-label="Rooms"><ol><li><a href="#hello" data-room="hello"><span><b>01</b>Hello</span></a></li><li><a href="#approach" data-room="approach"><span><b>02</b>Approach</span></a></li><li><a href="#work" data-room="work"><span><b>03</b>Work</span></a></li><li><a href="#assistant" data-room="assistant"><span><b>04</b>Assistant</span></a></li><li><a href="#path" data-room="path"><span><b>05</b>Path</span></a></li><li><a href="#tools" data-room="tools"><span><b>06</b>Tools</span></a></li><li><a href="#card" data-room="card"><span><b>07</b>Card</span></a></li></ol></nav>
@@ -278,7 +279,7 @@ main{overflow-x:clip}
       </ul></div>
     </div>
     <figure class="exhibit-fig">
-      <div class="hang" id="hang"><div class="shadow" aria-hidden="true"></div><div class="frame"><div class="mat"><img src="img/andrea.jpg" width="640" height="619" alt="Portrait of Andrea Miglioranza in a white t-shirt"></div></div></div>
+      <div class="figure" id="hang"><div class="tilt"><picture><source srcset="img/andrea-cutout.webp" type="image/webp"><img src="img/andrea-cutout.png" width="501" height="585" alt="Andrea Miglioranza in a white t-shirt, smiling"></picture></div><span class="floor" aria-hidden="true"></span></div>
       <figcaption class="plaque"><b>Exhibit 001</b><span>Andrea Miglioranza</span><span>Portrait, 2026</span></figcaption>
     </figure>
   </div>
@@ -303,16 +304,16 @@ main{overflow-x:clip}
       <li><a href="#w-film" data-piece="w-film"><b>03</b>Cattelan film</a></li>
       <li><a href="#assistant"><b>04</b>Cattelan assistant</a></li>
     </ol></nav></aside>
-    <div><article class="piece" id="w-extillo" aria-labelledby="w-extillo-t">
+    <div><article class="piece" id="w-extillo" data-bg="oklch(31% .055 215)" data-theme="dark" aria-labelledby="w-extillo-t">
   <p class="status"><b>Shipped</b>2026</p>
-  <h3 id="w-extillo-t">Extillo Gin</h3>
-  <p class="sub">Scroll-film website for an Italian craft gin</p>
+  <h3 id="w-extillo-t" data-words>Extillo Gin</h3>
+  <p class="sub" data-words>Scroll-film website for an Italian craft gin</p>
   <div class="screen"><div class="stage" data-w="1280" data-h="800"><iframe src="extillo/index.html" title="Extillo Salted Gin website, interactive" loading="lazy"></iframe></div></div>
   <div class="cols">
-    <div><p class="desc">One continuous shot, driven by your scroll: from Lake Iseo to the salt pans of Puglia and into the glass, ending on the real bottle and the buy button.</p>
+    <div><p class="desc" data-words>One continuous shot, driven by your scroll: from Lake Iseo to the salt pans of Puglia and into the glass, ending on the real bottle and the buy button.</p>
       <div class="gave"><p>What it took</p><ul><li>Art direction</li><li>Image-to-video</li><li>Scroll engines</li><li>Claude Code</li></ul></div>
       <div class="links"><a class="btn" href="extillo/index.html" target="_blank" rel="noopener">Open the site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
-    <dl class="facts"><div><dt>Concept</dt><dd>Three proposals, stress-tested before choosing one. Palette and tone taken from the bottle label.</dd></div><div><dt>Images</dt><dd>Key frames generated in sequence, each from the one before, so light and colour stay consistent.</dd></div><div><dt>Film</dt><dd>Six chained image-to-video clips, 25 seconds in 1080p. Every seam measured, not just looked at.</dd></div><div><dt>Website</dt><dd>601 frames on canvas, text on cue, purchase section and a mobile version, at 60 fps.</dd></div></dl>
+    <dl class="facts"><div><dt>Concept</dt><dd data-words>Three proposals, stress-tested before choosing one. Palette and tone taken from the bottle label.</dd></div><div><dt>Images</dt><dd data-words>Key frames generated in sequence, each from the one before, so light and colour stay consistent.</dd></div><div><dt>Film</dt><dd data-words>Six chained image-to-video clips, 25 seconds in 1080p. Every seam measured, not just looked at.</dd></div><div><dt>Website</dt><dd data-words>601 frames on canvas, text on cue, purchase section and a mobile version, at 60 fps.</dd></div></dl>
   </div>
   <details class="making"><summary>How I made it</summary><div>
       
@@ -363,16 +364,16 @@ main{overflow-x:clip}
       </div>
     
       </div></details>
-</article><article class="piece" id="w-pop" aria-labelledby="w-pop-t">
+</article><article class="piece" id="w-pop" data-bg="oklch(30% .11 350)" data-theme="dark" aria-labelledby="w-pop-t">
   <p class="status"><b>Shipped</b>2026</p>
-  <h3 id="w-pop-t">POP Energy and MIXCRAFT</h3>
-  <p class="sub">Two scroll-film websites for invented products</p>
+  <h3 id="w-pop-t" data-words>POP Energy and MIXCRAFT</h3>
+  <p class="sub" data-words>Two scroll-film websites for invented products</p>
   <div class="screen"><div class="stage" data-w="1280" data-h="800"><iframe src="scroll-film/index.html" title="POP Energy and MIXCRAFT websites, interactive" loading="lazy"></iframe></div></div>
   <div class="cols">
-    <div><p class="desc">The same format in two opposite worlds: a pop-art energy drink can and a luxury cocktail kit in black and copper. Each page is one shot that arrives at the real product.</p>
+    <div><p class="desc" data-words>The same format in two opposite worlds: a pop-art energy drink can and a luxury cocktail kit in black and copper. Each page is one shot that arrives at the real product.</p>
       <div class="gave"><p>What it took</p><ul><li>Storyboarding</li><li>Product films</li><li>Performance testing</li><li>FFmpeg</li></ul></div>
       <div class="links"><a class="btn" href="scroll-film/index.html" target="_blank" rel="noopener">Open the sites <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
-    <dl class="facts"><div><dt>Storyboard</dt><dd>One camera move per film, checked before generating, so no credits go into the wrong direction.</dd></div><div><dt>Key frames</dt><dd>Five for POP, six for MIXCRAFT, corrected one by one: realer fruit and ice, no hands in frame.</dd></div><div><dt>Film</dt><dd>Nine chained clips, 36 seconds in 1080p. Where the camera stalled at the end of a clip, I cut it.</dd></div><div><dt>Website</dt><dd>854 frames driven by scroll, slowest frame under 50 ms, and a diagonal transition between the two worlds.</dd></div></dl>
+    <dl class="facts"><div><dt>Storyboard</dt><dd data-words>One camera move per film, checked before generating, so no credits go into the wrong direction.</dd></div><div><dt>Key frames</dt><dd data-words>Five for POP, six for MIXCRAFT, corrected one by one: realer fruit and ice, no hands in frame.</dd></div><div><dt>Film</dt><dd data-words>Nine chained clips, 36 seconds in 1080p. Where the camera stalled at the end of a clip, I cut it.</dd></div><div><dt>Website</dt><dd data-words>854 frames driven by scroll, slowest frame under 50 ms, and a diagonal transition between the two worlds.</dd></div></dl>
   </div>
   <details class="making"><summary>How I made it</summary><div>
       
@@ -417,16 +418,16 @@ main{overflow-x:clip}
         </div>
       </section>
     </div></details>
-</article><article class="piece" id="w-film" aria-labelledby="w-film-t">
+</article><article class="piece" id="w-film" data-bg="oklch(22% .025 60)" data-theme="dark" aria-labelledby="w-film-t">
   <p class="status"><b>Shipped</b>2026, a proposal by Miglioranza Studio</p>
-  <h3 id="w-film-t">Cattelan Italia</h3>
-  <p class="sub">A 22-second sales pitch for a printed catalogue</p>
+  <h3 id="w-film-t" data-words>Cattelan Italia</h3>
+  <p class="sub" data-words>A 22-second sales pitch for a printed catalogue</p>
   <div class="screen"><div class="stage film"><video src="cattelan/spot-cattelan-1080p.mp4" poster="cattelan/poster.jpg" controls playsinline preload="metadata" aria-label="Sales pitch video for Cattelan Italia, 22 seconds"></video></div></div>
   <div class="cols">
-    <div><p class="desc">A B2B pitch that offers a design furniture brand its next printed catalogue. Their real 10_2026 Collection falls into a spotlight and turns its own pages, while research on print appears beside it.</p>
+    <div><p class="desc" data-words>A B2B pitch that offers a design furniture brand its next printed catalogue. Their real 10_2026 Collection falls into a spotlight and turns its own pages, while research on print appears beside it.</p>
       <div class="gave"><p>What it took</p><ul><li>Copywriting</li><li>Motion design</li><li>Sound design</li><li>B2B sales</li></ul></div>
       <div class="links"><a class="btn" href="cattelan/spot-cattelan-1080p.mp4" target="_blank" rel="noopener">Watch full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div></div>
-    <dl class="facts"><div><dt>Research</dt><dd>Which sectors catalogues really sell in, and two published studies whose numbers hold up.</dd></div><div><dt>Storyboard</dt><dd>Key frames drawn with the same code as the film. Two earlier directions dropped.</dd></div><div><dt>Animation</dt><dd>Every frame drawn in code as a function of time, with the catalogue’s own pages turning.</dd></div><div><dt>Sound</dt><dd>Page turns, ticks and a warm pulse, synthesised and placed on the exact frame. 660 frames in 1080p.</dd></div></dl>
+    <dl class="facts"><div><dt>Research</dt><dd data-words>Which sectors catalogues really sell in, and two published studies whose numbers hold up.</dd></div><div><dt>Storyboard</dt><dd data-words>Key frames drawn with the same code as the film. Two earlier directions dropped.</dd></div><div><dt>Animation</dt><dd data-words>Every frame drawn in code as a function of time, with the catalogue’s own pages turning.</dd></div><div><dt>Sound</dt><dd data-words>Page turns, ticks and a warm pulse, synthesised and placed on the exact frame. 660 frames in 1080p.</dd></div></dl>
   </div>
   <details class="making"><summary>How I made it</summary><div>
       
@@ -473,14 +474,14 @@ main{overflow-x:clip}
   </div>
 </div></section>
 
-<section class="room" id="assistant" data-theme="dark" aria-labelledby="assistant-h"><div class="wrap">
+<section class="room" id="assistant" data-theme="dark" data-bg="oklch(13% .004 262)" aria-labelledby="assistant-h"><div class="wrap">
   <div class="spot"><div class="in"><small>Exhibit 004, for Cattelan Italia</small><strong>50/50</strong><p>questions answered <span>by a showroom assistant with no AI inside</span></p></div></div>
   <div class="talk">
     <div class="screen"><div class="stage" data-w="1280" data-h="800" data-native="1"><iframe id="bot" src="assistente/index.html" title="Showroom assistant for Cattelan Italia, interactive demo" loading="lazy"></iframe></div></div>
     <div>
       <p class="status"><b>Shipped</b>2026, demo concept by Miglioranza Studio</p>
-      <h2 id="assistant-h" style="margin:0;font-size:clamp(36px,4vw,60px);line-height:1;font-weight:620;letter-spacing:-.04em">Can a catalogue talk?</h2>
-      <p class="sub" style="margin:14px 0 0;color:var(--muted);font-size:18px">A chat that knows all 49 products of the 10_2026 Collection, recommends for a room, a colour or a number of guests, and collects leads for a consultant. It speaks Italian. Try one:</p>
+      <h2 id="assistant-h" data-words style="margin:0;font-size:clamp(36px,4vw,60px);line-height:1;font-weight:620;letter-spacing:-.04em">Can a catalogue talk?</h2>
+      <p class="sub" data-words style="margin:14px 0 0;color:var(--muted);font-size:18px">A chat that knows all 49 products of the 10_2026 Collection, recommends for a room, a colour or a number of guests, and collects leads for a consultant. It speaks Italian. Try one:</p>
       <ul class="samples"><li><button type="button" data-ask="Il tavolo più grande che avete?">Il tavolo più grande che avete?<span>Biggest table, indoors and out</span></button></li><li><button type="button" data-ask="Ho gli interni rossi, mi serve un tavolo per la cucina">Ho gli interni rossi, mi serve un tavolo per la cucina<span>Room and colour, with a reason for each pick</span></button></li><li><button type="button" data-ask="Che sedie stanno bene con il Gotham?">Che sedie stanno bene con il Gotham?<span>Chairs that share the table’s finish</span></button></li><li><button type="button" data-ask="Fate cucine?">Fate cucine?<span>Says no, and points to what fits</span></button></li></ul>
       <div class="links"><a class="btn" href="assistente/index.html" target="_blank" rel="noopener">Open full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
     </div>
@@ -506,22 +507,22 @@ main{overflow-x:clip}
 <section class="room" id="path" data-theme="light" aria-labelledby="path-h"><div class="wrap">
   <div class="door"><h2 id="path-h" data-words>How did I get here?</h2></div>
   <ol class="path">
-    <li><time>2021 – 2025</time><div><h3>H-FARM International School</h3><p>International Baccalaureate diploma</p></div></li>
-    <li><time>2025 – now</time><div><h3>H-FARM College</h3><p>Business Creation &amp; Entrepreneurship, with a certification in Agile Project Management</p><span class="tag">In progress</span></div></li>
-    <li><time>May 2026 – now</time><div><h3>SDG Group</h3><p>Field Operations Assistant</p></div></li>
-    <li><time>2026</time><div><h3>This portfolio</h3><p>Four works made with AI, and two new ones every month.</p><span class="tag">Growing</span></div></li>
+    <li><time>2021 – 2025</time><div><h3 data-words>H-FARM International School</h3><p data-words>International Baccalaureate diploma</p></div></li>
+    <li><time>2025 – now</time><div><h3 data-words>H-FARM College</h3><p data-words>Business Creation &amp; Entrepreneurship, with a certification in Agile Project Management</p><span class="tag">In progress</span></div></li>
+    <li><time>May 2026 – now</time><div><h3 data-words>SDG Group</h3><p data-words>Field Operations Assistant</p></div></li>
+    <li><time>2026</time><div><h3 data-words>This portfolio</h3><p data-words>Four works made with AI, and two new ones every month.</p><span class="tag">Growing</span></div></li>
   </ol>
 </div></section>
 
 <section class="room" id="tools" data-theme="light" aria-labelledby="tools-h"><div class="wrap">
   <div class="door"><h2 id="tools-h" data-words>What do I make it with?</h2></div>
   <div class="tools">
-    <div class="tool"><h3>Ideas and code</h3><p>Concept, copy, research and every line of the sites.</p><ul><li>Claude</li><li>Claude Code</li><li>ChatGPT</li></ul></div>
-    <div class="tool"><h3>Images</h3><p>Key frames and product shots.</p><ul><li>Nano Banana</li><li>Nano Banana Pro</li></ul></div>
-    <div class="tool"><h3>Film</h3><p>Image-to-video, ads and the final cut.</p><ul><li>Seedance 2.0</li><li>Higgsfield</li><li>FFmpeg</li></ul></div>
-    <div class="tool"><h3>Sound</h3><p>Synthesised in code, or licensed.</p><ul><li>Web Audio</li><li>Artlist</li></ul></div>
-    <div class="tool"><h3>Web</h3><p>Scroll engines, animation, interfaces.</p><ul><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Canvas</li></ul></div>
-    <div class="tool"><h3>Method</h3><p>How the work gets planned and shipped.</p><ul><li>Agile Project Management</li><li>Storyboards</li><li>Automatic tests</li></ul></div>
+    <div class="tool"><h3 data-words>Ideas and code</h3><p data-words>Concept, copy, research and every line of the sites.</p><ul><li>Claude</li><li>Claude Code</li><li>ChatGPT</li></ul></div>
+    <div class="tool"><h3 data-words>Images</h3><p data-words>Key frames and product shots.</p><ul><li>Nano Banana</li><li>Nano Banana Pro</li></ul></div>
+    <div class="tool"><h3 data-words>Film</h3><p data-words>Image-to-video, ads and the final cut.</p><ul><li>Seedance 2.0</li><li>Higgsfield</li><li>FFmpeg</li></ul></div>
+    <div class="tool"><h3 data-words>Sound</h3><p data-words>Synthesised in code, or licensed.</p><ul><li>Web Audio</li><li>Artlist</li></ul></div>
+    <div class="tool"><h3 data-words>Web</h3><p data-words>Scroll engines, animation, interfaces.</p><ul><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Canvas</li></ul></div>
+    <div class="tool"><h3 data-words>Method</h3><p data-words>How the work gets planned and shipped.</p><ul><li>Agile Project Management</li><li>Storyboards</li><li>Automatic tests</li></ul></div>
   </div>
 </div></section>
 
@@ -533,11 +534,11 @@ main{overflow-x:clip}
   </ol></div>
   <div class="desk">
     <div>
-      <h2 id="card-h">Take a card on your way out</h2>
+      <h2 id="card-h" data-words>Take a card on your way out</h2>
       <button type="button" class="card" id="bcard" aria-pressed="false" aria-label="Andrea Miglioranza, business card. Press to turn it over">
         <span class="in">
           <span class="face front">
-            <span class="row"><span><strong>Andrea<br>Miglioranza</strong><em>Marketing, websites, video and art direction, made with AI</em></span><img src="img/andrea.jpg" alt=""></span>
+            <span class="row"><span><strong>Andrea<br>Miglioranza</strong><em>Marketing, websites, video and art direction, made with AI</em></span><img src="img/andrea-cutout.webp" alt=""></span>
             <ul><li>H-FARM College <span>Business student</span></li><li>SDG Group <span>Field Operations</span></li><li>andreamiglioranza0711@gmail.com <span>Email</span></li></ul>
           </span>
           <span class="face back"><span>Treviso, Italy</span><strong>Andrea</strong><span>Portfolio 2026</span></span>
@@ -550,7 +551,7 @@ main{overflow-x:clip}
         <a class="btn" href="https://www.linkedin.com/in/andreamiglioranza" target="_blank" rel="noopener">Connect on LinkedIn <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
         <button type="button" class="btn ghost" id="copy">Copy email</button>
       </div>
-      <p class="note">Working on a brand, a launch or a product page? I’m always up for a chat.</p>
+      <p class="note" data-words>Working on a brand, a launch or a product page? I’m always up for a chat.</p>
     </div>
   </div>
 </div></section>
@@ -567,31 +568,33 @@ main{overflow-x:clip}
     el.innerHTML = label.split(/\s+/).map(function(w){ return '<span class="w" aria-hidden="true">' + w + '</span>'; }).join(' ');
     if (small) el.appendChild(small);
   });
-  var groups = [].slice.call(document.querySelectorAll('[data-words]'));
+  var groups = [].slice.call(document.querySelectorAll('[data-words]')).map(function(el){ return { el: el, ws: [].slice.call(el.querySelectorAll('.w')), last: -1, door: !!el.closest('.door') }; });
   function reveal(){
     var vh = innerHeight;
-    groups.forEach(function(el){
-      var r = el.getBoundingClientRect(), ws = el.querySelectorAll('.w'), n = ws.length;
-      var isDoor = el.closest('.door');
-      // doors fill in as they rise to the middle; statements fill in as they cross the lower half
-      var start = isDoor ? vh * .95 : vh * .9, end = isDoor ? vh * .45 : vh * .35;
-      var p = reduce ? 1 : Math.min(1, Math.max(0, (start - (r.top + r.height / 2)) / (start - end)));
-      for (var i = 0; i < n; i++) { var o = Math.min(1, Math.max(isDoor ? 0 : .0, p * n - i)); ws[i].style.setProperty('--o', isDoor ? o : o); }
+    groups.forEach(function(g){
+      var r = g.el.getBoundingClientRect(), n = g.ws.length, p;
+      if (reduce) p = 1;
+      else if (g.door) p = (vh * .95 - (r.top + r.height / 2)) / (vh * .5);          // big titles fill in as they rise to the middle
+      else p = (vh * .92 - r.top) / (vh * .92 - vh * .58 + r.height);                // text appears from its first line to its last
+      p = Math.min(1, Math.max(0, p));
+      if (Math.abs(p - g.last) < .002) return; g.last = p;
+      var span = 3, t = p * (n + span);
+      for (var i = 0; i < n; i++) g.ws[i].style.setProperty('--o', Math.min(1, Math.max(0, (t - i) / span)).toFixed(3));
     });
-    document.querySelectorAll('.path li').forEach(function(li){ var r = li.getBoundingClientRect(); li.style.setProperty('--o', reduce ? 1 : (r.top < vh * .8 ? 1 : .25)); });
   }
 
-  // which room are we in: theme, rail, "in this room"
+  // which room, which project: colours, rail, "in this room"
   var rooms = [].slice.call(document.querySelectorAll('.room'));
   var rail = {}; document.querySelectorAll('.rail a').forEach(function(a){ rail[a.dataset.room] = a; });
   var pieces = [].slice.call(document.querySelectorAll('.piece')), inroom = {}; document.querySelectorAll('.inroom a[data-piece]').forEach(function(a){ inroom[a.dataset.piece] = a; });
-  var current = null;
+  var SNOW = 'oklch(98.5% .001 262)', meta = document.querySelector('meta[name=theme-color]'), shownBg = null, shownRoom = null;
   function track(){
     var mid = innerHeight * .5, here = rooms[0];
     rooms.forEach(function(r){ if (r.getBoundingClientRect().top <= mid) here = r; });
-    if (here !== current) { current = here; document.body.classList.toggle('dark', here.dataset.theme === 'dark');
-      Object.keys(rail).forEach(function(k){ rail[k].setAttribute('aria-current', k === here.id ? 'true' : 'false'); }); }
-    var hp = null; pieces.forEach(function(p){ if (p.getBoundingClientRect().top <= mid) hp = p; });
+    var hp = null; if (here.id === 'work') pieces.forEach(function(p){ var r = p.getBoundingClientRect(); if (r.top <= mid && r.bottom > mid * .4) hp = p; });
+    var src = hp || here, bg = src.dataset.bg || SNOW, dark = src.dataset.theme === 'dark';
+    if (bg !== shownBg) { shownBg = bg; document.body.style.setProperty('--bg', bg); document.body.classList.toggle('dark', dark); if (meta) meta.content = dark ? '#16161a' : '#fafafa'; }
+    if (here !== shownRoom) { shownRoom = here; Object.keys(rail).forEach(function(k){ rail[k].setAttribute('aria-current', k === here.id ? 'true' : 'false'); }); }
     Object.keys(inroom).forEach(function(k){ inroom[k].setAttribute('aria-current', hp && k === hp.id ? 'true' : 'false'); });
   }
   var ticking = false;
@@ -610,7 +613,7 @@ main{overflow-x:clip}
     el.addEventListener('pointermove', function(e){ var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
       target.style.setProperty('--ry', (x * max) + 'deg'); target.style.setProperty('--rx', (-y * max) + 'deg'); });
     el.addEventListener('pointerleave', function(){ target.style.removeProperty('--ry'); target.style.removeProperty('--rx'); }); }
-  var hang = document.getElementById('hang'); tilt(hang, hang.querySelector('.frame'), 16);
+  var hang = document.getElementById('hang'); tilt(hang, hang.querySelector('.tilt'), 10);
   var card = document.getElementById('bcard'); tilt(card, card, 14);
   card.addEventListener('click', function(){ var f = card.classList.toggle('flipped'); card.setAttribute('aria-pressed', f); });
 
