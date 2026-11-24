@@ -3,6 +3,7 @@
 <title>Andrea Miglioranza, an exhibition in seven rooms</title>
 <meta name="description" content="Portfolio of Andrea Miglioranza, a business student who makes marketing with AI: scroll-film websites for Extillo Gin, POP Energy and MIXCRAFT, a sales pitch video and a showroom assistant for Cattelan Italia.">
 <meta name="theme-color" content="#fafafa">
+<link rel="alternate" hreflang="en" href="/"><link rel="alternate" hreflang="it" href="/it/"><link rel="alternate" hreflang="x-default" href="/">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&display=swap">
 <style>
@@ -29,6 +30,15 @@ button{font:inherit;color:inherit}
 .top>*{pointer-events:auto}
 .pill{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:4px 16px 4px 4px;font-weight:600;font-size:15px;text-decoration:none;background:color-mix(in oklch,var(--bg) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 1px var(--line),0 6px 24px -14px rgba(0,0,0,.35)}
 .pill img{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:50% 8%;background:oklch(92% .01 262)}
+.tr{display:flex;gap:8px;align-items:center}
+.lang{padding:3px;gap:2px}
+.lang a{text-decoration:none;padding:6px 11px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--muted);transition:background .25s,color .25s}
+.lang a[aria-current="true"]{background:var(--fg);color:var(--bg)}
+.lang a:hover{color:var(--fg)}
+.suggest{position:fixed;left:50%;top:70px;transform:translate(-50%,-12px);opacity:0;z-index:60;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--snow);border-radius:999px;padding:6px 6px 6px 16px;font-size:14px;box-shadow:0 20px 40px -20px rgba(0,0,0,.5);transition:opacity .4s,transform .4s;pointer-events:none;white-space:nowrap}
+.suggest.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.suggest a{background:var(--snow);color:var(--ink);text-decoration:none;font-weight:600;border-radius:999px;padding:6px 12px}
+.suggest button{background:none;border:0;color:oklch(76% .003 262);cursor:pointer;padding:6px 8px;font-size:13.5px}
 .hurry{border:0;cursor:pointer;padding:9px 16px 9px 14px;background:var(--fg);color:var(--bg);gap:9px}
 .hurry i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in oklch,var(--accent) 30%,transparent)}
 
@@ -93,8 +103,10 @@ main{overflow-x:clip}
 
 /* Room 2: statements that light up word by word */
 .say{padding:2vh 0 6vh;display:grid;gap:clamp(36px,7vh,80px)}
-.say p{margin:0;font-size:clamp(40px,6.6vw,104px);line-height:1;font-weight:600;letter-spacing:-.035em;max-width:11ch}
-.say p:nth-child(2){justify-self:end;text-align:right}
+.say p{margin:0;font-size:clamp(38px,6vw,96px);line-height:1;font-weight:600;letter-spacing:-.035em;max-width:13ch}
+.say p:nth-child(even){justify-self:end;text-align:right}
+.after-say{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 30px;text-decoration:none;border-top:1px solid var(--line);padding:clamp(24px,4vh,40px) 0 clamp(20px,4vh,40px)}
+.after-say>span{font-size:clamp(22px,2.4vw,34px);line-height:1.15;font-weight:600;letter-spacing:-.025em;max-width:30ch}
 .say p small{display:block;margin-top:18px;font-size:16px;font-weight:450;letter-spacing:0;line-height:1.5;color:var(--muted);max-width:34ch;margin-left:auto;margin-right:0}
 .say p:nth-child(odd) small{margin-left:0}
 
@@ -254,11 +266,13 @@ main{overflow-x:clip}
 }
 @media (max-width:600px){
   body{font-size:16px}
+  .hurry{padding:9px 12px}.hurry .long{display:none}
+  .suggest{white-space:normal;width:calc(100% - 28px);border-radius:16px}
   .pill .name-long{display:none}
   .tools{grid-template-columns:1fr}.steps{grid-template-columns:1fr}
   .frames{grid-auto-columns:80%}.duo{grid-template-columns:1fr}
   .lines li{grid-template-columns:34px minmax(0,1fr)}
-  .say p:nth-child(2){justify-self:start;text-align:left}.say p small{margin-left:0}
+  .say p:nth-child(even){justify-self:start;text-align:left}.say p small{margin-left:0}
 }
 @media (prefers-reduced-motion:reduce){
   body,.card .in,.frame{transition:none}
@@ -269,13 +283,14 @@ main{overflow-x:clip}
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <a class="pill" href="#card"><img src="img/andrea-cutout.webp" alt=""><span>Andrea<span class="name-long"> Miglioranza</span></span></a>
-  <button type="button" class="pill hurry" id="hurry" aria-haspopup="dialog" aria-controls="index"><i></i>In a hurry?</button>
+  <div class="tr"><nav class="pill lang" aria-label="Language"><a href="/" lang="en" hreflang="en" aria-current="true">EN</a><a href="/it/" lang="it" hreflang="it">IT</a></nav>
+  <button type="button" class="pill hurry" id="hurry" aria-haspopup="dialog" aria-controls="index"><i></i>In a hurry?</button></div>
 </header>
-<nav class="rail" aria-label="Rooms"><ol><li><a href="#hello" data-room="hello"><span><b>01</b>Hello</span></a></li><li><a href="#approach" data-room="approach"><span><b>02</b>Approach</span></a></li><li><a href="#work" data-room="work"><span><b>03</b>Work</span></a></li><li><a href="#assistant" data-room="assistant"><span><b>04</b>Assistant</span></a></li><li><a href="#path" data-room="path"><span><b>05</b>Path</span></a></li><li><a href="#tools" data-room="tools"><span><b>06</b>Tools</span></a></li><li><a href="#card" data-room="card"><span><b>07</b>Card</span></a></li></ol></nav>
+<nav class="rail" aria-label="Rooms"><ol><li><a href="#hello" data-room="hello"><span><b>01</b>Hello</span></a></li><li><a href="#approach" data-room="approach"><span><b>02</b>Passions</span></a></li><li><a href="#work" data-room="work"><span><b>03</b>Work</span></a></li><li><a href="#assistant" data-room="assistant"><span><b>04</b>Assistant</span></a></li><li><a href="#path" data-room="path"><span><b>05</b>Path</span></a></li><li><a href="#tools" data-room="tools"><span><b>06</b>Tools</span></a></li><li><a href="#card" data-room="card"><span><b>07</b>Card</span></a></li></ol></nav>
 <div class="index" id="index" role="dialog" aria-modal="true" aria-labelledby="index-h"><div class="sheet">
   <button type="button" class="x" id="index-x">Close</button>
   <h2 id="index-h">In a hurry?</h2><p>Seven rooms. Jump to the one you need.</p>
-  <ol><li><a href="#hello"><b>01</b><span>Hello<small>Who I am and what I do now</small></span></a></li><li><a href="#approach"><b>02</b><span>Approach<small>Three rules behind every work</small></span></a></li><li><a href="#work"><b>03</b><span>Work<small>Three websites and a film</small></span></a></li><li><a href="#assistant"><b>04</b><span>Assistant<small>Part 2 of the Cattelan proposal, live</small></span></a></li><li><a href="#path"><b>05</b><span>Path<small>School, college, work</small></span></a></li><li><a href="#tools"><b>06</b><span>Tools<small>What I make things with</small></span></a></li><li><a href="#card"><b>07</b><span>Card<small>Contacts, and a card to take</small></span></a></li></ol>
+  <ol><li><a href="#hello"><b>01</b><span>Hello<small>Who I am and what I do now</small></span></a></li><li><a href="#approach"><b>02</b><span>Passions<small>AI, marketing, films and automations</small></span></a></li><li><a href="#work"><b>03</b><span>Work<small>Three websites and a film</small></span></a></li><li><a href="#assistant"><b>04</b><span>Assistant<small>Part 2 of the Cattelan proposal, live</small></span></a></li><li><a href="#path"><b>05</b><span>Path<small>School, college, work</small></span></a></li><li><a href="#tools"><b>06</b><span>Tools<small>What I make things with</small></span></a></li><li><a href="#card"><b>07</b><span>Card<small>Contacts, and a card to take</small></span></a></li></ol>
 </div></div>
 <main id="main">
 
@@ -299,12 +314,14 @@ main{overflow-x:clip}
 </div></section>
 
 <section class="room" id="approach" data-theme="light" aria-labelledby="approach-h"><div class="wrap">
-  <div class="door"><h2 id="approach-h" data-words>how do I work?</h2></div>
+  <div class="door"><h2 id="approach-h" data-words>what drives me?</h2></div>
   <div class="say">
-    <p data-words>storyboard before generating<small>Every film is drawn and approved as key frames before a single clip is made, so nothing is spent on the wrong direction.</small></p>
-    <p data-words>measure, don’t eyeball<small>Seams between clips, scroll speed, the answers of an assistant: checked with numbers, not by looking once.</small></p>
-    <p data-words>only numbers that hold up<small>Statistics from published studies, sizes from the catalogue drawings. If a figure can’t be checked, it stays out.</small></p>
+    <p data-words>AI, the day it comes out<small>I follow what happens in AI every day, and when something new ships I try it straight away, to see what it can really do.</small></p>
+    <p data-words>marketing that makes people want things<small>The side I love most: turning a product into something people want, and then want to buy.</small></p>
+    <p data-words>films made with AI, or made better by it<small>Some are generated from the first frame to the last. Others start from real footage, and AI helps me polish, extend or finish them.</small></p>
+    <p data-words>automations that do the boring part<small>More and more, I build flows that take care of repetitive work, so the time goes into the ideas.</small></p>
   </div>
+  <a class="after-say" href="#work"><span data-words>In this exhibition you’ll find some of my projects: proof of what I can do with all of the above.</span><b class="btn">Walk into the work <span aria-hidden="true">↓</span></b></a>
 </div></section>
 
 <section class="room" id="work" data-theme="light" aria-labelledby="work-h"><div class="wrap">
@@ -583,8 +600,10 @@ main{overflow-x:clip}
 </main>
 <footer class="foot"><div><b>Thanks for visiting.</b>That’s the whole exhibition, for now.</div><div>© 2026 Andrea Miglioranza<br><a href="#hello">Back to the entrance</a></div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="suggest" id="suggest" role="region" aria-label="Questo sito è anche in italiano">Questo sito è anche in italiano.<a href="/it/" lang="it">Passa all’italiano</a><button type="button" id="suggest-x">No, grazie</button></div>
 <script>
 (function(){
+  var SITE_LANG = 'en';
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // split marked text into words for the scroll reveal (screen readers still read the plain text)
   document.querySelectorAll('[data-words]').forEach(function(el){
@@ -655,6 +674,17 @@ main{overflow-x:clip}
   function say(t){ toast.textContent = t; toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(function(){ toast.classList.remove('on'); }, 1800); }
   document.getElementById('copy').addEventListener('click', function(){ var m = 'andreamiglioranza0711@gmail.com';
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(m).then(function(){ say('Email copied'); }, function(){ say(m); }); else say(m); });
+
+  // an Italian visitor on the English page gets a one-time offer to switch
+  (function(){ var box = document.getElementById('suggest'); if (!box) return;
+    var seen = null; try { seen = localStorage.getItem('lang-choice'); } catch (e) {}
+    function remember(v){ try { localStorage.setItem('lang-choice', v); } catch (e) {} }
+    document.querySelectorAll('.lang a').forEach(function(a){ a.addEventListener('click', function(){ remember(a.getAttribute('lang')); }); });
+    if (SITE_LANG !== 'en' || seen || !/^it\b/i.test(navigator.language || '')) return;
+    setTimeout(function(){ box.classList.add('on'); }, 900);
+    document.getElementById('suggest-x').addEventListener('click', function(){ box.classList.remove('on'); remember('en'); });
+    box.querySelector('a').addEventListener('click', function(){ remember('it'); });
+  })();
 
   // sample questions are typed into the live assistant
   var bot = document.getElementById('bot');
