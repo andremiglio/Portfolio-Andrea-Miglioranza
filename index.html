@@ -1,223 +1,203 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Andrea Miglioranza Portfolio</title><meta name="claude:viewport-fit-sides" content="cover"><meta name="description" content="Portfolio of Andrea Miglioranza: marketing, websites, video, images and art direction. Projects: Extillo Salted Gin, POP Energy and MIXCRAFT scroll-film websites, and a sales pitch video for Cattelan Italia."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Instrument+Sans:wght@400;500;600&display=swap"><style>
-/* Direction: studio. Beige background, all text in Rolex green, serif lettering, one project per section: title and site. */
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Andrea Miglioranza, a portfolio you can walk through</title>
+<meta name="description" content="Portfolio of Andrea Miglioranza, laid out as a small exhibition in nine rooms: scroll-film websites for Extillo Gin, POP Energy and MIXCRAFT, a sales pitch video and a showroom assistant for Cattelan Italia.">
+<meta name="theme-color" content="#E9EAE5">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Archivo:wdth,wght@75..125,300..700&display=swap">
+<style>
 :root{
-  --bg:#EDE4D3; --surface:#F6F0E4; --fg:#006039; --muted:#2F6B50; --line:#CFC3AA; --gold:#9A7B3F; --btn:#006039; --btn-fg:#F3ECDD;
-  color-scheme:light;
-  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif; --text:"Instrument Sans",system-ui,-apple-system,sans-serif;
+  --plaster:#E9EAE5;      /* lobby walls: cool gallery white */
+  --ink:#1B1D1B;
+  --brass:#A9824A;        /* the one accent: label rails, the "you are here" mark */
+  --paper:#FBFBF8;        /* wall labels */
+  --wall:var(--plaster); --fg:var(--ink); --soft:rgba(27,29,27,.62); --line:rgba(27,29,27,.16);
+  --serif:"Bodoni Moda",Didot,"Bodoni 72",serif; --sans:"Archivo",system-ui,sans-serif;
+  --rail:212px;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--text);font-size:17px;line-height:1.65;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));-webkit-font-smoothing:antialiased;overflow-x:clip}
-img{display:block;max-width:100%;height:auto}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--wall);color:var(--fg);font:400 17px/1.55 var(--sans);font-variation-settings:"wdth" 96;transition:background-color .9s ease,color .9s ease}
+body.dark{--fg:#EDEDE6;--soft:rgba(237,237,230,.66);--line:rgba(237,237,230,.2)}
 a{color:inherit}
-:focus-visible{outline:2px solid var(--fg);outline-offset:3px;border-radius:3px}
-.wrap{max-width:1120px;margin:0 auto}
+img,video{display:block;max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--paper);color:var(--ink);padding:8px 12px;z-index:50}
+.skip:focus{left:8px}
 
-header.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:24px;border-bottom:1px solid var(--line);font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
-header.top a{text-decoration:none}
-header.top a:hover{text-decoration:underline;text-underline-offset:4px}
+/* ---------- floor plan (desktop rail) ---------- */
+.plan{position:fixed;inset:0 auto 0 0;width:var(--rail);padding:34px 22px;display:flex;flex-direction:column;gap:22px;z-index:20}
+.plan .who{font:500 15px/1.25 var(--serif);text-decoration:none}
+.plan .who span{display:block;font:400 13px/1.4 var(--sans);color:var(--soft);margin-top:4px}
+.plan h2{font:500 13px/1 var(--sans);color:var(--soft);margin:12px 0 0;letter-spacing:.01em}
+.plan ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.plan a.r{position:relative;display:grid;grid-template-columns:22px 1fr;gap:6px;align-items:baseline;padding:5px 0;text-decoration:none;font-size:14px;color:var(--soft);transition:color .3s}
+.plan a.r b{font:500 12px/1 var(--sans);font-variant-numeric:tabular-nums}
+.plan a.r:hover,.plan a.r[aria-current="true"]{color:var(--fg)}
+.plan a.r[aria-current="true"] b{color:var(--brass)}
+.plan a.r[aria-current="true"]::before{content:"";position:absolute;left:-13px;top:50%;width:6px;height:6px;margin-top:-3px;background:var(--brass)}
+.plan .foot{margin-top:auto;font-size:12.5px;color:var(--soft)}
 
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);gap:clamp(20px,5vw,72px);align-items:end;padding-block:clamp(44px,8vw,104px) clamp(30px,5vw,56px)}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.55fr);gap:clamp(20px,5vw,72px);align-items:end}
-.hero-text{min-width:0}
-.portrait{margin:0;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--surface);aspect-ratio:10/9}
-.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
-.contacts{list-style:none;margin:clamp(22px,3vw,34px) 0 0;padding:0;display:grid;gap:10px}
-.contacts li{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;font-size:16px}
-.contacts span{width:5.6em;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-.contacts b{font-weight:500;overflow-wrap:anywhere}
-.contacts a{text-underline-offset:3px}
-.contacts button{font:inherit;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px;border:1px solid var(--fg);background:transparent;color:var(--fg);cursor:pointer}
-.contacts button:hover{background:var(--fg);color:var(--bg)}
-@media (max-width:860px){ .hero{grid-template-columns:minmax(0,1fr)} .portrait{max-width:360px;order:-1} .hero h1{white-space:normal;font-size:clamp(40px,12vw,64px)} }
-.hero h1{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(42px,6.4vw,88px);line-height:1;white-space:nowrap;letter-spacing:-.015em;text-wrap:balance;animation:fade .9s ease both}
-.hero .role{margin:clamp(14px,2vw,22px) 0 0;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(20px,2.4vw,30px);animation:fade .9s .12s ease both}
-.hero .rule{display:block;width:64px;height:2px;background:var(--gold);margin:clamp(20px,3vw,32px) 0 0;border:0}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-.proj{padding-block:clamp(36px,6vw,80px);border-top:1px solid var(--line)}
-.proj .idx{margin:0 0 14px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-.proj h2{margin:0;font-family:var(--serif);font-weight:600;font-size:clamp(38px,6.4vw,88px);line-height:1;letter-spacing:-.012em;text-wrap:balance;max-width:16ch}
-.proj .line{margin:clamp(14px,2vw,22px) 0 0;max-width:56ch;font-size:clamp(17px,1.6vw,20px);color:var(--muted)}
-.tags{display:flex;flex-wrap:wrap;gap:6px 18px;margin:16px 0 clamp(22px,3vw,34px);padding:0;list-style:none}
-.tags li{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
-.device{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--surface);box-shadow:0 30px 70px -42px rgba(0,60,35,.55)}
-.device .bar{display:flex;align-items:center;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
-.device .bar i{width:9px;height:9px;border-radius:50%;background:var(--line)}
-.device .bar span{margin-left:10px}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;background:var(--btn);color:var(--btn-fg);font-weight:600;font-size:14px;letter-spacing:.04em;text-decoration:none;transition:opacity .2s}
-.btn:hover{opacity:.88}
-.btn svg{width:17px;height:17px}
-.slot{display:grid;place-items:center;min-height:clamp(220px,34vw,420px);border:1px dashed var(--fg);border-radius:10px;font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.4vw,28px);opacity:.7;text-align:center;padding:24px}
-.soon h2{opacity:.55}
-
-
-.vetrina{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(24px,4vw,56px);padding-block:clamp(26px,4vw,48px) clamp(8px,2vw,20px);border-top:1px solid var(--line);align-items:start}
-.proj{padding:0;border:0}
-.proj h2{font-size:clamp(30px,4.2vw,56px);max-width:none}
-.proj .line{margin-top:18px;font-size:16px}
-.tags{margin:12px 0 18px}
-.stage{position:relative;overflow:hidden;aspect-ratio:16/10;background:#8fb2c7}
-.stage iframe{position:absolute;left:0;top:0;width:1280px;height:800px;min-height:0;border:0;transform-origin:0 0;background:#8fb2c7}
-.device.ghost{box-shadow:none;border-style:dashed;background:transparent}
-.stage.slot{display:grid;place-items:center;background:transparent;font-family:var(--serif);font-style:italic;font-size:clamp(18px,2vw,24px);opacity:.75;text-align:center;padding:24px}
-.soon h2,.soon .line{opacity:.55}
-
-.sec-h{margin:0;padding-top:clamp(26px,4vw,48px);font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(34px,4.6vw,60px);line-height:1;border-top:1px solid var(--line)}
-.vetrina{border-top:0;padding-top:clamp(16px,2.4vw,28px)}
-.proj h2 em{font-style:italic;font-weight:500}
-.made{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
-.made-h{margin:0 0 10px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:22px}
-.made ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.made li{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr);gap:4px 16px;align-items:baseline;font-size:15px}
-.made li b{font-weight:600}
-.made li span{color:var(--muted)}
-.soon .made{opacity:.55}
-@media (max-width:520px){ .made li{grid-template-columns:minmax(0,1fr)} }
-details.more{margin-top:clamp(18px,3vw,36px)}
-@media (max-width:860px){ .vetrina{grid-template-columns:minmax(0,1fr)} }
-
-/* dettagli del progetto (chiusi di default) */
-details.more{margin-top:clamp(26px,4vw,44px);border-top:1px solid var(--line)}
-details.more summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 0;font-family:var(--serif);font-weight:600;font-size:clamp(24px,2.6vw,32px)}
-details.more summary::-webkit-details-marker{display:none}
-details.more summary::after{content:"+";font-family:var(--text);font-weight:400;font-size:28px;line-height:1}
-details.more[open] summary::after{content:"–"}
-.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,3vw,40px);padding-block:8px 24px}
-.meta dt{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.meta dd{margin:0;font-size:15px;font-weight:500}
-.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,2vw,24px);padding-block:clamp(20px,3vw,30px);border-block:1px solid var(--line)}
-.num b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(40px,5.4vw,70px);line-height:1;font-variant-numeric:lining-nums tabular-nums}
-.num span{display:block;margin-top:6px;font-size:14px;color:var(--muted)}
-.brief{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(24px,5vw,72px);margin-top:clamp(34px,5vw,64px)}
-.brief h3,.process h3,.strip h3{font-family:var(--serif);font-weight:600;font-size:clamp(28px,3.4vw,42px);line-height:1.05;margin:0}
-.brief p{margin:0 0 1em;max-width:58ch}
-.process,.strip{margin-top:clamp(36px,6vw,80px)}
-.steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2vw,28px);counter-reset:s}
-.steps li{counter-increment:s;border-top:1px solid var(--fg);padding-top:14px}
-.steps li::before{content:counter(s,decimal-leading-zero);display:block;font-family:var(--serif);font-weight:600;font-size:34px;line-height:1;color:var(--gold);margin-bottom:10px;font-variant-numeric:lining-nums}
-.steps h4{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.1;margin:0 0 6px}
-.steps p{margin:0;font-size:15px;color:var(--muted)}
-.strip p.cap{margin:10px 0 0;max-width:62ch;color:var(--muted);font-size:15px}
-.frames{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
-.frames figure{margin:0}
-.frames img{aspect-ratio:16/9;object-fit:cover;width:100%;border-radius:5px;border:1px solid var(--line)}
-.frames figcaption{font-size:13px;color:var(--muted);margin-top:6px}
-.shot{border-radius:8px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
-.duo{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:clamp(12px,2vw,24px);margin-top:clamp(36px,6vw,80px);align-items:start}
-.duo figure{margin:0}
-.duo figcaption{font-size:13px;color:var(--muted);margin-top:8px}
-
-footer.end{padding-block:26px 44px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
-footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(--fg)}
-
-@media (max-width:860px){
-  .brief{grid-template-columns:minmax(0,1fr)}
-  .meta,.nums,.steps,.frames{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .duo{grid-template-columns:minmax(0,1fr)}
-  .duo .mobile{max-width:260px}
+/* ---------- mobile "you are here" bar ---------- */
+.here{display:none}
+@media (max-width:980px){
+  :root{--rail:0px}
+  .plan{display:none}
+  .plan.open{display:flex;position:fixed;inset:0;width:auto;background:var(--wall);padding:76px 28px 28px;overflow:auto}
+  .plan.open a.r{font-size:20px;padding:9px 0}
+  .here{display:flex;position:sticky;top:0;z-index:30;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:var(--wall);border-bottom:1px solid var(--line);font-size:14px;transition:background-color .9s ease}
+  .here button{font:500 14px var(--sans);background:none;border:1px solid var(--line);color:inherit;padding:7px 12px;border-radius:999px;cursor:pointer}
 }
-@media (prefers-reduced-motion:reduce){ .hero h1,.hero .role{animation:none} .btn{transition:none} }
 
-/* Video project: 16:9 player inside the same device frame */
-.stage.film{aspect-ratio:16/9;background:#0e0e0e}
-.stage.film video{position:absolute;inset:0;width:100%;height:100%;display:block;background:#0e0e0e}
+/* ---------- rooms ---------- */
+main{margin-left:var(--rail)}
+.room{min-height:100vh;padding:clamp(56px,9vh,110px) clamp(20px,5vw,72px) clamp(64px,10vh,120px);max-width:1240px}
+.room-h{margin:0 0 clamp(28px,5vh,52px)}
+.room-h small{display:block;font:500 14px/1 var(--sans);color:var(--soft);margin-bottom:14px;font-variant-numeric:tabular-nums}
+.room-h h2{font:400 clamp(40px,6.2vw,92px)/.98 var(--serif);margin:0;letter-spacing:-.015em;max-width:14ch}
+.room-h p{max-width:56ch;color:var(--soft);margin:18px 0 0;font-size:18px}
 
-/* Align the two project cards row by row (title, tags, window, button, text) even when a title wraps to more lines */
-@media (min-width:861px){
-  .vetrina{row-gap:0}
-  .vetrina > .proj{display:grid;grid-template-rows:subgrid;grid-row:span 6;row-gap:0}
-}
-</style></head><body>
+/* Room 1: entrance */
+.entrance{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(28px,5vw,80px);align-items:center;min-height:calc(100vh - 180px)}
+.hung img{max-height:58vh;width:auto;margin:0 auto}
+.entrance h1{font:400 clamp(54px,8.2vw,140px)/.88 var(--serif);letter-spacing:-.03em;margin:0}
+.entrance h1 i{display:block;font-style:italic;font-weight:400}
+.entrance .lede{font-size:clamp(19px,1.7vw,23px);line-height:1.45;max-width:30ch;margin:34px 0 0}
+.ticket{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:38px;padding-top:18px;border-top:1px solid var(--line);font-size:15px}
+.ticket b{font-weight:600}
+.now{margin:34px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:16px}
+.now li{display:grid;grid-template-columns:118px 1fr;gap:12px}
+.now li span{color:var(--soft)}
+.hung{margin:0}
+.hung .frame{background:#fff;padding:clamp(14px,1.6vw,22px);box-shadow:0 1px 0 rgba(0,0,0,.05),0 22px 40px -26px rgba(0,0,0,.45)}
+.hung figcaption,.caption{font-size:13.5px;color:var(--soft);margin-top:12px;line-height:1.45}
+.hung figcaption i,.caption i{font-family:var(--serif);font-size:15px;color:var(--fg)}
 
+/* Room 2: method */
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,44px);margin:0;padding:0;list-style:none}
+.rules li{border-top:2px solid var(--fg);padding-top:18px}
+.rules h3{font:italic 400 clamp(26px,2.6vw,36px)/1.08 var(--serif);margin:0 0 12px}
+.rules p{margin:0;color:var(--soft);max-width:36ch}
+.rules .proof{display:block;margin-top:14px;color:var(--fg);font-size:14.5px}
 
+/* exhibits: the work on the wall, the label beside it */
+.exhibit{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(22px,3vw,44px);align-items:start}
+.work{background:#0d0e0d;box-shadow:0 30px 60px -34px rgba(0,0,0,.7);overflow:hidden}
+.stage{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#000}
+.stage iframe{position:absolute;top:0;left:0;width:1280px;height:800px;border:0;transform-origin:0 0}
+.stage.film{aspect-ratio:16/9}
+.stage.film video{width:100%;height:100%;object-fit:cover}
+.stage.native iframe{width:100%;height:100%;transform:none!important}
+.label{background:var(--paper);color:var(--ink);padding:20px 20px 18px;font-size:14px;line-height:1.5;border-top:3px solid var(--brass);position:sticky;top:28px}
+.label h3{font:italic 400 25px/1.12 var(--serif);margin:0}
+.label .kind{margin:4px 0 14px;color:rgba(27,29,27,.66)}
+.label dl{margin:0;display:grid;gap:9px}
+.label dt{font-weight:600;font-size:12.5px}
+.label dd{margin:1px 0 0}
+.label p.txt{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(27,29,27,.14)}
+.label .inv{margin:14px 0 0;font-size:12px;color:rgba(27,29,27,.55);font-variant-numeric:tabular-nums}
+.label .go{display:inline-block;margin-top:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
+/* the making-of, closed by default */
+.making{margin-top:clamp(26px,4vh,40px);border-top:1px solid var(--line)}
+.making>summary{cursor:pointer;list-style:none;padding:18px 0;font:500 17px var(--sans);display:flex;align-items:center;gap:12px}
+.making>summary::-webkit-details-marker{display:none}
+.making>summary::before{content:"+";display:inline-grid;place-items:center;width:26px;height:26px;border:1px solid var(--line);border-radius:50%;font-weight:400;transition:transform .3s}
+.making[open]>summary::before{transform:rotate(45deg)}
+.making .meta{display:none}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:8px 0 34px}
+.num b{display:block;font:400 clamp(30px,3.4vw,46px)/1 var(--serif)}
+.num span{display:block;font-size:14px;color:var(--soft);margin-top:6px;max-width:22ch}
+.brief{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;margin-bottom:34px}
+.brief h3,.process h3,.strip h3{font:italic 400 24px/1.1 var(--serif);margin:0}
+.brief p{margin:0 0 12px;max-width:66ch}
+.process{margin-bottom:34px}
+.steps{margin:16px 0 0;padding:0;list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.steps li{counter-increment:s;border-top:1px solid var(--line);padding-top:12px}
+.steps li::before{content:counter(s);font:500 13px var(--sans);color:var(--brass)}
+.steps h4{margin:6px 0 6px;font:600 16px/1.3 var(--sans)}
+.steps p{margin:0;font-size:15px;color:var(--soft)}
+.strip .cap{color:var(--soft);max-width:66ch;margin:8px 0 16px}
+.frames{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,26%);gap:14px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory}
+.frames figure{margin:0;scroll-snap-align:start}
+.frames figcaption{font-size:13px;color:var(--soft);margin-top:6px}
+.duo{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);gap:18px;margin-top:26px;align-items:end}
+.duo figure{margin:0}.duo figcaption{font-size:13px;color:var(--soft);margin-top:6px}
+.chat-samples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:34px}
+.chat-samples div{border-top:1px solid var(--line);padding-top:12px;font-size:15px}
+.chat-samples q{display:block;font:italic 400 19px/1.25 var(--serif);quotes:none;margin-bottom:8px}
+.chat-samples span{color:var(--soft)}
 
+/* Room 7: tools, as a display case */
+.case{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.case div{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px}
+.case h3{font:italic 400 26px/1.1 var(--serif);margin:0 0 10px}
+.case ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+.case li span{color:var(--soft);font-size:14px}
 
+/* Room 8: path, a real timeline */
+.path{list-style:none;margin:0;padding:0;max-width:820px}
+.path li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;padding:20px 0;border-top:1px solid var(--line)}
+.path time{font-variant-numeric:tabular-nums;color:var(--soft);font-size:15px}
+.path h3{margin:0;font:400 26px/1.15 var(--serif)}
+.path p{margin:4px 0 0;color:var(--soft)}
 
+/* Room 9: the card you take home */
+.desk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center}
+.card{display:block;perspective:1400px;width:100%;max-width:520px;aspect-ratio:1.75/1;cursor:pointer;background:none;border:0;padding:0;color:var(--ink);font:inherit;text-align:left}
+.card .in{display:block;position:relative;width:100%;height:100%;transition:transform .8s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.card.flipped .in{transform:rotateY(180deg)}
+.card .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--paper);padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 30px 50px -30px rgba(0,0,0,.6)}
+.card .back{transform:rotateY(180deg);border-top:4px solid var(--brass)}
+.card .front b{font:400 clamp(30px,3.6vw,46px)/1 var(--serif)}
+.card .front span,.card .back span{font-size:14px;color:rgba(27,29,27,.64)}
+.card .back ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:clamp(14px,1.4vw,17px)}
+.contact-list{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px;font-size:17px}
+.contact-list li{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.contact-list small{width:70px;color:var(--soft);font-size:14px}
+.copy{font:500 13px var(--sans);background:none;border:1px solid var(--line);color:inherit;border-radius:999px;padding:4px 11px;cursor:pointer}
+.exit{margin-left:var(--rail);padding:28px clamp(20px,5vw,72px) 40px;font-size:13.5px;color:var(--soft);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
-<div class="wrap">
-  <header class="top"><span>Portfolio · 2026</span><a href="#progetti-h">Projects</a></header>
-  <main>
-    <section class="hero">
-      <div class="hero-text">
-        <h1>Andrea Miglioranza</h1>
-        <p class="role">Creative: marketing, websites, video, images and art direction</p>
-        <hr class="rule">
-        <ul class="contacts">
-          <li><span>Email</span><b id="mail">andreamiglioranza0711@gmail.com</b><button type="button" id="copy" aria-label="Copy email address">Copy</button></li>
-          <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/andreamiglioranza" target="_blank" rel="noopener">linkedin.com/in/andreamiglioranza</a></li>
-        </ul>
-      </div>
-      <figure class="portrait"><img src="img/andrea.jpg" width="640" height="580" alt="Portrait of Andrea Miglioranza"></figure>
-    </section>
-
-    <h2 class="sec-h" id="progetti-h">Projects</h2>
-    <section class="vetrina" id="progetti" aria-labelledby="progetti-h">
-      <article class="proj" aria-labelledby="t1">
-        <h2 id="t1">Scrolling website for <em>Extillo Gin</em></h2>
-        <ul class="tags"><li>Website</li><li>Video</li><li>Images</li><li>Art direction</li></ul>
-        <div class="device">
-          <div class="bar"><i></i><i></i><i></i><span>Extillo Salted Gin · interactive website</span></div>
-          <div class="stage" data-w="1280" data-h="800"><iframe src="extillo/index.html" title="Extillo Salted Gin website, interactive" loading="lazy"></iframe></div>
-        </div>
-        <div class="actions"><a class="btn" href="extillo/index.html" target="_blank" rel="noopener">Open full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-        <p class="line">A scroll-film website for an Italian craft gin: one continuous shot, from Lake Iseo to the salt pans of Puglia and into the glass.</p>
-        <div class="made"><p class="made-h">Built with</p>
-          <ul>
-            <li><b>Claude Sonnet 5.5</b><span>concept, art direction, copy and site code, through Claude Code</span></li>
-            <li><b>Nano Banana</b><span>key frames and images</span></li>
-            <li><b>Seedance 2.0</b><span>image-to-video clips (ByteDance)</span></li>
-            <li><b>HTML, CSS, JavaScript</b><span>the site itself and its scroll engine</span></li>
-          </ul></div>
-      </article>
-
-      <article class="proj" aria-labelledby="t2">
-        <h2 id="t2">Scrolling websites for <em>POP Energy</em> and <em>MIXCRAFT</em></h2>
-        <ul class="tags"><li>Website</li><li>Video</li><li>Images</li><li>Art direction</li></ul>
-        <div class="device">
-          <div class="bar"><i></i><i></i><i></i><span>POP Energy · MIXCRAFT · interactive websites</span></div>
-          <div class="stage" data-w="1280" data-h="800"><iframe src="scroll-film/index.html" title="POP Energy and MIXCRAFT websites, interactive" loading="lazy"></iframe></div>
-        </div>
-        <div class="actions"><a class="btn" href="scroll-film/index.html" target="_blank" rel="noopener">Open full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-        <p class="line">Two scroll-film websites for invented products: a pop-art energy drink can and a luxury cocktail kit. Each page is one continuous shot that arrives at the real product and the buy button.</p>
-        <div class="made"><p class="made-h">Built with</p>
-          <ul>
-            <li><b>Claude Sonnet 5.5</b><span>concept, art direction, copy and site code, through Claude Code</span></li>
-            <li><b>Nano Banana Pro</b><span>key frames and images</span></li>
-            <li><b>Seedance 2.0</b><span>image-to-video clips (ByteDance)</span></li>
-            <li><b>FFmpeg</b><span>film assembly and frame extraction</span></li>
-            <li><b>HTML, CSS, JavaScript</b><span>the sites themselves and their scroll engine</span></li>
-          </ul></div>
-      </article>
-
-      <article class="proj" aria-labelledby="t3">
-        <h2 id="t3">Sales pitch video for <em>Cattelan Italia</em></h2>
-        <ul class="tags"><li>Video</li><li>Motion design</li><li>Sound design</li><li>Copy</li></ul>
-        <div class="device">
-          <div class="bar"><i></i><i></i><i></i><span>Miglioranza Studio · proposal for Cattelan Italia · 22 s</span></div>
-          <div class="stage film"><video src="cattelan/spot-cattelan-1080p.mp4" poster="cattelan/poster.jpg" controls playsinline preload="metadata" aria-label="Sales pitch video for Cattelan Italia, 22 seconds"></video></div>
-        </div>
-        <div class="actions"><a class="btn" href="cattelan/spot-cattelan-1080p.mp4" target="_blank" rel="noopener">Watch full screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-        <p class="line">A 22-second B2B sales pitch that offers a design furniture brand its next printed catalogue. Their real 10_2026 Collection falls into a spotlight, opens and turns its own pages, while research on print sits beside it: catalogues are remembered more and make people buy more.</p>
-        <div class="made"><p class="made-h">Built with</p>
-          <ul>
-            <li><b>Claude Opus 5.5</b><span>concept, research, storyboard, copy, animation and sound code</span></li>
-            <li><b>Canvas and Web Audio</b><span>every frame drawn in code, every sound synthesised and synced to the frame</span></li>
-            <li><b>FFmpeg</b><span>1080p export and audio mix</span></li>
-            <li><b>Cattelan Italia catalogue</b><span>cover and photographs from the 10_2026 Collection, used with permission</span></li>
-          </ul></div>
-      </article>
-    </section>
-
-    <details class="more"><summary>Project 01 · How I made it</summary>
-      <dl class="meta">
-        <div><dt>Brand</dt><dd>Extillo Salted Gin</dd></div>
-        <div><dt>Role</dt><dd>Concept, art direction, images and video, web development</dd></div>
-        <div><dt>Tools</dt><dd>Claude Code (Sonnet 5.5), Nano Banana, Seedance 2.0, HTML, CSS, JavaScript</dd></div>
-        <div><dt>Year</dt><dd>2026</dd></div>
-      </dl>
+@media (max-width:1100px){.exhibit{grid-template-columns:1fr}.label{position:static;max-width:560px}}
+@media (max-width:980px){.room{min-height:auto}.entrance{grid-template-columns:1fr;min-height:auto}.hung{max-width:420px}.rules{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.nums{grid-template-columns:1fr 1fr}.brief{grid-template-columns:1fr;gap:10px}.desk{grid-template-columns:1fr}.chat-samples{grid-template-columns:1fr}}
+@media (max-width:560px){body{font-size:16px}.steps{grid-template-columns:1fr}.path li{grid-template-columns:1fr;gap:4px}.now li{grid-template-columns:1fr;gap:0}.frames{grid-auto-columns:78%}.duo{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}body,.here{transition:none}.card .in{transition:none}}
+</style></head>
+<body>
+<a class="skip" href="#entrance">Skip to the entrance</a>
+<nav class="plan" id="plan" aria-label="Floor plan">
+  <a class="who" href="#entrance">Andrea Miglioranza<span>Portfolio, 2026</span></a>
+  <h2>Floor plan</h2>
+  <ol><li><a class="r" href="#entrance"><b>1</b>Entrance</a></li><li><a class="r" href="#method"><b>2</b>How I work</a></li><li><a class="r" href="#extillo"><b>3</b>Extillo Gin</a></li><li><a class="r" href="#pop"><b>4</b>POP Energy and MIXCRAFT</a></li><li><a class="r" href="#film"><b>5</b>Cattelan Italia, the film</a></li><li><a class="r" href="#assistant"><b>6</b>Cattelan Italia, the assistant</a></li><li><a class="r" href="#tools"><b>7</b>Tools</a></li><li><a class="r" href="#path"><b>8</b>Path</a></li><li><a class="r" href="#card"><b>9</b>Take a card</a></li></ol>
+  <p class="foot">Four works on show. Free entry.</p>
+</nav>
+<div class="here" aria-hidden="false"><span id="here-t">Room 1 of 9: Entrance</span><button type="button" id="plan-btn" aria-controls="plan" aria-expanded="false">Floor plan</button></div>
+<main id="top">
+<section class="room" id="entrance" data-wall="#E9EAE5" data-dark="0" data-n="1" data-t="Entrance" aria-labelledby="entrance-h"><div class="entrance">
+  <div>
+    <small class="sr" style="display:block;font-size:14px;color:var(--soft);margin-bottom:22px">Room 1 of 9</small>
+    <h1 id="entrance-h">Andrea <i>Miglioranza</i></h1>
+    <p class="lede">Marketing, websites, video and art direction, made with AI. This portfolio is laid out as an exhibition: nine rooms, four works. Scroll to walk in.</p>
+    <ul class="now" aria-label="Right now">
+      <li><span>Studying</span>Business Creation &amp; Entrepreneurship, H-FARM College</li>
+      <li><span>Working</span>Field Operations Assistant, SDG Group</li>
+      <li><span>Making</span>Two new projects a month, shown here</li>
+    </ul>
+    <p class="ticket"><b>Free entry</b><a href="#extillo">Go straight to the works</a><a href="#card">Get in touch</a></p>
+  </div>
+  <figure class="hung"><div class="frame"><img src="img/andrea.jpg" width="640" height="619" alt="Portrait of Andrea Miglioranza"></div><figcaption><i>Andrea</i>, photograph</figcaption></figure>
+</div></section>
+<section class="room" id="method" data-wall="#E9EAE5" data-dark="0" data-n="2" data-t="How I work" aria-labelledby="method-h"><header class="room-h"><small>Room 2 of 9</small><h2 id="method-h">How I work</h2><p>Three rules behind every work in the next rooms.</p></header><ul class="rules">
+  <li><h3>Storyboard first</h3><p>Every film is drawn and approved as key frames before a single clip is generated, so no time or credits go into the wrong direction.</p><span class="proof">On the Cattelan film, two directions were dropped before any animation.</span></li>
+  <li><h3>Measure, don’t eyeball</h3><p>Seams between clips, scroll speed, answers of an assistant: checked with numbers, not by looking once.</p><span class="proof">POP and MIXCRAFT scroll test: slowest frame under 50 ms.</span></li>
+  <li><h3>Only numbers that hold up</h3><p>Statistics come from published studies, sizes from the catalogue drawings. If a figure can’t be checked, it stays out.</p><span class="proof">Both numbers in the Cattelan film are from published research.</span></li>
+</ul></section>
+<section class="room" id="extillo" data-wall="#2D4642" data-dark="1" data-n="3" data-t="Extillo Gin" aria-labelledby="extillo-h"><header class="room-h"><small>Room 3 of 9</small><h2 id="extillo-h">Extillo Gin</h2></header><div class="exhibit">
+  <div class="work"><div class="stage" data-w="1280" data-h="800"><iframe src="extillo/index.html" title="Extillo Salted Gin website, interactive" loading="lazy"></iframe></div></div>
+  <aside class="label" aria-label="Wall label"><h3>Scrolling website for Extillo Gin</h3><p class="kind">Scroll-film website, 2026</p><dl><div><dt>Medium</dt><dd>Claude Code (Sonnet 5.5), Nano Banana, Seedance 2.0, HTML, CSS, JavaScript</dd></div><div><dt>Dimensions</dt><dd>25 s of film in 1080p, 601 frames driven by scroll, 60 fps</dd></div><div><dt>Role</dt><dd>Concept, art direction, images and video, web development</dd></div></dl><p class="txt">A scroll-film website for an Italian craft gin: one continuous shot, from Lake Iseo to the salt pans of Puglia and into the glass.</p><a class="go" href="extillo/index.html" target="_blank" rel="noopener">Open full screen</a><p class="inv">Inventory AM 2026.01</p></aside>
+</div>
+<details class="making"><summary>Read how it was made</summary>
+      
 
       <div class="nums" role="list">
         <div class="num" role="listitem"><b>6</b><span>video clips generated and chained</span></div>
@@ -264,15 +244,13 @@ footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(-
         <figure class="mobile"><div class="shot"><img src="img/sito-mobile.jpg" width="600" height="1300" alt="Mobile version of the site finale" loading="lazy"></div><figcaption>Mobile version.</figcaption></figure>
       </div>
     
-      </details>
-
-    <details class="more"><summary>Project 02 · How I made it</summary>
-      <dl class="meta">
-        <div><dt>Brands</dt><dd>POP Energy and MIXCRAFT (invented products)</dd></div>
-        <div><dt>Role</dt><dd>Concept, art direction, images and video, web development</dd></div>
-        <div><dt>Tools</dt><dd>Claude Code (Sonnet 5.5), Nano Banana Pro, Seedance 2.0, HTML, CSS, JavaScript</dd></div>
-        <div><dt>Year</dt><dd>2026</dd></div>
-      </dl>
+      </details></section>
+<section class="room" id="pop" data-wall="#3A2C39" data-dark="1" data-n="4" data-t="POP Energy and MIXCRAFT" aria-labelledby="pop-h"><header class="room-h"><small>Room 4 of 9</small><h2 id="pop-h">POP Energy and MIXCRAFT</h2></header><div class="exhibit">
+  <div class="work"><div class="stage" data-w="1280" data-h="800"><iframe src="scroll-film/index.html" title="POP Energy and MIXCRAFT websites, interactive" loading="lazy"></iframe></div></div>
+  <aside class="label" aria-label="Wall label"><h3>Scrolling websites for POP Energy and MIXCRAFT</h3><p class="kind">Two scroll-film websites, 2026</p><dl><div><dt>Medium</dt><dd>Claude Code (Sonnet 5.5), Nano Banana Pro, Seedance 2.0, FFmpeg, HTML, CSS, JavaScript</dd></div><div><dt>Dimensions</dt><dd>36 s of film in 1080p, 854 frames driven by scroll</dd></div><div><dt>Role</dt><dd>Concept, art direction, images and video, web development</dd></div></dl><p class="txt">Two websites for invented products: a pop-art energy drink can and a luxury cocktail kit. Each page is one continuous shot that arrives at the real product and the buy button.</p><a class="go" href="scroll-film/index.html" target="_blank" rel="noopener">Open full screen</a><p class="inv">Inventory AM 2026.02</p></aside>
+</div>
+<details class="making"><summary>Read how they were made</summary>
+      
 
       <div class="nums" role="list">
         <div class="num" role="listitem"><b>9</b><span>video clips generated and chained</span></div>
@@ -313,15 +291,13 @@ footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(-
           <figure><img src="img/p2-sito-mixcraft.jpg" width="1440" height="900" alt="In the MIXCRAFT site: the title Pour it over the pouring moment" loading="lazy"><figcaption>In the site: MIXCRAFT</figcaption></figure>
         </div>
       </section>
-    </details>
-
-    <details class="more"><summary>Project 03 · How I made it</summary>
-      <dl class="meta">
-        <div><dt>Client</dt><dd>Cattelan Italia (proposal by Miglioranza Studio)</dd></div>
-        <div><dt>Role</dt><dd>Concept, research, copy, motion design, sound design</dd></div>
-        <div><dt>Tools</dt><dd>Claude Opus 5.5, HTML Canvas, Web Audio, FFmpeg</dd></div>
-        <div><dt>Year</dt><dd>2026</dd></div>
-      </dl>
+    </details></section>
+<section class="room" id="film" data-wall="#1E1D1B" data-dark="1" data-n="5" data-t="Cattelan Italia, the film" aria-labelledby="film-h"><header class="room-h"><small>Room 5 of 9</small><h2 id="film-h">Cattelan Italia, the film</h2></header><div class="exhibit">
+  <div class="work"><div class="stage film"><video src="cattelan/spot-cattelan-1080p.mp4" poster="cattelan/poster.jpg" controls playsinline preload="metadata" aria-label="Sales pitch video for Cattelan Italia, 22 seconds"></video></div></div>
+  <aside class="label" aria-label="Wall label"><h3>Sales pitch video for Cattelan Italia</h3><p class="kind">Video, 22 seconds, 2026. A proposal by Miglioranza Studio</p><dl><div><dt>Medium</dt><dd>Claude Opus 5.5, HTML Canvas, Web Audio, FFmpeg; cover and photographs from the 10_2026 Collection, used with permission</dd></div><div><dt>Dimensions</dt><dd>1920 × 1080, 660 frames, cut to 96 bpm</dd></div><div><dt>Role</dt><dd>Concept, research, copy, motion design, sound design</dd></div></dl><p class="txt">A B2B pitch that offers a design furniture brand its next printed catalogue. Their real catalogue falls into a spotlight, opens and turns its own pages, while research on print appears beside it.</p><a class="go" href="cattelan/spot-cattelan-1080p.mp4" target="_blank" rel="noopener">Watch full screen</a><p class="inv">Inventory AM 2026.03</p></aside>
+</div>
+<details class="making"><summary>Read how it was made</summary>
+      
 
       <div class="nums" role="list">
         <div class="num" role="listitem"><b>22 s</b><span>spot, cut to a 96 bpm grid</span></div>
@@ -360,32 +336,93 @@ footer.end b{font-family:var(--serif);font-weight:600;font-size:20px;color:var(-
           <figure><img src="cattelan/fr-06-finale.jpg" width="900" height="506" alt="End card: Il vostro prossimo catalogo, stampiamolo insieme, Miglioranza Studio" loading="lazy"><figcaption>The proposal</figcaption></figure>
         </div>
       </section>
-    </details>
-  </main>
-  <footer class="end"><b>Andrea Miglioranza</b><span>Portfolio · 2026</span></footer>
+    </details></section>
+<section class="room" id="assistant" data-wall="#D5D8D2" data-dark="0" data-n="6" data-t="Cattelan Italia, the assistant" aria-labelledby="assistant-h"><header class="room-h"><small>Room 6 of 9</small><h2 id="assistant-h">Cattelan Italia, the assistant</h2><p>A showroom chat that knows the whole catalogue. It speaks Italian: try “un tavolo per 8 in marmo” or “dove posso vederlo dal vivo?”.</p></header><div class="exhibit">
+  <div class="work"><div class="stage" data-w="1280" data-h="800" data-native="1"><iframe src="assistente/index.html" title="Showroom assistant for Cattelan Italia, interactive demo" loading="lazy"></iframe></div></div>
+  <aside class="label" aria-label="Wall label"><h3>Showroom assistant for Cattelan Italia</h3><p class="kind">Chat assistant, demo concept, 2026</p><dl><div><dt>Medium</dt><dd>JavaScript rules engine written with Claude Opus 5.5; products, sizes and finishes from the 10_2026 Collection catalogue</dd></div><div><dt>Dimensions</dt><dd>49 products, 17 categories, 50 of 50 test questions answered</dd></div><div><dt>Role</dt><dd>Conversation design, catalogue data, interface, testing</dd></div></dl><p class="txt">It recommends products for a room, a colour or a number of guests, answers on sizes and finishes, explains why it suggests each piece, and collects the visitor’s contact for a consultant. No AI model and no server: it runs in the browser.</p><a class="go" href="assistente/index.html" target="_blank" rel="noopener">Open the assistant</a><p class="inv">Inventory AM 2026.04</p></aside>
 </div>
+<details class="making"><summary>Read how it was made</summary>
+  <div class="nums" role="list">
+    <div class="num" role="listitem"><b>49</b><span>products turned into data, with sizes and finishes</span></div>
+    <div class="num" role="listitem"><b>50/50</b><span>real questions answered in the automatic test</span></div>
+    <div class="num" role="listitem"><b>~130</b><span>more free questions read and fixed one by one</span></div>
+    <div class="num" role="listitem"><b>0</b><span>calls to an AI model: it all runs in the page</span></div>
+  </div>
+  <div class="brief"><h3>The brief</h3><div>
+    <p>A furniture showroom gets the same questions every day: what fits eight people, which finishes a table comes in, where to see it. The assistant answers them from the brand’s own catalogue and hands the visitor to a consultant with name, contact and city.</p>
+    <p>The idea: no AI model and no server, so it is fast, free to run and answers only from the catalogue. Every product was written as data from the 10_2026 Collection; when the catalogue has no answer, the assistant says so and offers a consultant.</p>
+  </div></div>
+  <div class="chat-samples">
+    <div><q>What is your biggest table?</q><span>Napoleon Keramik Outdoor, 320 cm, but it is for outdoors. Indoors the largest reach 300 × 130 cm.</span></div>
+    <div><q>A kitchen table, my walls are red.</q><span>Gotham with a bronze base first: ceramic is the most practical top in a kitchen, and a dark base calms a strong colour.</span></div>
+    <div><q>Do you make kitchens?</q><span>Not in the 2026 Collection. For the kitchen there are tables, chairs and stools.</span></div>
+  </div>
+  <section class="process" aria-labelledby="pr4"><h3 id="pr4">The process</h3><ol class="steps">
+    <li><h4>Catalogue to data</h4><p>49 products with sizes, finishes and designers, checked against the catalogue drawings. Sizes only where they are clear.</p></li>
+    <li><h4>Understanding</h4><p>Category, room, colour, material, number of guests, small typos. A new request starts from zero; a refinement keeps the context.</p></li>
+    <li><h4>Answers with a reason</h4><p>Every suggestion says why it fits. Missing data is said plainly, never invented.</p></li>
+    <li><h4>Leads and testing</h4><p>A contact form inside the chat, then 50 real questions as an automatic test, run after every change.</p></li>
+  </ol></section>
+</details></section>
+<section class="room" id="tools" data-wall="#E9EAE5" data-dark="0" data-n="7" data-t="Tools" aria-labelledby="tools-h"><header class="room-h"><small>Room 7 of 9</small><h2 id="tools-h">Tools</h2><p>What I use, grouped by what it makes.</p></header><div class="case">
+  <div><h3>Ideas, copy and code</h3><ul><li>Claude and Claude Code <span>concept, copy, research, code</span></li><li>ChatGPT</li></ul></div>
+  <div><h3>Images</h3><ul><li>Nano Banana and Nano Banana Pro <span>key frames, product images</span></li></ul></div>
+  <div><h3>Film</h3><ul><li>Seedance 2.0 <span>image-to-video</span></li><li>Higgsfield</li><li>FFmpeg <span>assembly and export</span></li></ul></div>
+  <div><h3>Sound</h3><ul><li>Web Audio <span>sound synthesised in code</span></li><li>Artlist</li></ul></div>
+  <div><h3>Web</h3><ul><li>HTML, CSS, JavaScript</li><li>Canvas <span>scroll engines, animation</span></li></ul></div>
+  <div><h3>Method</h3><ul><li>Agile Project Management <span>certified, H-FARM College</span></li></ul></div>
+</div></section>
+<section class="room" id="path" data-wall="#E9EAE5" data-dark="0" data-n="8" data-t="Path" aria-labelledby="path-h"><header class="room-h"><small>Room 8 of 9</small><h2 id="path-h">Path</h2></header><ol class="path">
+  <li><time>2021 – 2025</time><div><h3>International Baccalaureate</h3><p>H-FARM International School</p></div></li>
+  <li><time>2025 – now</time><div><h3>Business Creation &amp; Entrepreneurship</h3><p>H-FARM College, with a certification in Agile Project Management</p></div></li>
+  <li><time>May 2026 – now</time><div><h3>Field Operations Assistant</h3><p>SDG Group</p></div></li>
+  <li><time>2026</time><div><h3>Four works, one portfolio</h3><p>Websites, a film and an assistant, all made with AI. You just walked past them.</p></div></li>
+</ol></section>
+<section class="room" id="card" data-wall="#2A3446" data-dark="1" data-n="9" data-t="Take a card" aria-labelledby="card-h"><header class="room-h"><small>Room 9 of 9</small><h2 id="card-h">Take a card</h2><p>Thanks for visiting. Turn the card over for my details, or copy them from here.</p></header><div class="desk">
+  <button type="button" class="card" id="card-btn" aria-pressed="false" aria-label="Business card. Press to turn it over">
+    <span class="in">
+      <span class="face front"><b>Andrea Miglioranza</b><span>Marketing, websites, video and art direction, made with AI</span></span>
+      <span class="face back"><span>Contacts</span><ul><li>andreamiglioranza0711@gmail.com</li><li>linkedin.com/in/andreamiglioranza</li></ul></span>
+    </span>
+  </button>
+  <ul class="contact-list">
+    <li><small>Email</small><b id="mail">andreamiglioranza0711@gmail.com</b><button type="button" class="copy" id="copy">Copy</button></li>
+    <li><small>LinkedIn</small><a href="https://www.linkedin.com/in/andreamiglioranza" target="_blank" rel="noopener">linkedin.com/in/andreamiglioranza</a></li>
+  </ul>
+</div></section>
+</main>
+<footer class="exit"><span>Andrea Miglioranza, 2026</span><a href="#entrance">Back to the entrance</a></footer>
 <script>
 (function(){
-  function fit(){
-    document.querySelectorAll('.stage[data-w]').forEach(function(st){
-      var f=st.querySelector('iframe'); if(!f) return;
-      var w=+st.dataset.w, k=st.clientWidth/w;
-      f.style.transform='scale('+k+')';
-    });
-  }
-  window.addEventListener('resize',fit); window.addEventListener('load',fit); fit();
+  // scale the 1280×800 live sites to the wall; the assistant runs at real size on small screens
+  function fit(){ document.querySelectorAll('.stage[data-w]').forEach(function(st){ var f=st.querySelector('iframe'); if(!f) return;
+    var nat=st.dataset.native && st.clientWidth<760; st.classList.toggle('native',!!nat); st.style.aspectRatio=nat?'auto':''; st.style.height=nat?'640px':'';
+    if(!nat) f.style.transform='scale('+(st.clientWidth/+st.dataset.w)+')'; }); }
+  addEventListener('resize',fit); addEventListener('load',fit); fit();
   if(window.ResizeObserver){ var ro=new ResizeObserver(fit); document.querySelectorAll('.stage[data-w]').forEach(function(s){ro.observe(s)}); }
-})();
-</script>
-<script>
-(function(){
-  var b=document.getElementById('copy'); if(!b) return;
-  b.addEventListener('click',function(){
-    var t=document.getElementById('mail').textContent;
+
+  // walking from room to room repaints the walls
+  var rooms=[].slice.call(document.querySelectorAll('.room')), links={}, here=document.getElementById('here-t'), meta=document.querySelector('meta[name=theme-color]');
+  document.querySelectorAll('.plan a.r').forEach(function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  function enter(r){ document.body.style.setProperty('--wall',r.dataset.wall); document.body.classList.toggle('dark',r.dataset.dark==='1'); if(meta) meta.content=r.dataset.wall;
+    Object.keys(links).forEach(function(k){ links[k].setAttribute('aria-current',k===r.id?'true':'false'); });
+    if(here) here.textContent='Room '+r.dataset.n+' of 9: '+r.dataset.t; }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) enter(e.target); }); },{rootMargin:'-45% 0px -50% 0px'}); rooms.forEach(function(r){io.observe(r)}); }
+  enter(rooms[0]);
+
+  // floor plan on small screens
+  var plan=document.getElementById('plan'), pb=document.getElementById('plan-btn');
+  if(pb) pb.addEventListener('click',function(){ var o=plan.classList.toggle('open'); pb.setAttribute('aria-expanded',o); pb.textContent=o?'Close':'Floor plan'; });
+  plan.addEventListener('click',function(e){ if(e.target.closest('a')&&plan.classList.contains('open')){ plan.classList.remove('open'); pb.setAttribute('aria-expanded','false'); pb.textContent='Floor plan'; } });
+
+  // the card turns over
+  var c=document.getElementById('card-btn'); c.addEventListener('click',function(){ var f=c.classList.toggle('flipped'); c.setAttribute('aria-pressed',f); });
+
+  // copy email
+  var b=document.getElementById('copy'); b.addEventListener('click',function(){ var t=document.getElementById('mail').textContent;
     function ok(){ b.textContent='Copied'; setTimeout(function(){b.textContent='Copy'},1800); }
-    function fallback(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('mail')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected'; setTimeout(function(){b.textContent='Copy'},1800); }
-    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fallback); } else fallback();
-  });
+    function fb(){ var r=document.createRange(); r.selectNodeContents(document.getElementById('mail')); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Selected'; setTimeout(function(){b.textContent='Copy'},1800); }
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok,fb); else fb(); });
 })();
 </script>
 </body></html>

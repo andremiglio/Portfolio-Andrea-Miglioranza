@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assistente showroom · Cattelan Italia · demo</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap">
+<style>
+  :root { --bg:#f3efe7; --panel:#fffdf9; --ink:#1d1b18; --muted:#6f6a62; --line:#e3ddd2; --accent:#8c6a3c; --accent-soft:#efe6d6; --bot:#f6f2ea; --user:#1d1b18;
+    --serif:"Fraunces", Georgia, serif; --sans:"Inter", system-ui, -apple-system, sans-serif; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px clamp(14px,3vw,28px); border-bottom:1px solid var(--line); background:var(--panel); }
+  .brand { display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .brand b { font-family:var(--serif); font-weight:400; letter-spacing:.32em; font-size:15px; }
+  .brand span { font-family:var(--serif); font-style:italic; color:var(--muted); font-size:16px; }
+  .badge { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); border-radius:99px; padding:4px 10px; white-space:nowrap; }
+  main { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(300px,.9fr); gap:clamp(12px,2vw,22px); padding:clamp(12px,2vw,22px); height:calc(100% - 59px - 38px); }
+  @media (max-width:880px){ main { grid-template-columns:1fr; height:auto; } .chat { height:78vh; } }
+  .chat, .side { background:var(--panel); border:1px solid var(--line); border-radius:16px; min-height:0; }
+  .chat { display:flex; flex-direction:column; overflow:hidden; }
+  .chat-top { display:flex; align-items:center; gap:12px; padding:14px 18px; border-bottom:1px solid var(--line); }
+  .avatar { width:36px; height:36px; border-radius:50%; background:var(--ink); color:#f3efe7; display:grid; place-items:center; font-family:var(--serif); font-size:17px; }
+  .chat-top h1 { margin:0; font-size:15px; font-weight:600; }
+  .chat-top p { margin:0; font-size:12px; color:var(--muted); }
+  .online { width:7px; height:7px; border-radius:50%; background:#3c9a5f; display:inline-block; margin-right:6px; }
+  .reset { margin-left:auto; font:inherit; font-size:12px; background:none; border:1px solid var(--line); border-radius:99px; padding:5px 12px; cursor:pointer; color:var(--muted); }
+  .reset:hover { border-color:var(--ink); color:var(--ink); }
+  .msgs { flex:1; overflow-y:auto; padding:18px; display:flex; flex-direction:column; gap:12px; scroll-behavior:smooth; }
+  .msgs > * { flex-shrink:0; }
+  @media (max-width:600px){ header { flex-wrap:wrap; gap:8px; padding:12px 14px; } .brand { gap:8px; } .brand b { font-size:13px; letter-spacing:.24em; } .brand span { font-size:14px; } .badge { font-size:9.5px; padding:3px 8px; } .msg { max-width:90%; } .card { flex-basis:180px; } }
+  .msg { max-width:82%; padding:11px 14px; border-radius:16px; animation:in .25s ease both; overflow-wrap:anywhere; }
+  .msg.bot { background:var(--bot); border-top-left-radius:4px; align-self:flex-start; }
+  .msg.user { background:var(--user); color:#f6f2ea; border-top-right-radius:4px; align-self:flex-end; }
+  .msg b { font-weight:600; }
+  @keyframes in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  .typing { display:inline-flex; gap:4px; padding:14px 16px; }
+  .typing i { width:6px; height:6px; border-radius:50%; background:var(--muted); animation:blink 1s infinite; }
+  .typing i:nth-child(2){ animation-delay:.15s } .typing i:nth-child(3){ animation-delay:.3s }
+  @keyframes blink { 0%,80%,100% { opacity:.25 } 40% { opacity:1 } }
+  .cards { display:flex; gap:10px; overflow-x:auto; padding:2px 2px 6px; align-self:stretch; animation:in .3s ease both; }
+  .card { flex:0 0 210px; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; }
+  .card img { width:100%; aspect-ratio:1/1; object-fit:cover; display:block; background:#eee; }
+  .card .ct { padding:10px 12px 12px; display:flex; flex-direction:column; gap:4px; flex:1; }
+  .card .k { font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+  .card h3 { margin:0; font-family:var(--serif); font-weight:600; font-size:18px; line-height:1.15; }
+  .card p { margin:0; font-size:12.5px; color:var(--muted); line-height:1.45; }
+  .card p.why { color:var(--ink); background:var(--accent-soft); border-radius:8px; padding:7px 9px; margin:4px 0 2px; }
+  .card p.why b { display:block; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:600; margin-bottom:2px; }
+  .card { flex-basis:230px; }
+  .card .acts { display:flex; gap:6px; margin-top:auto; padding-top:8px; }
+  .card .acts button { flex:1; font:inherit; font-size:12px; padding:6px 4px; border-radius:8px; border:1px solid var(--line); background:var(--panel); cursor:pointer; }
+  .card .acts button:hover { border-color:var(--ink); }
+  .chips { display:flex; flex-wrap:wrap; gap:7px; align-self:flex-start; animation:in .3s ease both; }
+  .chip { font:inherit; font-size:13px; padding:7px 12px; border-radius:99px; border:1px solid var(--accent); color:var(--accent); background:transparent; cursor:pointer; }
+  .chip:hover { background:var(--accent); color:#fff; }
+  div.input { display:flex; gap:8px; padding:12px; border-top:1px solid var(--line); }
+  div.input input { flex:1; font:inherit; font-size:15px; padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:#fff; outline:none; }
+  div.input input:focus { border-color:var(--ink); }
+  div.input button { font:inherit; font-weight:600; padding:0 18px; border-radius:12px; border:0; background:var(--ink); color:#f6f2ea; cursor:pointer; }
+  div.input button:disabled, div.input input:disabled { opacity:.5; cursor:default; }
+  .lead-ok { background:#eef5ee; border:1px solid #cfe3d2; }
+  .side { display:flex; flex-direction:column; overflow:hidden; }
+  .tabs { display:flex; border-bottom:1px solid var(--line); }
+  .tabs button { flex:1; font:inherit; font-size:13px; font-weight:500; padding:13px 8px; border:0; background:none; cursor:pointer; color:var(--muted); border-bottom:2px solid transparent; }
+  .tabs button[aria-selected="true"] { color:var(--ink); border-bottom-color:var(--ink); }
+  .tab { padding:18px; overflow-y:auto; flex:1; display:none; }
+  .tab.on { display:block; }
+  .tab h2 { font-family:var(--serif); font-weight:400; font-size:24px; margin:0 0 6px; }
+  .tab > p { color:var(--muted); margin:0 0 14px; font-size:14px; }
+  .demo { width:100%; text-align:left; font:inherit; background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px; cursor:pointer; display:block; }
+  .demo:hover { border-color:var(--ink); }
+  .demo b { display:block; font-family:var(--serif); font-weight:600; font-size:17px; }
+  .demo span { display:block; font-size:13px; color:var(--muted); margin-top:2px; }
+  .demo.playing { border-color:var(--accent); background:var(--accent-soft); }
+  .lead { background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px; animation:in .3s ease both; }
+  .lead .top { display:flex; justify-content:space-between; gap:8px; font-weight:600; }
+  .lead .top small { font-weight:400; color:var(--muted); }
+  .lead dl { display:grid; grid-template-columns:auto 1fr; gap:2px 10px; margin:8px 0 0; font-size:13px; }
+  .lead dt { color:var(--muted); }
+  .lead dd { margin:0; overflow-wrap:anywhere; }
+  .tag-new { font-size:10px; letter-spacing:.12em; text-transform:uppercase; background:var(--accent); color:#fff; padding:2px 7px; border-radius:99px; }
+  .empty { color:var(--muted); font-style:italic; font-family:var(--serif); font-size:17px; padding:18px 0; }
+  .small-btn { font:inherit; font-size:12px; padding:6px 12px; border-radius:99px; border:1px solid var(--line); background:#fff; cursor:pointer; margin-right:6px; }
+  .how ol { padding-left:20px; margin:0; } .how li { margin-bottom:10px; } .how li b { font-weight:600; }
+  .stat { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:6px 0 18px; }
+  .stat div { background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px; }
+  .stat b { display:block; font-family:var(--serif); font-size:26px; font-weight:400; line-height:1.1; }
+  .stat span { font-size:12px; color:var(--muted); }
+  footer { height:38px; display:flex; align-items:center; justify-content:center; padding:0 16px; font-size:11.5px; color:var(--muted); text-align:center; }
+  @media (max-width:880px){ footer { height:auto; padding:6px 16px 16px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><b>CATTELAN ITALIA</b><span>Assistente showroom</span></div>
+  <div class="badge">Demo concept · Miglioranza Studio</div>
+</header>
+<main>
+  <section class="chat" aria-label="Chat con l'assistente">
+    <div class="chat-top">
+      <div class="avatar" aria-hidden="true">C</div>
+      <div><h1>Assistente Collezione 2026</h1><p><span class="online"></span>Online · risponde su prodotti, misure e finiture</p></div>
+      <button class="reset" id="reset" type="button">Nuova chat</button>
+    </div>
+    <div class="msgs" id="msgs" aria-live="polite"></div>
+    <div class="input" id="form" role="group" aria-label="Scrivi un messaggio">
+      <input id="inp" type="text" placeholder="Scrivi un messaggio…" aria-label="Messaggio" enterkeyhint="send" autocomplete="off">
+      <button id="send" type="button">Invia</button>
+    </div>
+  </section>
+  <aside class="side">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="t-demo">Conversazioni</button>
+      <button role="tab" aria-selected="false" data-tab="t-leads">Lead <span id="lead-count"></span></button>
+      <button role="tab" aria-selected="false" data-tab="t-how">Come funziona</button>
+    </div>
+    <div class="tab on" id="t-demo">
+      <h2>Prova una conversazione</h2>
+      <p>Clicca un esempio: la chat lo riproduce passo passo, con le risposte vere dell'assistente. Oppure scrivi tu.</p>
+      <div id="demos"></div>
+    </div>
+    <div class="tab" id="t-leads">
+      <h2>Lead raccolti</h2>
+      <p>Ogni richiesta di preventivo o contatto finisce qui, pronta per il CRM dello showroom. Nella demo restano solo in questo browser.</p>
+      <div><button class="small-btn" id="copy-csv" type="button">Copia CSV</button><button class="small-btn" id="clear" type="button">Svuota</button></div>
+      <div id="leads" style="margin-top:12px"></div>
+    </div>
+    <div class="tab how" id="t-how">
+      <h2>Come funziona</h2>
+      <div class="stat"><div><b id="n-prod">0</b><span>prodotti dal catalogo</span></div><div><b>17</b><span>categorie</span></div><div><b>0</b><span>server o chiavi API</span></div></div>
+      <ol>
+        <li><b>Conosce il catalogo.</b> Nomi, designer, materiali, finiture e misure vengono dal catalogo 10_2026 Collection. Le misure sono riportate solo dove il catalogo le indica chiaramente; altrimenti l'assistente offre la scheda tecnica.</li>
+        <li><b>Capisce la richiesta.</b> Riconosce tipo di mobile, materiale, forma, uso esterno, numero di persone e domande su misure, finiture, designer e prezzo.</li>
+        <li><b>Ricorda il contesto.</b> Dopo un consiglio, “che misure ha?” o “e le finiture?” si riferiscono al prodotto di cui si sta parlando.</li>
+        <li><b>Trasforma l'interesse in contatto.</b> Alle domande sul prezzo o sulle schede tecniche apre un breve modulo in chat: nome, contatto, città e consenso, con i prodotti di interesse già compilati.</li>
+        <li><b>Prossimo passo in produzione:</b> collegare i lead al CRM e alle email del team commerciale e aggiungere un modello linguistico per le domande più libere, mantenendo il catalogo come unica fonte.</li>
+      </ol>
+    </div>
+  </aside>
+</main>
+<footer>Dati prodotto dal catalogo Cattelan Italia 10_2026 Collection · Demo non ufficiale realizzata da Miglioranza Studio · Prezzi non inclusi: li fornisce il rivenditore</footer>
+<script>// Product knowledge base, from the Cattelan Italia "10_2026 Collection" catalogue (used with permission).
+// Sizes are listed only where the catalogue's technical drawings state them clearly; otherwise the assistant offers the technical sheet.
+window.PRODUCTS = [
+  // ---------- Tavoli ----------
+  { id: 'bilbao-glass', name: 'Bilbao Glass', cat: 'tavolo', design: 'Tosca Design', img: 'p6',
+    desc: 'Tavolo con base in cemento e piano in cristallo da 15 mm, appoggiato sulla base.',
+    fin: { 'Struttura': ['acciaio goffrato titanio', 'bronzo', 'nero', 'Oxybrass', 'Oxygrey'], 'Piano in cristallo': ['trasparente', 'extrachiaro', 'extrachiaro bisellato', 'extrachiaro bisellato inverso', 'extrachiaro cotto'] },
+    tags: ['vetro', 'cristallo', 'cemento', 'rettangolare', 'sagomato'], L: [200, 240, 300], W: [120, 130], H: 74, shapes: 'rettangolare o sagomata' },
+  { id: 'skorpio-marble', name: 'Skorpio Marble', cat: 'tavolo', design: 'A. Lucatello & P. Cattelan', img: 'p14',
+    desc: 'Tavolo con base scultorea in acciaio e piano in marmo naturale.',
+    fin: { 'Base': ['titanio', 'bronzo', 'graphite', 'pearl', 'nero (goffrati)', 'Brushed Bronze', 'Brushed Grey'], 'Piano in marmo': ['Lepanto', 'Avocatus', 'Onda Grigia'] },
+    tags: ['marmo', 'rettangolare', 'biscuit'], L: [200, 220, 240, 300], W: [120, 130], H: 75, shapes: 'rettangolare o biscuit' },
+  { id: 'skorpio-marble-round', name: 'Skorpio Marble Round', cat: 'tavolo', design: 'A. Lucatello & P. Cattelan', img: 'p20',
+    desc: 'La versione rotonda dello Skorpio: base scultorea e piano in marmo.',
+    fin: { 'Base': ['titanio', 'bronzo', 'graphite', 'pearl', 'nero (goffrati)', 'Brushed Bronze', 'Brushed Grey'], 'Piano in marmo': ['Lepanto', 'Avocatus', 'Onda Grigia'] },
+    tags: ['marmo', 'rotondo'], D: [140, 160], H: 75 },
+  { id: 'tyron-marble', name: 'Tyron Marble', cat: 'tavolo', design: 'Paolo Cattelan', img: 'p17',
+    desc: 'Tavolo con base in acciaio e piano in marmo, in versione rettangolare o biscuit.',
+    fin: { 'Base': ['titanio', 'bronzo', 'graphite', 'nero (goffrati)', 'Brushed Bronze', 'Brushed Grey'], 'Piano in marmo': ['Lepanto', 'Avocatus', 'Onda Grigia'] },
+    tags: ['marmo', 'rettangolare', 'biscuit'], L: [200, 220, 240, 300], W: [120, 130], H: 75, shapes: 'rettangolare o biscuit' },
+  { id: 'papel-marble', name: 'Papel Marble', cat: 'tavolo', design: 'M. Fanti & P. Cattelan', img: 'p18a',
+    desc: 'Tavolo dalla base ondulata in acciaio con piano in marmo.',
+    fin: { 'Base': ['titanio', 'bronzo (goffrati)', 'Oxybrass', 'Oxygrey'], 'Piano in marmo': ['Lepanto', 'Avocatus', 'Onda Grigia'] },
+    tags: ['marmo', 'rettangolare'], L: [220, 240, 300], W: [120, 130], H: 74 },
+  { id: 'giano-marble', name: 'Giano Marble', cat: 'tavolo', design: 'Manzoni, Tapinassi & P. Cattelan', img: 'p18b',
+    desc: 'Tavolo rotondo con base in acciaio e piano in marmo.',
+    fin: { 'Base': ['titanio', 'bronzo', 'graphite', 'pearl', 'nero (goffrati)'], 'Piano in marmo': ['Lepanto', 'Avocatus', 'Onda Grigia'] },
+    tags: ['marmo', 'rotondo'], D: [140, 160], H: 75 },
+  { id: 'yoda-marble', name: 'Yoda Marble', cat: 'tavolo', design: 'Paolo Cattelan', img: 'p19',
+    desc: 'Tavolo rotondo con base a colonna e piano in marmo.',
+    fin: { 'Base': ['bronzo', 'graphite', 'pearl', 'nero (goffrati)', 'titanio satinato'], 'Piano in marmo': ['Lepanto', 'Avocatus', 'Onda Grigia'] },
+    tags: ['marmo', 'rotondo'], D: [140, 160], H: 76 },
+  { id: 'gotham-keramik-drive', name: 'Gotham Keramik Drive', cat: 'tavolo', design: 'Paolo Cattelan', img: 'p21',
+    desc: 'Tavolo allungabile con piano e prolunghe in ceramica effetto marmo.',
+    fin: { 'Base (con inserti in acciaio inox lucido)': ['titanio goffrato', 'bronzo goffrato'], 'Piano in ceramica Marmi': ['Alabastro', 'Golden Calacatta opaco o lucido', 'Portoro opaco o lucido', 'Sahara Noir lucido', 'Makalu', 'Breccia', 'Corcovado', 'Kaindy', 'Borghini Calacatta opaco o lucido', 'Colosseo', 'Andromeda', 'Invisible opaco', 'Taj Mahal', 'Giava', 'Darwin', 'Luxor'] },
+    tags: ['ceramica', 'allungabile', 'rettangolare'], ext: 'due versioni: da 182 cm allungabile a 258 cm, e da 200 cm allungabile a 294 cm', L: [258, 294], Lc: [182, 200], H: 75 },
+  { id: 'napoleon-keramik-outdoor', name: 'Napoleon Keramik Outdoor', cat: 'tavolo', design: 'Paolo Cattelan', img: 'p23', outdoor: true, covered: true,
+    desc: 'Tavolo da esterno con piano e base in ceramica effetto marmo, piano in appoggio.',
+    fin: { 'Piano e base in ceramica Marmi': ['Portoro', 'Borghini Calacatta opaco', 'Colosseo', 'Invisible opaco', 'Taj Mahal'] },
+    tags: ['ceramica', 'esterno', 'rettangolare'], range: 'lunghezze da 200 a 320 cm', L: [200, 220, 240, 300, 320] },
+  { id: 'rado-keramik-round-outdoor', name: 'Rado Keramik Round Outdoor', cat: 'tavolo', design: 'Paolo Cattelan', img: 'p25', outdoor: true,
+    desc: 'Tavolo rotondo da esterno con piano e base in ceramica effetto marmo.',
+    fin: { 'Piano e base in ceramica Marmi': ['Portoro opaco', 'Borghini Calacatta opaco', 'Colosseo', 'Invisible opaco', 'Taj Mahal'] },
+    tags: ['ceramica', 'esterno', 'rotondo'], D: [140, 158], H: 75 },
+  // ---------- Scrivanie ----------
+  { id: 'boston', name: 'Boston', cat: 'scrivania', design: 'Paolo Cattelan', img: 'p27',
+    desc: 'Scrivania in legno con inserto in cuoio, con o senza cassetto; foro passacavi optional.',
+    fin: { 'Piano': ['noce Canaletto', 'rovere bruciato'], 'Inserto': ['cuoio nei colori del campionario'], 'Gambe': ['legno goffrato bronzo con dettagli in acciaio cromato'] },
+    tags: ['legno', 'cuoio'], L: [200], W: [100], H: 73 },
+  // ---------- Sedie ----------
+  { id: 'giselle', name: 'Giselle', cat: 'sedia', design: 'Maurizio Manzoni', img: 'p29',
+    desc: 'Sedia con braccioli e struttura in frassino.',
+    fin: { 'Struttura in frassino': ['naturale', 'tinto noce Canaletto', 'tinto rovere bruciato', 'laccato nero opaco'], 'Rivestimento': ['tessuto', 'micro nubuck', 'ecopelle', 'pelle'] }, tags: ['legno', 'braccioli', 'tessuto', 'pelle'] },
+  { id: 'greta-wood', name: 'Greta Wood', cat: 'sedia', design: 'Paolo Cattelan', img: 'p35',
+    desc: 'Sedia con braccioli e struttura in legno massello.',
+    fin: { 'Struttura': ['noce Canaletto', 'frassino tinto rovere bruciato'], 'Rivestimento': ['tessuto', 'micro nubuck', 'ecopelle', 'pelle'] }, tags: ['legno', 'braccioli', 'tessuto', 'pelle'] },
+  { id: 'greta-outdoor', name: 'Greta Outdoor', cat: 'sedia', design: 'Paolo Cattelan', img: 'p26', outdoor: true, covered: true,
+    desc: 'Sedia da esterno con struttura in acciaio inox 304.',
+    fin: { 'Struttura (inox 304 goffrato)': ['titanio', 'bronzo', 'graphite', 'pearl', 'nero'], 'Rivestimento': ['tessuto da campionario'] }, tags: ['esterno', 'acciaio', 'tessuto'] },
+  { id: 'magda-barre', name: 'Magda Barrè', cat: 'sedia', design: 'Studio Kronos', img: 'p36',
+    desc: 'Sedia con o senza braccioli, struttura in frassino e schienale trapuntato sul retro. Esiste anche come sgabello.',
+    fin: { 'Struttura in frassino': ['naturale', 'tinto noce Canaletto', 'tinto rovere bruciato', 'laccato nero opaco'], 'Rivestimento': ['ecopelle', 'pelle'] }, tags: ['legno', 'pelle', 'braccioli'] },
+  { id: 'magda-ml-barre', name: 'Magda ML Barrè', cat: 'sedia', design: 'Studio Kronos', img: 'p37',
+    desc: 'Sedia con o senza braccioli, struttura in metallo e schienale trapuntato.',
+    fin: { 'Struttura': ['acciaio cromato', 'titanio', 'bronzo', 'graphite', 'pearl', 'nero (goffrati)'], 'Rivestimento': ['ecopelle', 'pelle'] }, tags: ['acciaio', 'pelle', 'braccioli'] },
+  { id: 'charlotte', name: 'Charlotte', cat: 'sedia', design: 'Luca Signoretti', img: 'p31',
+    desc: 'Poltroncina con fronte in tessuto e retro in pelle.',
+    fin: { 'Struttura (goffrata)': ['titanio', 'bronzo', 'nero'], 'Rivestimento': ['fronte in tessuto', 'retro in pelle'] }, tags: ['acciaio', 'tessuto', 'pelle', 'poltroncina'] },
+  { id: 'britney-turn', name: 'Britney Turn', cat: 'sedia', design: 'Castello Lagravinese Studio', img: 'p33',
+    desc: 'Poltroncina girevole interamente rivestita in tessuto.',
+    fin: { 'Rivestimento': ['tessuto da campionario'] }, tags: ['girevole', 'tessuto', 'poltroncina'] },
+  // ---------- Sgabelli ----------
+  { id: 'magda-barre-sgabello', name: 'Magda Barrè Sgabello', cat: 'sgabello', design: 'Studio Kronos', img: 'p38a',
+    desc: 'Sgabello con o senza braccioli, struttura in frassino.',
+    fin: { 'Struttura in frassino': ['naturale', 'tinto noce Canaletto', 'tinto rovere bruciato', 'laccato nero opaco'], 'Rivestimento': ['ecopelle', 'pelle'] }, tags: ['legno', 'pelle'] },
+  { id: 'magda-ml-barre-sgabello', name: 'Magda ML Barrè Sgabello', cat: 'sgabello', design: 'Studio Kronos', img: 'p38b',
+    desc: 'Sgabello con o senza braccioli, struttura in metallo.',
+    fin: { 'Struttura': ['acciaio cromato', 'titanio', 'bronzo', 'graphite', 'pearl', 'nero (goffrati)'], 'Rivestimento': ['ecopelle', 'pelle'] }, tags: ['acciaio', 'pelle'] },
+  // ---------- Divani ----------
+  { id: 'gibson', name: 'Gibson', cat: 'divano', design: 'Sergio Bicego', img: 'p39',
+    desc: 'Divano componibile con cuscini schienale in mistopiuma e un modulo tavolino con inserto in ceramica. Rivestimento sfoderabile.',
+    fin: { 'Rivestimento': ['tessuto da campionario'], 'Modulo tavolino': ['inserto in ceramica Marmi (19 colori)'] }, tags: ['componibile', 'tessuto', 'sfoderabile'] },
+  { id: 'murphy', name: 'Murphy', cat: 'divano', design: 'Maurizio Manzoni', img: 'p46',
+    desc: 'Divano componibile con schienali a cuscini riposizionabili. Rivestimento sfoderabile.',
+    fin: { 'Rivestimento': ['tessuto da campionario'] }, tags: ['componibile', 'tessuto', 'sfoderabile'] },
+  { id: 'baldwin', name: 'Baldwin', cat: 'divano', design: 'Maurizio Manzoni', img: 'p49',
+    desc: 'Divano singolo o componibile, anche in versione mix tessuto e pelle.',
+    fin: { 'Rivestimento': ['tessuto', 'versione mix: tessuto + pelle o pelle Glove'] }, tags: ['componibile', 'tessuto', 'pelle'] },
+  // ---------- Poltrone ----------
+  { id: 'baldwin-turn', name: 'Baldwin Turn', cat: 'poltrona', design: 'Maurizio Manzoni', img: 'p55',
+    desc: 'Poltrona girevole in tessuto, anche con retro in pelle.', fin: { 'Rivestimento': ['tessuto', 'retro in pelle o pelle Glove'] }, tags: ['girevole', 'tessuto', 'pelle'] },
+  { id: 'margaret', name: 'Margaret', cat: 'poltrona', design: 'Sergio Bicego', img: 'p56',
+    desc: 'Poltrona fissa o girevole con base in acciaio.', fin: { 'Base (goffrata)': ['titanio', 'bronzo', 'nero'], 'Rivestimento': ['tessuto', 'micro nubuck', 'pelle'] }, tags: ['girevole', 'acciaio', 'tessuto', 'pelle'] },
+  { id: 'peggy-turn', name: 'Peggy Turn', cat: 'poltrona', design: 'Castello Lagravinese Studio', img: 'p58',
+    desc: 'Poltrona girevole avvolgente.', fin: { 'Rivestimento': ['tessuto', 'micro nubuck', 'pelle'] }, tags: ['girevole', 'tessuto', 'pelle'] },
+  { id: 'giselle-lounge', name: 'Giselle Lounge', cat: 'poltrona', design: 'Maurizio Manzoni', img: 'p60',
+    desc: 'Poltrona lounge con struttura in frassino; cuscino optional.', fin: { 'Struttura in frassino': ['naturale', 'tinto noce Canaletto', 'tinto rovere bruciato', 'laccato nero opaco'], 'Rivestimento': ['tessuto', 'micro nubuck', 'ecopelle', 'pelle'] }, tags: ['legno', 'lounge', 'tessuto', 'pelle'] },
+  { id: 'sierra-pouf', name: 'Sierra Pouf', cat: 'pouf', design: 'Studio Kronos', img: 'p62',
+    desc: 'Pouf imbottito.', fin: { 'Rivestimento': ['tessuto', 'pelle'] }, tags: ['tessuto', 'pelle'] },
+  // ---------- Tavolini ----------
+  { id: 'lagoon', name: 'Lagoon', cat: 'tavolino', design: 'Studio Kronos', img: 'p68',
+    desc: 'Tavolino con piano in vetro cotto bronzo, piedi in legno e telaio in acciaio. Le misure del piano sono indicative.',
+    fin: { 'Piano': ['vetro cotto bronzo'], 'Piedi': ['noce Canaletto', 'frassino tinto rovere bruciato'] }, tags: ['vetro', 'legno', 'rotondo'], D: [100, 120], Hs: [31, 41] },
+  { id: 'standard', name: 'Standard', cat: 'tavolino', design: 'Paolo Cattelan', img: 'p65',
+    desc: 'Tavolino in cristallo curvato bronzo, dalla forma irregolare.', fin: { 'Materiale': ['cristallo curvato bronzo'] },
+    tags: ['vetro', 'cristallo', 'irregolare'], approx: 'circa 80, 100 o 120 cm (forma irregolare)', Hs: [34, 44] },
+  { id: 'matera', name: 'Matera', cat: 'tavolino', design: 'Studio 28', img: 'p63', desc: 'Tavolino in legno laccato beige lucido.', fin: { 'Finitura': ['legno laccato beige lucido'] }, tags: ['legno', 'laccato'] },
+  { id: 'amalfi', name: 'Amalfi', cat: 'tavolino', design: 'Paolo Cattelan', img: 'p72',
+    desc: 'Tavolino con base a colonna e piano in ceramica effetto marmo.', fin: { 'Base e colonna': ['titanio o bronzo goffrato', 'base bronzo con colonna Brushed Bronze'], 'Piano in ceramica Marmi': ['19 colori, tra cui Alabastro, Portoro, Calacatta, Taj Mahal'] }, tags: ['ceramica'] },
+  { id: 'bishop', name: 'Bishop', cat: 'tavolino', design: 'Lorenzo Remedi', img: 'p70', outdoor: true,
+    desc: 'Tavolino in ceramica artistica smaltata, adatto anche all’esterno.', fin: { 'Ceramica smaltata': ['Cobalto', 'Etrusco', 'Smeraldo'] }, tags: ['ceramica', 'esterno', 'rotondo'], approx: 'piccolo tavolino d’appoggio, diametri tra circa 36 e 50 cm' },
+  { id: 'felix', name: 'Felix', cat: 'complemento', design: 'Studio Kronos', img: 'p74',
+    desc: 'Carrello bar su ruote con ripiani in ceramica.', fin: { 'Struttura': ['titanio o bronzo goffrato'], 'Ripiani in ceramica Marmi': ['Alabastro', 'Portoro', 'Makalu', 'Breccia', 'Corcovado', 'Kaindy', 'Colosseo', 'Taj Mahal', 'Giava'] }, tags: ['ceramica', 'carrello', 'bar'] },
+  // ---------- Consolle ----------
+  { id: 'peninsula', name: 'Peninsula', cat: 'consolle', design: 'Paolo Cattelan', img: 'p75',
+    desc: 'Consolle in acciaio da fissare a parete; gancio portaborse optional.', fin: { 'Acciaio': ['titanio', 'bronzo (goffrati)', 'Oxybrass', 'Oxygrey'] }, tags: ['acciaio'] },
+  { id: 'brio-keramik', name: 'Brio Keramik', cat: 'consolle', design: 'Giorgio Cattelan', img: 'p77',
+    desc: 'Consolle con dettagli in ottone e piano in ceramica.', fin: { 'Struttura': ['titanio o bronzo goffrato, dettagli in ottone'], 'Piano in ceramica Marmi': ['Portoro', 'Makalu', 'Breccia', 'Kaindy', 'Colosseo', 'Taj Mahal', 'Giava'] }, tags: ['ceramica'] },
+  // ---------- Madie e comodini ----------
+  { id: 'chelsea', name: 'Chelsea', cat: 'madia', design: 'Alessio Bassan', img: 'p78',
+    desc: 'Madia in legno laccato con ripiani interni in cristallo.', fin: { 'Legno laccato': ['titanio', 'Paprika', 'Mint'], 'Top': ['cristallo specchiato bronzo', 'ceramica Colosseo', 'ceramica Taj Mahal'] }, tags: ['legno', 'laccato'], L: [137, 193, 248], Dp: 46 },
+  { id: 'chelsea-drawers', name: 'Chelsea Drawers', cat: 'madia', design: 'Alessio Bassan', img: 'p89',
+    desc: 'Madia a cassetti in legno laccato titanio.', fin: { 'Legno laccato': ['titanio'], 'Top': ['cristallo specchiato bronzo', 'ceramica Colosseo', 'ceramica Taj Mahal'] }, tags: ['legno', 'cassetti'], L: [137], Dp: 46 },
+  { id: 'chelsea-night', name: 'Chelsea Night', cat: 'comodino', design: 'Alessio Bassan', img: 'p88',
+    desc: 'Comodino a cassetti in legno laccato titanio.', fin: { 'Legno laccato': ['titanio'], 'Top': ['cristallo specchiato bronzo', 'ceramica Colosseo', 'ceramica Taj Mahal'] }, tags: ['legno', 'cassetti'] },
+  { id: 'elias', name: 'Elias', cat: 'comodino', design: 'Studio 28', img: 'p90',
+    desc: 'Comodino con anta rivestita in pelle.', fin: { 'Struttura': ['laccato titanio', 'laccato beige lucido'], 'Anta': ['pelle da campionario'] }, tags: ['legno', 'pelle'] },
+  // ---------- Notte, librerie, specchi, luce ----------
+  { id: 'richard', name: 'Richard', cat: 'letto', design: 'Studio 28', img: 'p86',
+    desc: 'Letto imbottito, rete inclusa; optional rete alzabile con contenitore.', fin: { 'Rivestimento': ['tessuto', 'micro nubuck', 'ecopelle', 'pelle'] }, tags: ['imbottito', 'contenitore'] },
+  { id: 'address', name: 'Address', cat: 'libreria', design: 'Paolo Cattelan', img: 'p79',
+    desc: 'Libreria componibile da fissare a muro o a soffitto; portata massima 4 kg per ripiano.', fin: { 'Struttura': ['titanio goffrato con dettagli Oxygrey', 'bronzo con dettagli Oxybrass'], 'Ripiani': ['noce Canaletto', 'rovere bruciato'] }, tags: ['acciaio', 'legno', 'componibile'] },
+  { id: 'pierre', name: 'Pierre', cat: 'specchio', design: 'Tosca Design', img: 'p85',
+    desc: 'Specchio servomuto con base in frassino.', fin: { 'Base': ['frassino tinto noce Canaletto', 'frassino tinto rovere bruciato'], 'Struttura': ['acciaio goffrato bronzo'] }, tags: ['legno', 'specchio'] },
+  { id: 'wanted', name: 'Wanted', cat: 'lampada', design: 'STC Studio', img: 'p83',
+    desc: 'Lampada da terra con paralumi in vetro artistico, LED dimmerabile con pedaliera.', fin: { 'Struttura': ['acciaio goffrato nero'], 'Vetro Balloton': ['Verde Pavone', 'Ambra', 'Madreperla'] }, tags: ['terra', 'vetro', 'led'] },
+  { id: 'san-marco', name: 'San Marco', cat: 'lampada', design: 'Studio Kronos', img: 'p81',
+    desc: 'Lampada a soffitto in vetro artistico, LED dimmerabile (anche DALI / 0-10V).', fin: { 'Vetro': ['sfumato o Rigadin, Verde o Pesca'], 'Attacco': ['acciaio cromo nero'] }, tags: ['soffitto', 'sospensione', 'vetro', 'led'] },
+  { id: 'potter', name: 'Potter', cat: 'lampada', design: 'Andrea Marangoni', img: 'p84',
+    desc: 'Lampada da tavolo con base in alluminio Pink Champagne e paralume in vetro (lampadina non inclusa).', fin: { 'Base': ['alluminio Pink Champagne'], 'Paralume': ['vetro artistico'] }, tags: ['tavolo', 'vetro'] },
+  // ---------- Tappeti ----------
+  { id: 'kiran', name: 'Kiran', cat: 'tappeto', design: 'Studio Kronos', img: 'p91',
+    desc: 'Tappeto con disegno in rilievo in lana.', fin: { 'Colori': ['Etrusco', 'Tortora'] }, tags: ['lana'], rugs: ['300×400', 'Ø300'] },
+  { id: 'madras', name: 'Madras', cat: 'tappeto', design: 'STC Studio', img: 'p93a',
+    desc: 'Tappeto con disegno in rilievo in lana.', fin: { 'Colori': ['Ivory', 'Beige'] }, tags: ['lana'], rugs: ['200×300', '240×340', '300×400', 'Ø300'] },
+  { id: 'sendai', name: 'Sendai', cat: 'tappeto', design: 'STC Studio', img: 'p93b',
+    desc: 'Tappeto con disegno in rilievo in lana.', fin: {}, tags: ['lana'], rugs: ['200×300', '240×340', '300×400', 'Ø300'] },
+];
+</script>
+<script></script>
+<script>// Showroom assistant engine: intent + entity recognition over the catalogue, short-term context, lead capture.
+// Deterministic and fully client-side: same input + same context -> same answer.
+(function () {
+  const P = window.PRODUCTS;
+  const CAT = {
+    tavolo: { s: 'tavolo', p: 'tavoli', kw: ['tavolo', 'tavoli', 'tavola', 'pranzo', 'sala da pranzo', 'table'] },
+    tavolino: { s: 'tavolino', p: 'tavolini', kw: ['tavolino', 'tavolini', 'coffee table', 'salotto basso', 'tavolinetto', 'd appoggio', 'da caffe'] },
+    sedia: { s: 'sedia', p: 'sedie', kw: ['sedia', 'sedie', 'seduta', 'sedute', 'poltroncina', 'poltroncine', 'chair'] },
+    sgabello: { s: 'sgabello', p: 'sgabelli', kw: ['sgabello', 'sgabelli', 'stool', 'penisola', 'bancone', 'isola'] },
+    divano: { s: 'divano', p: 'divani', kw: ['divano', 'divani', 'sofa', 'sofà', 'componibile'] },
+    poltrona: { s: 'poltrona', p: 'poltrone', kw: ['poltrona', 'poltrone', 'armchair', 'lounge'] },
+    pouf: { s: 'pouf', p: 'pouf', kw: ['pouf', 'puf', 'poggiapiedi'] },
+    scrivania: { s: 'scrivania', p: 'scrivanie', kw: ['scrivania', 'scrivanie', 'studio', 'ufficio', 'desk'] },
+    consolle: { s: 'consolle', p: 'consolle', kw: ['consolle', 'console', 'ingresso'] },
+    madia: { s: 'madia', p: 'madie', kw: ['madia', 'madie', 'credenza', 'credenze', 'buffet', 'contenitore', 'mobile basso'] },
+    comodino: { s: 'comodino', p: 'comodini', kw: ['comodino', 'comodini'] },
+    letto: { s: 'letto', p: 'letti', kw: ['letto', 'letti', 'camera da letto', 'matrimoniale'] },
+    libreria: { s: 'libreria', p: 'librerie', kw: ['libreria', 'librerie', 'scaffale', 'scaffali', 'mensole', 'libri'] },
+    specchio: { s: 'specchio', p: 'specchi', kw: ['specchio', 'specchi', 'servomuto'] },
+    lampada: { s: 'lampada', p: 'lampade', kw: ['lampada', 'lampade', 'luce', 'luci', 'illuminazione', 'piantana', 'lampadario', 'sospensione', 'plafoniera'] },
+    tappeto: { s: 'tappeto', p: 'tappeti', kw: ['tappeto', 'tappeti', 'rug'] },
+    complemento: { s: 'complemento', p: 'complementi', kw: ['carrello', 'carrello bar', 'angolo bar', 'complemento', 'complementi'] },
+  };
+  const FEM = ['sedia', 'poltrona', 'scrivania', 'consolle', 'madia', 'libreria', 'lampada'];
+  const MAT = { marmo: ['marmo', 'marmi', 'marble'], vetro: ['vetro', 'cristallo', 'glass', 'trasparente'], ceramica: ['ceramica', 'keramik', 'gres'], legno: ['legno', 'noce', 'rovere', 'frassino', 'wood'], pelle: ['pelle', 'cuoio', 'leather', 'ecopelle'], tessuto: ['tessuto', 'stoffa', 'velluto', 'fabric'], acciaio: ['acciaio', 'metallo', 'ferro'] };
+  const NUMW = { due: 2, tre: 3, quattro: 4, cinque: 5, sei: 6, sette: 7, otto: 8, nove: 9, dieci: 10, dodici: 12, quattordici: 14 };
+  const norm = (s) => ' ' + s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[’'`]/g, ' ').replace(/[^a-z0-9ø×x\s]/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
+  const has = (t, words) => words.some((w) => t.includes(' ' + w + ' ') || (w.length > 5 && t.includes(' ' + w)));
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const list = (a) => (a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' e ' + a[a.length - 1]);
+  const listOr = (a) => (a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' o ' + a[a.length - 1]);
+  const byId = (id) => P.find((p) => p.id === id);
+
+  // product names: full name, plus the distinctive first word ("skorpio", "bilbao") when it is not shared ambiguously
+  const ALIAS = P.map((p) => { const n = norm(p.name).trim(); const first = n.split(' ')[0]; return { p, full: n, first }; });
+  const findProducts = (t) => {
+    const full = ALIAS.filter((a) => t.includes(' ' + a.full + ' '));
+    if (full.length) { const longest = Math.max(...full.map((a) => a.full.length)); return full.filter((a) => a.full.length === longest || !full.some((b) => b !== a && b.full.includes(a.full))).map((a) => a.p); }
+    const hits = ALIAS.filter((a) => a.first.length > 3 && t.includes(' ' + a.first + ' '));
+    if (!hits.length) return [];
+    // narrow families (Skorpio / Skorpio Round, Magda / Magda ML / sgabello) using the rest of the sentence
+    const fam = {};
+    hits.forEach((a) => (fam[a.first] = fam[a.first] || []).push(a));
+    const out = [];
+    Object.values(fam).forEach((g) => {
+      if (g.length === 1) return out.push(g[0].p);
+      let best = g.filter((a) => a.full.split(' ').slice(1).every((w) => ['marble', 'keramik', 'glass', 'outdoor', 'drive', 'turn', 'barre'].includes(w) || t.includes(' ' + w + ' ') || (w === 'round' && has(t, ['rotondo', 'tondo', 'round', 'rotonda'])) || (w === 'sgabello' && has(t, ['sgabello', 'sgabelli'])) || (w === 'ml' && has(t, ['ml', 'metallo', 'acciaio']))));
+      if (!best.length) best = g;
+      best.sort((a, b) => a.full.split(' ').length - b.full.split(' ').length);
+      // prefer the plain model unless the extra word was asked for
+      const pick = best.find((a) => (has(t, ['rotondo', 'tondo', 'round']) ? a.full.includes('round') : !a.full.includes('round')) && (has(t, ['sgabello', 'sgabelli']) ? a.full.includes('sgabello') : !a.full.includes('sgabello')) && (has(t, ['ml', 'metallo', 'acciaio']) ? a.full.includes(' ml ') : !a.full.includes(' ml '))) || best[0];
+      out.push(pick.p);
+    });
+    return out;
+  };
+  const findCat = (t) => {
+    const pos = (w) => { const i = t.indexOf(' ' + w + ' '); return i < 0 && w.length > 5 ? t.indexOf(' ' + w) : i; };
+    const hits = Object.entries(CAT).map(([k, v]) => [k, Math.min(...v.kw.map(pos).filter((i) => i >= 0).concat([1e9]))]).filter((x) => x[1] < 1e9);
+    if (hits.length > 1) {
+      // "tavolino" also contains "tavolo"-like words; sgabello keywords (isola, penisola) only count when nothing else is named
+      const real = hits.filter(([k]) => !(k === 'sgabello' && !has(t, ['sgabello', 'sgabelli'])) && !(k === 'tavolo' && has(t, CAT.tavolino.kw)));
+      let pool = real.length ? real : hits;
+      // "ho un divano blu, cerco un tavolino": what comes after the request verb is what they want
+      const vm = t.match(/ (cerco|cercavo|vorrei|voglio|mi serve|mi servono|serve|consigliami|mi consigli|avete|ci sono|mostrami|stavo cercando) /);
+      if (vm) { const after = pool.filter((h) => h[1] > vm.index); if (after.length) pool = after; }
+      if (has(t, CAT.tavolino.kw) && pool.some((h) => h[0] === 'tavolino') && !pool.some((h) => h[0] !== 'tavolino' && h[0] !== 'tavolo' && h[1] < pool.find((x) => x[0] === 'tavolino')[1])) return 'tavolino';
+      return pool.sort((a, b) => a[1] - b[1])[0][0];
+    }
+    if (has(t, CAT.tavolino.kw)) return 'tavolino';
+    if (has(t, ['sgabello', 'sgabelli'])) return 'sgabello';
+    if (has(t, ['poltroncina', 'poltroncine'])) return 'sedia';
+    for (const [k, v] of Object.entries(CAT)) if (k !== 'tavolino' && has(t, v.kw)) return k;
+    return null;
+  };
+  const findMat = (t) => Object.entries(MAT).filter(([, w]) => has(t, w)).map(([k]) => k);
+  const people = (t) => { let m = t.match(/ (\d{1,2}) (persone|posti|coperti|commensali|ospiti|sedute) /) || t.match(/ per (\d{1,2}) (?!cm)/); if (m) return +m[1]; for (const [w, n] of Object.entries(NUMW)) if (t.includes(' ' + w + ' persone ') || t.includes(' per ' + w + ' ') || t.includes(' ' + w + ' posti ')) return n; return null; };
+  const rugSize = (t) => { const m = t.match(/ (\d{3}) ?(x|×|per) ?(\d{3}) /); if (m) return [Math.min(+m[1], +m[3]), Math.max(+m[1], +m[3])]; const d = t.match(/ (ø|diametro )?(\d{3}) (cm )?(rotondo|tondo|di diametro)/); return d ? ['Ø', +d[2]] : null; };
+  const lenAsk = (t) => { const m = t.match(/ (lungo|lunga|lunghezza|da|di|almeno|massimo|max) (\d{3}) ?(cm)? /) || t.match(/ (\d{3}) ?cm /); return m ? +(m[2] || m[1]) : null; };
+
+  const INT = {
+    greet: ['ciao', 'buongiorno', 'buonasera', 'salve', 'hey', 'hello', 'hi'],
+    thanks: ['grazie', 'perfetto grazie', 'ok grazie', 'thanks'],
+    weight: ['pesa', 'peso', 'pesante', 'quanti chili', 'quanti kg'],
+    price: ['prezzo', 'prezzi', 'costa', 'costo', 'costi', 'quanto viene', 'quanto costa', 'listino', 'preventivo', 'budget', 'euro', 'sconto', 'offerta'],
+    dims: ['largo', 'larga', 'profondo', 'profonda', 'profondita', 'misura', 'misure', 'dimensione', 'dimensioni', 'grande', 'lungo', 'lunga', 'larghezza', 'lunghezza', 'altezza', 'alto', 'alta', 'diametro', 'ingombro', 'quanti posti', 'quante persone', 'ci stanno', 'formati', 'formato', 'taglie'],
+    fin: ['finitura', 'finiture', 'colore', 'colori', 'materiale', 'materiali', 'varianti', 'versioni', 'basi', 'rivestimento', 'rivestimenti', 'tessuti', 'marmi', 'tinte', 'disponibile in', 'di che', 'in che'],
+    design: ['designer', 'disegnato', 'progettato', 'chi l ha', 'chi lo ha', 'autore'],
+    outdoorQ: ['inverno', 'gelo', 'neve', 'lasciare fuori', 'stare fuori', 'pioggia', 'piove', 'intemperie', 'scoperto', 'sole diretto', 'fuori tutto l anno', 'all aperto', 'resiste'],
+    contact: ['contatto', 'contattare', 'contattatemi', 'contattami', 'contattate', 'richiamare', 'richiamatemi', 'richiamate', 'chiamare', 'chiamate', 'mi chiamate', 'chiamatemi', 'scrivetemi', 'consulente', 'appuntamento', 'scheda tecnica', 'schede tecniche', 'catalogo', 'parlare con', 'consulente', 'venditore', 'trova il rivenditore', 'rivenditore piu vicino'],
+    compare: ['differenza', 'differenze', 'confronta', 'confronto', 'meglio tra', 'oppure', 'vs'],
+    more: ['altro', 'altri', 'altre', 'altre opzioni', 'alternative', 'alternativa', 'mostrami altro', 'altro ancora'],
+    help: ['aiuto', 'cosa sai fare', 'come funziona', 'help', 'cosa puoi fare'],
+    cancel: ['annulla', 'stop', 'lascia stare', 'niente', 'non importa'],
+  };
+  const isI = (t, k) => has(t, INT[k]);
+
+  // ---------- answers ----------
+  const cardOf = (p, note, whyTxt) => ({ id: p.id, name: p.name, img: p.img, cat: CAT[p.cat].s, line: note || p.desc, why: whyTxt || '' });
+  const dimsText = (p) => {
+    const parts = [];
+    if (p.ext) parts.push('è allungabile, in ' + p.ext);
+    else if (p.L && p.W) parts.push(`è disponibile ${p.shapes ? 'in forma ' + p.shapes + ', ' : ''}in ${p.L.length > 1 ? 'lunghezze di' : 'lunghezza'} ${list(p.L.map(String))} cm, con larghezza ${listOr(p.W.map(String))} cm`);
+    else if (p.L && p.Dp) parts.push(`è disponibile in larghezza ${listOr(p.L.map(String))} cm, profondità ${p.Dp} cm`);
+    if (p.range) parts.push('è disponibile in ' + p.range);
+    if (p.D) parts.push(`${parts.length ? 'e' : 'è'} in versione rotonda da ${listOr(p.D.map((x) => 'Ø ' + x))} cm`);
+    if (p.rugs) parts.push('esiste nei formati ' + list(p.rugs) + ' cm');
+    if (p.approx) parts.push('misura ' + p.approx);
+    if (p.H) parts.push(`altezza ${p.H} cm`);
+    if (p.Hs) parts.push(`altezza ${listOr(p.Hs.map(String))} cm`);
+    return parts.length ? parts.join(', ') : null;
+  };
+  const finText = (p) => {
+    const ks = Object.entries(p.fin);
+    if (!ks.length) return null;
+    return ks.map(([k, v]) => `<b>${esc(k)}</b>: ${esc(listOr(v))}`).join('<br>');
+  };
+  const seatsFor = (p, n) => {
+    // indicative: ~60 cm per person on the long sides; round Ø140 seats about 6, Ø160 about 8
+    if (p.D) { const d = p.D.find((x) => (n <= 6 && x >= 140) || (n <= 8 && x >= 158)); if (d) return `Ø ${d} cm`; }
+    const need = n <= 4 ? 140 : n <= 6 ? 180 : n <= 8 ? 220 : n <= 10 ? 260 : 300;
+    if (p.L) { const l = p.L.filter((x) => x >= need).sort((a, b) => a - b)[0]; if (l) return p.ext ? `allungato fino a ${l} cm` : `${l} cm`; }
+    return null;
+  };
+  const recommend = (st, cat, mats, opts = {}) => {
+    let pool = P.filter((p) => !cat || p.cat === cat);
+    if (opts.outdoor) pool = pool.filter((p) => p.outdoor);
+    else if (cat && !opts.anyOutdoor) pool = pool.filter((p) => !p.outdoor || cat === 'tavolino');
+    if (opts.round) pool = pool.filter((p) => p.tags.includes('rotondo') || (p.rugs || []).some((r) => r.startsWith('Ø')));
+    if (opts.ext) pool = pool.filter((p) => p.tags.includes('allungabile'));
+    if (opts.swivel) pool = pool.filter((p) => p.tags.includes('girevole'));
+    mats.forEach((m) => { const f = pool.filter((p) => p.tags.includes(m)); if (f.length) pool = f; else opts.missing = (opts.missing || []).concat(m); });
+    if (opts.n) pool = pool.filter((p) => seatsFor(p, opts.n));
+    if (opts.len) pool = pool.filter((p) => (p.L || []).some((x) => Math.abs(x - opts.len) <= 20) || (p.D || []).some((x) => Math.abs(x - opts.len) <= 20));
+    if (opts.rug) pool = pool.filter((p) => p.rugs && p.rugs.some((r) => (opts.rug[0] === 'Ø' ? r === 'Ø' + opts.rug[1] : r === opts.rug[0] + '×' + opts.rug[1])));
+    if (opts.color) pool = pool.slice().sort((a, b) => (finishFor(b, COLORS[opts.color].pick) ? 1 : 0) - (finishFor(a, COLORS[opts.color].pick) ? 1 : 0));
+    if (opts.rooms && opts.rooms.includes('cucina')) pool = pool.slice().sort((a, b) => kitchenScore(b) - kitchenScore(a));
+    if (opts.small) { const sz = (p) => { const s = sizeOf(p, 'small'); return s && s[2] !== 'h' ? s[0] : 999; }; pool = pool.slice().sort((a, b) => sz(a) - sz(b)); }
+    const seen = st.shown || [];
+    const fresh = pool.filter((p) => !seen.includes(p.id));
+    return (opts.more ? fresh : pool).slice(0, 3);
+  };
+
+
+  // ---------- general questions (company facts from the catalogue colophon; anything not in the catalogue goes to a consultant)
+  const DESIGNERS = Array.from(new Set(P.map((p) => p.design))).sort();
+  const FAQ = [
+    { k: ['sconto', 'sconti', 'promozione', 'promozioni', 'offerte', 'saldi', 'a rate', 'rate', 'rateale', 'finanziamento', 'pagamento', 'pagamenti', 'pagare', 'carta di credito', 'bonifico'],
+      a: 'Prezzi, sconti e modalità di pagamento (anche a rate) li decide il <b>rivenditore</b>, quindi non li trovo nel catalogo. Un consulente ti può dire le condizioni del rivenditore più vicino a te.', c: ['Sì, contattatemi', 'Trova il rivenditore più vicino'] },
+    { k: ['dove producete', 'producete', 'produzione', 'fabbrica', 'stabilimento', 'made in italy', 'fatto in italia', 'prodotti in italia'],
+      a: '<b>Cattelan Italia</b> è un’azienda italiana con sede a <b>Carrè (Vicenza)</b>, in via Pilastri 19. Sul luogo di produzione dei singoli modelli il catalogo non dà dettagli: un consulente te lo può confermare.', c: ['Chi è Cattelan Italia?', 'Dove posso vederli dal vivo?'] },
+    { k: ['dove', 'showroom', 'sede', 'indirizzo', 'dove siete', 'dove si trova', 'dove vi trovo', 'negozio', 'negozi', 'punto vendita', 'punti vendita', 'visitare', 'vedere dal vivo', 'dal vivo', 'di persona', 'vedere i prodotti', 'avete un negozio', 'avete negozi', 'venire a vedere', 'rivenditore', 'rivenditori'],
+      a: 'La sede di <b>Cattelan Italia</b> è a <b>Carrè (Vicenza)</b>, in via Pilastri 19. I prodotti si vedono dal vivo presso i <b>rivenditori autorizzati</b>: dimmi in che zona sei e ti facciamo indicare quello più vicino da un consulente.', c: ['Trova il rivenditore più vicino', 'Contatti dell’azienda', 'Un tavolo in marmo'] },
+    { k: ['come vi contatto', 'vi contatto', 'contattarvi', 'come contattarvi', 'telefono', 'numero', 'email', 'mail', 'contatti', 'recapiti', 'sito', 'sito web', 'chiamarvi', 'scrivervi'],
+      a: 'Contatti di Cattelan Italia (dal catalogo):<br>Tel. <b>+39 0445 318711</b><br>Email <b>info@cattelanitalia.com</b><br>Sito <b>cattelanitalia.com</b><br>Sede: via Pilastri 19, 36010 Carrè (VI).<br><br>Se preferisci, ti faccio richiamare io da un consulente.', c: ['Sì, fatemi richiamare', 'Un tavolo in marmo'] },
+    { k: ['orari', 'orario', 'aperto', 'aperti', 'apertura', 'chiuso', 'sabato', 'domenica'],
+      a: 'Gli orari dipendono dal rivenditore e non li trovo nel catalogo. Posso farti contattare da un consulente, che ti indica il rivenditore più vicino con i suoi orari.', c: ['Trova il rivenditore più vicino'] },
+    { k: ['consegna', 'consegne', 'spedizione', 'spedite', 'spedire', 'tempi', 'quando arriva', 'montaggio', 'trasporto', 'disponibilita', 'pronta consegna', 'magazzino', 'montano', 'montare', 'montato', 'si monta', 'assemblare', 'assemblaggio'],
+      a: 'Tempi di consegna e montaggio dipendono dal modello, dalle finiture scelte e dal rivenditore, quindi non li trovo nel catalogo. Un consulente può darti tempi precisi per il prodotto che ti interessa.', c: ['Parlare con un consulente', 'Un tavolo allungabile'] },
+    { k: ['su misura', 'personalizzare', 'personalizzato', 'personalizzazione', 'misura speciale', 'fuori misura', 'campionario', 'campioni', 'campione'],
+      a: 'Molti modelli escono già in più misure e finiture: per esempio lo <b>Skorpio Marble</b> ha 4 lunghezze, 7 finiture della base e 3 marmi. Per campioni o richieste fuori catalogo serve un consulente.', c: ['Misure di Skorpio Marble', 'Parlare con un consulente'] },
+    { k: ['garanzia', 'assistenza', 'reso', 'resi', 'difetto', 'difetti', 'manutenzione', 'pulire', 'pulisce', 'pulisco', 'pulizia', 'lavare', 'si lava', 'trattare', 'cura', 'graffi', 'macchie'],
+      a: 'Garanzia, assistenza e indicazioni di cura dipendono dal prodotto e le gestisce il rivenditore: posso farti contattare per avere le schede di manutenzione. Una nota dal catalogo: su marmi naturali e ceramiche, variazioni di colore e venature sono caratteristiche del materiale, non difetti.', c: ['Parlare con un consulente'] },
+    { k: ['chi siete', 'azienda', 'storia', 'chi e cattelan', 'cattelan italia', 'da quanto', 'fondata', 'made in italy', 'italiana', 'italiani'],
+      a: '<b>Cattelan Italia</b> è un’azienda italiana di arredamento con sede a <b>Carrè (Vicenza)</b>, attiva dal <b>1979</b>. La Collezione 2026 comprende tavoli, sedie, divani, poltrone, complementi, illuminazione e tappeti, con designer come Paolo Cattelan, Maurizio Manzoni, Studio Kronos e Sergio Bicego.', c: ['Chi sono i designer?', 'Un tavolo in marmo'] },
+    { k: ['designer', 'designers', 'progettisti', 'chi disegna', 'chi progetta'],
+      a: 'I designer della Collezione 2026: ' + DESIGNERS.join(', ') + '. Chiedimi di un modello e ti dico chi l’ha disegnato.', c: ['Chi ha disegnato lo Skorpio?', 'Prodotti di Paolo Cattelan'] },
+    { k: ['prezzi', 'listino'], a: null },
+  ];
+  const faqMatch = (t) => FAQ.find((f) => f.a && has(t, f.k));
+
+  // finish / material vocabulary for free search ("cosa avete in Portoro?", "qualcosa in noce canaletto")
+  const FINVOC = (() => { const v = new Map(); const add = (term, p) => { const k = norm(term).trim(); if (k.length < 5 || ['acciaio', 'campionario', 'goffrato', 'goffrati', 'verniciato', 'colori', 'disponibile'].includes(k)) return; if (!v.has(k)) v.set(k, new Set()); v.get(k).add(p.id); };
+    P.forEach((p) => { Object.values(p.fin).flat().forEach((x) => { add(x, p); norm(x).trim().split(' ').forEach((w) => add(w, p)); }); add(p.design, p); });
+    return v; })();
+  const finMatch = (t) => { let best = null; for (const [k, ids] of FINVOC) if (t.includes(' ' + k + ' ') && (!best || k.length > best[0].length)) best = [k, ids]; return best; };
+
+  // ---------- room and colour context: understood, restated, and used to explain each proposal ----------
+  const ROOMS = {
+    cucina: { kw: ['cucina', 'cucine', 'angolo cottura', 'open space'], label: 'per la cucina', cat: 'tavolo' },
+    pranzo: { kw: ['sala da pranzo', 'mangiare', 'pranzo', 'pranzare', 'cena', 'cenare', 'colazione'], label: 'per mangiare', cat: 'tavolo' },
+    soggiorno: { kw: ['soggiorno', 'salotto', 'living', 'salone'], label: 'per il soggiorno' },
+    camera: { kw: ['camera da letto', 'camera'], label: 'per la camera da letto' },
+    ufficio: { kw: ['ufficio', 'studio', 'lavorare'], label: 'per lo studio' },
+    ingresso: { kw: ['ingresso', 'corridoio', 'entrata'], label: 'per l’ingresso' },
+  };
+  // finishes whose colour is evident from the name only (no guessing on stone names like Lepanto or Avocatus)
+  const COLORS = {
+    rosso: { kw: ['rosso', 'rossi', 'rossa', 'rosse', 'bordeaux', 'bordo', 'amaranto', 'mattone', 'terracotta'], name: 'interni rossi', tip: 'con un colore forte come il rosso conviene una base scura o bronzo e un piano chiaro o grigio, che non facciano a gara con le pareti', pick: ['bronzo', 'nero', 'graphite', 'brushed bronze', 'onda grigia', 'calacatta', 'taj mahal', 'extrachiaro', 'pearl', 'tessuto'] },
+    verde: { kw: ['verde', 'verdi', 'salvia', 'oliva', 'bosco'], name: 'interni verdi', tip: 'il verde sta bene con toni caldi e naturali: bronzo, ottone, legno noce e piani chiari', pick: ['bronzo', 'oxybrass', 'brushed bronze', 'noce canaletto', 'calacatta', 'taj mahal', 'pearl'] },
+    blu: { kw: ['blu', 'azzurro', 'azzurri', 'navy', 'petrolio'], name: 'interni blu', tip: 'con il blu funzionano metalli chiari, piani bianchi e un legno caldo per bilanciare', pick: ['titanio', 'pearl', 'calacatta', 'taj mahal', 'noce canaletto', 'extrachiaro'] },
+    bianco: { kw: ['bianco', 'bianchi', 'bianca', 'bianche', 'chiari', 'chiaro', 'luminoso'], name: 'interni chiari', tip: 'in un ambiente chiaro puoi giocare sul contrasto: base nera o graphite e un piano scuro come il Portoro, oppure restare tutto chiaro', pick: ['nero', 'graphite', 'portoro', 'noce canaletto', 'onda grigia'] },
+    nero: { kw: ['nero', 'neri', 'nera', 'nere', 'scuro', 'scuri', 'antracite'], name: 'interni scuri', tip: 'con toni scuri aiutano superfici chiare che portano luce: piani bianchi e metalli chiari', pick: ['pearl', 'titanio', 'calacatta', 'taj mahal', 'extrachiaro', 'alabastro'] },
+    grigio: { kw: ['grigio', 'grigi', 'grigia', 'grigie', 'cemento'], name: 'interni grigi', tip: 'il grigio si scalda con bronzo e legno noce', pick: ['bronzo', 'brushed bronze', 'noce canaletto', 'onda grigia', 'taj mahal'] },
+    beige: { kw: ['beige', 'crema', 'tortora', 'sabbia', 'naturali', 'caldi'], name: 'toni caldi e naturali', tip: 'sui toni naturali stanno bene bronzo, legno e marmi chiari', pick: ['bronzo', 'noce canaletto', 'rovere bruciato', 'taj mahal', 'calacatta', 'pearl'] },
+    legno: { kw: ['parquet', 'legno scuro', 'legno chiaro'], name: 'pavimento in legno', tip: 'su un pavimento in legno conviene staccare con metallo scuro e un piano chiaro', pick: ['nero', 'bronzo', 'graphite', 'calacatta', 'taj mahal', 'onda grigia'] },
+  };
+  const findRoom = (t) => Object.keys(ROOMS).filter((k) => has(t, ROOMS[k].kw));
+  const findColor = (t) => Object.keys(COLORS).find((k) => has(t, COLORS[k].kw)) || null;
+  const finishFor = (p, pick) => {
+    const out = [];
+    Object.entries(p.fin).forEach(([g, vals]) => {
+      for (const term of pick) { const v = vals.find((x) => norm(x).includes(' ' + term + ' ') || norm(x).includes(' ' + term)); if (v) { out.push(g.split(' ')[0].toLowerCase() + ' ' + v.replace(/ \(goffrat[io]\)/, '').replace(/ goffrato$/, '')); break; } }
+    });
+    return out.slice(0, 2).join(' e ');
+  };
+  const vda = (f) => (f.startsWith('allungato') ? f : 'versione da ' + f);
+  const kitchenScore = (p) => (p.tags.includes('ceramica') ? 3 : 0) + (p.tags.includes('vetro') ? 2 : 0) + (p.tags.includes('allungabile') ? 2 : 0);
+  const why = (p, o) => {
+    const r = [];
+    if (o.rooms.includes('cucina')) r.push(p.tags.includes('ceramica') ? 'piano in ceramica: in cucina è il più pratico, regge bene macchie e calore' : p.tags.includes('vetro') ? 'piano in cristallo, facile da pulire e leggero alla vista in una cucina' : p.tags.includes('marmo') ? 'piano in marmo naturale: bellissimo, ma in cucina va trattato con più cura' : null);
+    if (p.tags.includes('allungabile') && (o.rooms.includes('cucina') || o.rooms.includes('pranzo'))) r.push('allungabile, utile quando hai ospiti');
+    if (o.n) { const f = seatsFor(p, o.n); if (f) r.push(`per ${o.n} persone: ${vda(f)}`); }
+    if (o.small) { const s = sizeOf(p, 'small'); if (s && s[2] !== 'h') r.push(`tra i più compatti: ${s[1]}`); }
+    if (o.color) { const f = finishFor(p, COLORS[o.color].pick); if (f) r.push(`con ${COLORS[o.color].name}: ${f}`); }
+    return r.filter(Boolean);
+  };
+  const START = { text: 'Ciao! Sono l’assistente dello showroom. Posso consigliarti un prodotto della <b>Collezione 2026</b>, dirti misure e finiture, oppure metterti in contatto con un consulente. Cosa stai cercando?', chips: ['Un tavolo in marmo per 8 persone', 'Un tavolino in vetro', 'Un tavolo da esterno', 'Che tappeti avete?'] };
+
+
+
+  // ---------- product colours, materials, shapes: answers grounded in the catalogue data
+  const PCOL = {
+    bianco: { w: 'bianco o chiaro', t: ['pearl', 'calacatta', 'alabastro', 'ivory', 'madreperla'] },
+    nero: { w: 'nero o scuro', t: ['nero', 'sahara noir', 'portoro', 'graphite', 'cromo nero'] },
+    grigio: { w: 'grigio', t: ['titanio', 'oxygrey', 'brushed grey', 'onda grigia', 'graphite'] },
+    beige: { w: 'beige o tortora', t: ['beige', 'tortora', 'ivory', 'taj mahal'] },
+    legno: { w: 'legno', t: ['noce canaletto', 'rovere bruciato'] },
+    verde: { w: 'verde', t: ['smeraldo', 'mint', 'verde pavone', 'verde'] },
+    blu: { w: 'blu', t: ['cobalto'] },
+    rosso: { w: 'rosso', t: ['paprika'] },
+  };
+  const INTERIOR = ['interni', 'interno', 'pareti', 'parete', 'muri', 'ambiente', 'stanza', 'pavimento', 'casa', 'arredamento', 'arredato', 'cucina', 'soggiorno', 'camera'];
+  const matOf = (p) => ['ceramica', 'marmo', 'vetro', 'legno'].find((m) => p.tags.includes(m)) || null;
+  const CARE = {
+    ceramica: 'il piano in <b>ceramica</b> è il più pratico: regge bene calore, macchie e graffi dell’uso quotidiano',
+    marmo: 'il <b>marmo naturale</b> è bellissimo ma poroso: con pentole calde meglio un sottopentola, e vino, limone o aceto vanno asciugati subito perché possono macchiarlo o opacizzarlo',
+    vetro: 'il <b>cristallo</b> non assorbe le macchie e si pulisce facilmente; con pentole molto calde meglio un sottopentola, e serve un po’ di attenzione ai graffi',
+    legno: 'il <b>legno</b> va protetto dal calore diretto e dai liquidi lasciati a lungo',
+  };
+  const CAREQ = ['caldo', 'calore', 'pentole', 'pentola', 'macchie', 'macchia', 'macchiarsi', 'si macchia', 'graffi', 'graffia', 'si graffia', 'resistente', 'resistenti', 'resiste', 'regge', 'delicato', 'delicata', 'robusto', 'pratico', 'pratica', 'si pulisce', 'vino', 'limone'];
+  const SMALL = ['spazio piccolo', 'poco spazio', 'spazio ridotto', 'piccoli spazi', 'piccolo', 'piccola', 'stretto', 'stretta', 'compatto', 'compatta', 'monolocale', 'bilocale'];
+  // ---------- "the biggest / smallest / how many" questions over a category ----------
+  const SUP = {
+    big: / piu (grande|grandi|lung[oaih]|largh?[oaie]|ampi[oae]|capient[ei]|spazios[oaie]) | (misura|lunghezza|dimensione) massima | per piu persone | piu posti | fino a quanto (si )?(allunga|arriva) /,
+    small: / piu (piccol[oaie]|cort[oaie]|strett[oaie]|compatt[oaie]|contenut[oaie]) | (misura|lunghezza|dimensione) minima | meno ingombrant[ei] /,
+    high: / piu (alt[oaie]) /, low: / piu (bass[oaie]) /,
+  };
+  const supKind = (t) => Object.keys(SUP).find((k) => SUP[k].test(t)) || null;
+  const isCount = (t) => / (quanti|quante) /.test(t) && !/ (quanti|quante) (persone|posti|coperti|ospiti|cm|centimetri|metri) /.test(t) && !has(t, ['ci stanno', 'quanto costa']);
+  // one comparable size per product: [value, label, kind]
+  const sizeOf = (p, mode) => {
+    if (mode === 'high' || mode === 'low') return p.Hs ? [mode === 'high' ? Math.max(...p.Hs) : Math.min(...p.Hs), 'altezza ' + (mode === 'high' ? Math.max(...p.Hs) : Math.min(...p.Hs)) + ' cm', 'h'] : p.H ? [p.H, 'altezza ' + p.H + ' cm', 'h'] : null;
+    const big = mode === 'big';
+    if (p.rugs) { const a = p.rugs.map((r) => { const m = r.match(/(\d+)×(\d+)/); const d = r.match(/Ø(\d+)/); return m ? [+m[1] * +m[2], r + ' cm'] : [Math.PI * Math.pow(+d[1] / 2, 2), r + ' cm']; }).sort((x, y) => x[0] - y[0]); const r = big ? a[a.length - 1] : a[0]; return [r[0], r[1], 'rug']; }
+    if (p.D) { const v = big ? Math.max(...p.D) : Math.min(...p.D); return [v, 'Ø ' + v + ' cm', 'round']; }
+    if (p.L) {
+      if (!big && p.Lc) { const v = Math.min(...p.Lc); return [v, v + ' cm da chiuso (si allunga fino a ' + Math.min(...p.L) + ' cm)', 'rect']; }
+      const v = big ? Math.max(...p.L) : Math.min(...p.L);
+      const w = p.W ? (big ? Math.max(...p.W) : Math.min(...p.W)) : null;
+      return [v, (p.Lc && big ? 'allungato fino a ' : '') + v + (w ? ' × ' + w : '') + ' cm', 'rect'];
+    }
+    return null;
+  };
+  const SUPW = { big: ['più grande', 'più grandi'], small: ['più compatto', 'più compatti'], high: ['più alto', 'più alti'], low: ['più basso', 'più bassi'] };
+
+  // ---------- small typos on catalogue words ("tavlo", "skorpion", "divanno"): same first letter, 1 edit (2 for long words)
+  const VOCAB = (() => { const s = new Set(); Object.values(CAT).forEach((v) => v.kw.forEach((w) => w.split(' ').forEach((x) => s.add(x)))); P.forEach((p) => norm(p.name).trim().split(' ').forEach((x) => s.add(x))); ['marmo', 'ceramica', 'cristallo', 'allungabile', 'rotondo', 'esterno', 'giardino', 'persone', 'misure', 'finiture', 'braccioli', 'girevole', 'componibile', 'sfoderabile', 'cassetti', 'contenitore', 'showroom', 'consegna', 'catalogo', 'consulente', 'preventivo', 'soggiorno', 'cucina', 'camera', 'ingresso', 'tappeto'].forEach((w) => s.add(w)); return Array.from(s).filter((w) => w.length >= 4); })();
+  const KEEP = new Set(('piano piani pietra pietre colore colori bianco bianca nero nera grigio grigia verde verdi rosso rossa rossi interni pareti parete cerco vorrei voglio serve servono mostrami quanto quanti quante grande grandi piccolo piccola lungo larga largo basso bassa persone ospiti posso avete fate siete sono della delle degli sopra sotto dentro fuori tutto tutti tutte altro altri altre prezzo costa bello bella comodo comoda moderno design stile casa nuova nuovo dove come quale quali anche ancora prima dopo vicino sedere mangiare tavola panca panche porta porte poltroncina sedile letti lampadina massimo minimo metri quadri mobili mobile ufficio studio stanza salone ragazzi bambini cane gatto marrone legni pelli stoffa vetri lana lino oro argento ottone rame acciaio ferro').split(' '));
+  // every word the engine itself listens for is already "correct"
+  [INT, ...FAQ.map((f) => ({ k: f.k })), ...Object.values(COLORS).map((c) => ({ k: c.kw })), ...Object.values(ROOMS).map((r) => ({ k: r.kw }))].forEach((o) => Object.values(o).forEach((ws) => (Array.isArray(ws) ? ws : []).forEach((w) => String(w).split(' ').forEach((x) => KEEP.add(x)))));
+  ['misura', 'serve', 'servono', 'persona', 'braccioli', 'sedie', 'divani', 'tavoli', 'esiste', 'esistono', 'disponibile', 'abbinare', 'abbino', 'stanno', 'interni', 'diametro', 'rotonda', 'rotondi', 'minimal'].forEach((w) => KEEP.add(w));
+  const lev = (a, b) => { const d = Array.from({ length: a.length + 1 }, (_, i) => [i]); for (let j = 1; j <= b.length; j++) d[0][j] = j; for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); return d[a.length][b.length]; };
+  const fixTypos = (t) => ' ' + t.trim().split(' ').map((w) => {
+    if (w.length < 5 || /\d/.test(w) || KEEP.has(w) || VOCAB.includes(w)) return w;
+    let best = null, bd = 9;
+    for (const v of VOCAB) { if (v[0] !== w[0] || Math.abs(v.length - w.length) > 2) continue; const d = lev(w, v); if (d < bd) { bd = d; best = v; } }
+    return bd <= (w.length >= 8 ? 2 : 1) ? best : w;
+  }).join(' ') + ' ';
+
+  // ---------- things Cattelan does not make: say so and point to the nearest thing it does
+  const NOTSOLD = [
+    { k: ['cucine', 'cucina componibile', 'cucine componibili', 'mobili da cucina', 'mobili della cucina', 'mobili cucina', 'cucina su misura'], w: 'cucine', alt: 'Per la cucina ci sono però tavoli, sedie e sgabelli: il <b>Gotham Keramik Drive</b>, in ceramica e allungabile, è il più pratico.', ids: ['gotham-keramik-drive', 'magda-barre', 'magda-barre-sgabello'] },
+    { k: ['armadio', 'armadi', 'guardaroba', 'cabina armadio'], w: 'armadi', alt: 'Per la camera ci sono il letto <b>Richard</b> e i comodini <b>Chelsea Night</b> ed <b>Elias</b>.', ids: ['richard', 'chelsea-night', 'elias'] },
+    { k: ['materasso', 'materassi'], w: 'materassi', alt: 'C’è il letto imbottito <b>Richard</b>, con rete inclusa.', ids: ['richard'] },
+    { k: ['arredo bagno', 'mobili bagno', 'mobili da bagno', 'mobili per il bagno', 'lavabo', 'lavandino', 'mobile bagno'], w: 'mobili da bagno', alt: 'C’è lo specchio servomuto <b>Pierre</b>, da appoggio.', ids: ['pierre'] },
+    { k: ['ombrellone', 'ombrelloni', 'gazebo', 'pergola', 'pergolato', 'tenda da sole', 'tende da sole'], w: 'ombrelloni e coperture', alt: 'Per l’esterno ci sono i tavoli <b>Napoleon</b> e <b>Rado</b>, la sedia <b>Greta Outdoor</b> e il tavolino <b>Bishop</b>.', ids: ['napoleon-keramik-outdoor', 'rado-keramik-round-outdoor', 'greta-outdoor'] },
+    { k: ['sedia da ufficio', 'sedie da ufficio', 'sedia ergonomica', 'sedie ergonomiche', 'poltrona da ufficio', 'sedia da scrivania', 'sedia operativa'], w: 'sedie da ufficio ergonomiche', alt: 'Per lo studio c’è la scrivania <b>Boston</b>; come seduta di design si abbina una poltroncina come <b>Charlotte</b> o la girevole <b>Britney Turn</b>.', ids: ['boston', 'charlotte', 'britney-turn'] },
+    { k: ['divano letto', 'divani letto', 'divano letto matrimoniale'], w: 'divani letto', alt: 'I divani della collezione sono <b>Gibson</b>, <b>Murphy</b> e <b>Baldwin</b>.', ids: ['gibson', 'murphy', 'baldwin'] },
+    { k: ['tende', 'tendaggi', 'elettrodomestici', 'frigorifero', 'forno', 'piastrelle', 'pavimenti', 'porte interne', 'infissi'], w: 'questi articoli', alt: 'Cattelan Italia fa arredamento: tavoli, sedute, divani, complementi, luci e tappeti.', ids: [] },
+  ];
+  const STYLE = {
+    minimal: { k: ['minimal', 'minimale', 'minimalista', 'essenziale', 'linee semplici', 'linee pulite'], w: 'minimal', why: 'linee essenziali e materiali leggeri come cristallo e acciaio', ids: ['bilbao-glass', 'peninsula', 'lagoon'] },
+    elegante: { k: ['elegante', 'eleganti', 'lusso', 'lussuoso', 'raffinato', 'raffinata', 'di classe', 'prestigioso', 'chic'], w: 'elegante', why: 'marmo naturale, dettagli in ottone e vetro artistico', ids: ['skorpio-marble', 'brio-keramik', 'wanted'] },
+    moderno: { k: ['moderno', 'moderna', 'moderni', 'contemporaneo', 'contemporanea'], w: 'moderno', why: 'forme scultoree e ceramica effetto marmo', ids: ['gotham-keramik-drive', 'papel-marble', 'standard'] },
+    industriale: { k: ['industriale', 'industrial', 'loft'], w: 'industriale', why: 'cemento e metallo a vista', ids: ['bilbao-glass', 'peninsula', 'magda-ml-barre'] },
+    naturale: { k: ['nordico', 'scandinavo', 'stile naturale', 'legno naturale', 'rustico', 'accogliente'], w: 'naturale e caldo', why: 'frassino, noce e cuoio', ids: ['greta-wood', 'giselle', 'boston'] },
+    colorato: { k: ['colorato', 'colorata', 'colorati', 'colorate', 'colori vivaci', 'colore vivace', 'allegro', 'vivace'], w: 'colorato', why: 'laccature e vetri colorati', ids: ['chelsea', 'wanted', 'san-marco'] },
+  };
+  const ATTR = [
+    { k: ['braccioli', 'bracciolo'], re: /bracciol/, w: 'con braccioli' },
+    { k: ['impilabile', 'impilabili', 'sovrapponibili', 'sovrapponibile'], re: /impilabil/, w: 'impilabili' },
+    { k: ['sfoderabile', 'sfoderabili', 'sfoderare', 'lavabile', 'lavabili', 'rivestimento lavabile'], re: /sfoderabil/, w: 'sfoderabili' },
+    { k: ['cassetto', 'cassetti', 'cassettiera'], re: /cassett/, w: 'con cassetti' },
+    { k: ['contenitore', 'vano contenitore', 'contenitori'], re: /contenitore/, w: 'con contenitore' },
+    { k: ['componibile', 'componibili', 'modulare', 'modulari', 'a moduli'], re: /componibil/, w: 'componibili' },
+    { k: ['ruote', 'rotelle'], re: /ruote/, w: 'su ruote' },
+    { k: ['da terra', 'piantana', 'stelo'], re: /da terra/, w: 'da terra', cats: ['lampada'] },
+    { k: ['sospensione', 'a soffitto', 'soffitto', 'lampadario', 'sopra il tavolo', 'per il tavolo', 'tavolo da pranzo'], re: /soffitto|sospensione/, w: 'a soffitto', cats: ['lampada'] },
+    { k: ['da tavolo', 'abat jour', 'da comodino', 'da scrivania'], re: /da tavolo/, w: 'da tavolo', cats: ['lampada'] },
+    { k: ['led', 'dimmerabile', 'dimmerabili', 'luce regolabile', 'intensita'], re: /led|dimmerabil/, w: 'con LED dimmerabile' },
+    { k: ['a parete', 'a muro', 'fissare al muro', 'sospesa', 'sospeso'], re: /parete|muro/, w: 'da fissare a parete' },
+  ];
+  const ROOMSET = { soggiorno: ['divano', 'poltrona', 'tavolino', 'tappeto'], camera: ['letto', 'comodino', 'specchio'], ingresso: ['consolle', 'specchio'], ufficio: ['scrivania', 'libreria'], cucina: ['tavolo', 'sedia', 'sgabello'], pranzo: ['tavolo', 'sedia', 'madia'] };
+  const METALS = ['titanio', 'bronzo', 'graphite', 'pearl', 'nero', 'brushed bronze', 'brushed grey', 'noce canaletto', 'rovere bruciato', 'oxybrass', 'oxygrey', 'cromato'];
+  const finTerms = (p) => { const all = norm(Object.values(p.fin || {}).flat().join(' ')); return METALS.filter((m) => all.includes(' ' + m)); };
+  const TAGW = { allungabile: 'è allungabile', ceramica: 'ha il piano in ceramica', marmo: 'ha il piano in marmo', vetro: 'è in vetro o cristallo', cemento: 'ha la base in cemento', rotondo: 'è rotondo', rettangolare: 'è rettangolare', biscuit: 'esiste in forma biscuit', sagomato: 'esiste in forma sagomata', esterno: 'va anche all’esterno', sfoderabile: 'è sfoderabile', componibile: 'è componibile', girevole: 'è girevole', pelle: 'esiste anche in pelle', braccioli: 'ha i braccioli', cassetti: 'ha i cassetti', contenitore: 'ha il contenitore' };
+  // indicative seats: longest version that still fits
+  const capacity = (p) => { const out = []; const sizes = p.D ? p.D.map((d) => ['Ø ' + d + ' cm', d >= 158 ? 8 : d >= 140 ? 6 : 4]) : (p.L || []).map((l) => [(p.Lc ? 'aperto ' : '') + l + ' cm', l >= 300 ? 12 : l >= 260 ? 10 : l >= 220 ? 8 : l >= 180 ? 6 : 4]); sizes.forEach((s) => out.push(s)); return out; };
+  const needFor = (n) => ({ rect: n <= 4 ? 140 : n <= 6 ? 180 : n <= 8 ? 220 : n <= 10 ? 260 : 300, round: n <= 6 ? 140 : n <= 8 ? 160 : null });
+
+  const Engine = function () { this.reset(); };
+  Engine.prototype.reset = function () { this.st = { last: [], cat: null, mats: [], opts: {}, shown: [], lead: null, interest: [] }; };
+  Engine.prototype.start = function () { return START; };
+
+  Engine.prototype.reply = function (raw) { const r = this._reply(raw); if (r && r.chips) this.st.lastChips = r.chips; return r; };
+  Engine.prototype._reply = function (raw) {
+    const st = this.st, t0 = norm(raw);
+    // ----- lead capture flow has priority while open
+    if (st.lead) return this.leadStep(raw, t0);
+    const t = fixTypos(t0);
+
+    const prods = findProducts(t), cat = findCat(t), mats = findMat(t), n = people(t), rug = rugSize(t), len = lenAsk(t);
+    const outdoor = has(t, ['esterno', 'esterni', 'outdoor', 'giardino', 'terrazzo', 'terrazza', 'veranda', 'portico', 'aperto', 'balcone', 'bordo piscina']);
+    const round = has(t, ['rotondo', 'rotonda', 'rotondi', 'tondo', 'tonda', 'circolare', 'round']);
+    const ext = has(t, ['allungabile', 'allungabili', 'estendibile', 'estensibile', 'allungare']);
+    const swivel = has(t, ['girevole', 'girevoli', 'ruota', 'gira']);
+    const rooms = findRoom(t), color = findColor(t);
+    const roomCat = !cat && rooms.map((r) => ROOMS[r].cat).find(Boolean);
+    if (prods.length) { st.last = prods.map((p) => p.id); st.cat = prods[0].cat; prods.forEach((p) => { if (!st.interest.includes(p.name)) st.interest.push(p.name); }); }
+    const focus = (prods.length ? prods : st.last.map(byId)).filter(Boolean);
+
+    if (has(t, ['trova il rivenditore', 'rivenditore piu vicino', 'fatemi richiamare', 'si fatemi richiamare'])) return this.openLead(focus, 'Volentieri: un consulente ti indicherà il rivenditore più vicino e i suoi orari.');
+    if (has(t, INT.cancel) && t.trim().split(' ').length <= 3) return { text: 'Va bene. Posso aiutarti con altro?', chips: START.chips.slice(0, 3) };
+    { const r = this.smart(t, raw, { prods, cat, roomCat, mats, n, rug, len, outdoor, round, ext, swivel, rooms, color, focus }); if (r) return r; }
+    // ----- topics the plain recommender used to flatten into a list
+    { const r = this.topics(t, raw, prods, cat || roomCat, focus, rooms, outdoor, color); if (r) return r; }
+    { const f = faqMatch(t); const recSignal = mats.length || n || round || ext || swivel || rooms.length || color || outdoor || len || rug; if (f && !prods.length && !(cat && recSignal && !has(t, ['dove', 'negozio', 'showroom', 'consegna', 'tempi']))) return { text: f.a, chips: f.c }; }
+    if (!prods.length && !cat && !rooms.length && !(color && has(t, INTERIOR))) { const fs = this.finSearch(t); if (fs) return fs; }
+    if (isI(t, 'help')) return { text: 'Posso: <b>consigliarti un prodotto</b> (es. “un tavolo rotondo in marmo per 6”), dirti <b>misure</b> e <b>finiture</b> di un modello (es. “che misure ha lo Skorpio?”), e <b>metterti in contatto</b> con un consulente per prezzi, schede tecniche o un appuntamento.', chips: START.chips };
+    if (isI(t, 'price')) return this.openLead(focus, 'Il prezzo dipende da misure, finiture e rivenditore, quindi non lo trovi nel catalogo. Posso farti contattare da un consulente con un <b>preventivo su misura</b>' + (focus.length ? ' per <b>' + esc(list(focus.map((p) => p.name))) + '</b>' : '') + '.');
+    if (isI(t, 'contact') && !(isI(t, 'dims') || isI(t, 'fin'))) return this.openLead(focus, 'Certo: ti metto in contatto con un consulente, che ti può mandare schede tecniche e catalogo o fissare una visita al rivenditore più vicino.');
+
+
+
+    // ----- "the biggest table", "the smallest rug", "how many sofas do you have"
+    { const kind = supKind(t), cnt = !kind && isCount(t) && (cat || roomCat || has(t, ['modelli', 'prodotti', 'articoli']));
+      if (kind || cnt) { const r = this.aggregate(t, kind, prods, cat || roomCat || (prods[0] && prods[0].cat) || (kind ? st.cat : null), outdoor, rooms); if (r) return r; } }
+    // ----- questions about a specific product (named now or in context)
+    if (focus.length && (prods.length || !cat) && (isI(t, 'dims') || isI(t, 'weight') || isI(t, 'fin') || isI(t, 'design') || isI(t, 'outdoorQ') || (n && (prods.length || st.last.length === 1)) || (prods.length && (!cat || prods.some((p) => p.cat === cat))))) {
+      const out = [], cards = [];
+      focus.slice(0, 2).forEach((p) => {
+        let s = '';
+        if (isI(t, 'outdoorQ') || (outdoor && prods.length)) s += p.covered ? `<b>${esc(p.name)}</b> è pensato per un <b>esterno coperto</b>: il catalogo indica che non va esposto direttamente agli agenti atmosferici. ` : p.outdoor ? `<b>${esc(p.name)}</b> è adatto all’esterno. ` + (has(t, ['inverno', 'gelo', 'neve']) ? 'Su inverno e gelo il catalogo non dà indicazioni specifiche: meglio chiedere la scheda di manutenzione. ' : '') : `<b>${esc(p.name)}</b> è un prodotto da interno. `;
+        if (n) { const f = seatsFor(p, n); s += f ? `Per ${n} persone, indicativamente, di <b>${esc(p.name)}</b> guarderei la <b>${vda(f)}</b>. ` : `Per ${n} persone <b>${esc(p.name)}</b> non è il modello più adatto: posso proporti alternative più grandi. `; }
+        const capQ = has(t, ['quante persone', 'quanti posti', 'ci stanno', 'per quante persone', 'quanti coperti', 'quante sedie']) && (p.L || p.D);
+        if (capQ) { const c = capacity(p); s += `Indicativamente, contando circa 60 cm a persona, a <b>${esc(p.name)}</b> ci stanno ` + list(c.map(([sz, k]) => `fino a <b>${k} persone</b> nella versione ${sz}`)) + '. '; }
+        else if (isI(t, 'dims')) {
+          const hQ = has(t, ['alto', 'alta', 'altezza', 'quanto e alto']), wQ = has(t, ['largo', 'larga', 'larghezza', 'profondo', 'profonda', 'profondita']), cQ = has(t, ['chiuso', 'da chiuso']) && p.Lc;
+          if (cQ) s += `Da chiuso <b>${esc(p.name)}</b> misura ${listOr(p.Lc.map(String))} cm, e si allunga fino a ${listOr(p.L.map(String))} cm. `;
+          else if (hQ && (p.H || p.Hs)) s += `<b>${esc(p.name)}</b> è alto ${p.H ? p.H : listOr(p.Hs.map(String))} cm. `;
+          else if (wQ && (p.W || p.Dp)) s += `<b>${esc(p.name)}</b> è ${p.W ? 'largo ' + listOr(p.W.map(String)) : 'profondo ' + p.Dp} cm. ` + (dimsText(p) ? `In dettaglio: ${dimsText(p)}. ` : '');
+          else { const d = dimsText(p); s += d ? `<b>${esc(p.name)}</b> ${d}. ` : `Le misure di dettaglio di <b>${esc(p.name)}</b> sono nella scheda tecnica: posso fartela mandare. `; }
+        }
+        if (isI(t, 'fin')) { const f = finText(p); s += f ? `Finiture di <b>${esc(p.name)}</b>:<br>${f}<br>` : `Per le finiture di <b>${esc(p.name)}</b> ti serve il campionario: posso fartelo avere. `; }
+        if (isI(t, 'design')) s += `<b>${esc(p.name)}</b> è disegnato da <b>${esc(p.design)}</b>. `;
+        if (isI(t, 'weight')) s += `Il peso di <b>${esc(p.name)}</b> non è indicato nel catalogo: è nella scheda tecnica, che un consulente ti può mandare. `;
+        if (!s) { s = `<b>${esc(p.name)}</b> (${CAT[p.cat].s}, design ${esc(p.design)}): ${esc(p.desc)} `; const d = dimsText(p); if (d) s += `Misure: ${d}.`; cards.push(cardOf(p)); }
+        out.push(s.trim());
+      });
+      st.shown = Array.from(new Set(st.shown.concat(focus.map((p) => p.id))));
+      const p0 = focus[0];
+      return { text: out.join('<br><br>'), cards, chips: [isI(t, 'dims') ? 'E le finiture?' : 'Che misure ha?', 'Mi mandate la scheda tecnica?', 'Quanto costa?', 'Mostrami alternative'].filter((c) => !(c === 'E le finiture?' && isI(t, 'fin'))), _p: p0 && p0.id };
+    }
+
+    // ----- recommendations
+    const more = isI(t, 'more');
+    const useCat = cat || roomCat || (more || mats.length || round || ext || n || rug || color ? st.cat : null) || (rug ? 'tappeto' : null) || (n ? 'tavolo' : null);
+    if (useCat || mats.length || outdoor || round || ext || swivel) {
+      // a new request (new category, outdoor, a room, or words like "invece") starts from a clean context;
+      // only pure refinements ("in bronzo?", "per 6", "mostrami altro") keep the room and colour said before
+      const newRequest = !!(cat || outdoor || rooms.length || has(t, ['invece', 'adesso', 'ora cerco', 'anche', 'altra cosa', 'cambio', 'diversamente']));
+      const keep = !newRequest && !more;
+      let rms = rooms.length ? rooms : keep ? (st.opts.rooms || []) : [];
+      if (outdoor) rms = rms.filter((r) => !['cucina', 'pranzo', 'camera', 'ufficio', 'ingresso', 'soggiorno'].includes(r));
+      const opts = more ? Object.assign({}, st.opts, { more: true }) : { small: has(t, SMALL) && !supKind(t), outdoor, round, ext, swivel, n, rug, len, anyOutdoor: outdoor, rooms: rms, color: color || (keep ? st.opts.color : null) || null };
+      const changed = newRequest && !more && st.opts && ((st.opts.rooms || []).length || st.opts.color || st.opts.outdoor !== undefined) && has(t, ['invece', 'adesso', 'anche', 'cambio']);
+      opts.rooms = opts.rooms || []; 
+      const ms = more ? st.mats : mats;
+      const c = useCat || (outdoor ? null : null);
+      let recs = recommend(st, c, ms, opts);
+      st.cat = c || st.cat; st.mats = ms; st.opts = opts;
+      if (!recs.length && opts.n) { recs = recommend(st, c, ms, Object.assign({}, opts, { n: null })); }
+      if (!recs.length) return { text: more ? 'Per questa ricerca ti ho già mostrato tutto quello che c’è nella Collezione 2026. Vuoi cambiare categoria o materiale?' : 'Nella Collezione 2026 non trovo un prodotto con queste caratteristiche. Posso proporti qualcosa di simile, o farti parlare con un consulente per il catalogo completo.', chips: ['Un tavolo in marmo', 'Un divano componibile', 'Parlare con un consulente'] };
+      st.shown = Array.from(new Set(st.shown.concat(recs.map((p) => p.id))));
+      st.last = recs.map((p) => p.id);
+      const label = c ? (recs.length > 1 ? CAT[c].p : CAT[c].s) : 'prodotti', fem = c && FEM.includes(c), pl = recs.length > 1;
+      const art = !c ? 'alcuni' : pl ? (fem ? 'alcune' : 'alcuni') : (fem ? 'una' : /^(s[^aeiou]|z|gn|ps)/.test(label) ? 'uno' : 'un');
+      const rnd = opts.round ? ' rotond' + (pl ? (fem ? 'e' : 'i') : (fem ? 'a' : 'o')) : '';
+      const understood = [c ? CAT[c].s + (opts.rooms.includes('pranzo') || (opts.rooms.includes('cucina') && c === 'tavolo') ? ' da pranzo' : '') : null].concat(opts.rooms.filter((r) => r !== 'pranzo' || !c).map((r) => ROOMS[r].label).filter((l) => !(l === 'per mangiare' && c === 'tavolo'))).concat(ms.length ? ['in ' + list(ms)] : []).concat(opts.n ? [`per ${opts.n} persone`] : []).concat(opts.outdoor ? ['da esterno'] : []).concat(opts.small ? ['per uno spazio piccolo'] : []).concat(opts.color ? ['con ' + COLORS[opts.color].name] : []).filter(Boolean);
+      const ctxIntro = !more && (opts.rooms.length || opts.color || opts.small) ? `Ho capito: <b>${esc(understood.join(', '))}</b>. ` + (opts.color ? COLORS[opts.color].tip.charAt(0).toUpperCase() + COLORS[opts.color].tip.slice(1) + '. ' : '') + (opts.rooms.includes('cucina') && c === 'tavolo' ? 'In cucina metto per primi i piani più pratici. ' : '') + (opts.small ? 'Metto per primi i modelli più compatti.' : '') : '';
+      let intro = more ? 'Ecco altre proposte:' : `Ecco ${art} ${label}${ms.length ? ' in ' + list(ms) : ''}${rnd}${opts.outdoor ? ' da esterno' : ''}${opts.swivel ? ' girevol' + (pl ? 'i' : 'e') : ''}${opts.ext ? ' allungabil' + (pl ? 'i' : 'e') : ''} della Collezione 2026${opts.n ? ` per ${opts.n} persone` : ''}:`;
+      if (ctxIntro) intro = ctxIntro + '<br><br>Ecco i più adatti della Collezione 2026, con il motivo:';
+      if (changed) intro = 'Certo, cambiamo ricerca. ' + intro;
+      if (opts.len && !more && !recs.some((p) => (p.L || []).concat(p.Lc || [], p.D || []).includes(opts.len))) intro = `Esattamente da ${opts.len} cm non ho ${c ? CAT[c].p : 'prodotti'} nella Collezione 2026: questi sono i più vicini.`;
+      if (opts.missing && opts.missing.length) intro = `In ${list(opts.missing)} non ho ${CAT[c] ? CAT[c].p : 'prodotti'} nella Collezione 2026, ma ti propongo quest${fem ? 'e' : 'i'}:`;
+      const cards = recs.map((p) => {
+        let note = p.desc;
+        if (opts.n) { const f = seatsFor(p, opts.n); if (f) note = `Per ${opts.n} persone: ${vda(f)}. ` + p.desc; }
+        if (opts.rug || (p.rugs && opts.round)) note = 'Formati: ' + p.rugs.join(', ') + ' cm.';
+        if (opts.ext && p.ext) note = 'Misure: ' + dimsText(p) + '.';
+        if (isI(t, 'dims') && !opts.rug) { const d = dimsText(p); note = d ? 'Misure: ' + p.name + ' ' + d + '.' : 'Misure di dettaglio nella scheda tecnica.'; }
+        if (p.covered) note += ' Per esterni coperti.';
+        const w = why(p, opts);
+        return cardOf(p, w.length ? p.desc : note, w.length ? w.map((x) => x.charAt(0).toUpperCase() + x.slice(1)).join('. ') + '.' : '');
+      });
+      let after = recs.length > 1 ? 'Vuoi le misure o le finiture di uno di questi?' : 'Vuoi le misure o le finiture?';
+      if (opts.color && !more) after = 'Gli abbinamenti di colore sono un suggerimento: dal rivenditore puoi vedere i campioni accanto al tuo colore. ' + after;
+      if (opts.n) after = 'Le misure per numero di persone sono indicative (circa 60 cm a persona). ' + after;
+      return { text: intro, cards, after, chips: recs.map((p) => 'Misure di ' + p.name).slice(0, 2).concat(['Mostrami altro', 'Quanto costa?']) };
+    }
+    if (isI(t, 'dims') || isI(t, 'fin')) return { text: 'Di quale prodotto? Scrivimi il nome (es. “Skorpio Marble”) o il tipo di mobile che cerchi.', chips: ['Skorpio Marble', 'Bilbao Glass', 'Lagoon'] };
+    if (isI(t, 'thanks')) return { text: 'Figurati! Se vuoi, posso farti contattare da un consulente per un preventivo o una visita allo showroom.', chips: ['Sì, contattatemi', 'Un’ultima domanda'] };
+    if (isI(t, 'greet')) return START;
+    { const toks = t.trim().split(' ').filter((w) => w.length >= 5 && !KEEP.has(w) && !['avete', 'vorrei', 'cerco', 'qualcosa', 'sapere', 'potete', 'potreste', 'questo', 'questa', 'quello', 'quella'].includes(w));
+      const sc = P.map((p) => { const hay = norm(p.name + ' ' + p.desc + ' ' + p.tags.join(' ') + ' ' + Object.values(p.fin || {}).flat().join(' ')); return { p, s: toks.filter((w) => hay.includes(' ' + w)).length }; }).filter((x) => x.s).sort((a, b) => b.s - a.s);
+      if (sc.length) { const items = sc.slice(0, 3).map((x) => x.p); st.last = items.map((p) => p.id); return { text: 'Non sono sicuro di aver capito la domanda, ma nel catalogo questi prodotti ne parlano:', cards: items.map((p) => cardOf(p)), after: 'Se cercavi altro, prova a dirmelo in un altro modo o chiedi a un consulente.', chips: ['Parla con un consulente', 'Che categorie di prodotti vendete?'] }; } }
+    return { text: 'Su questo non posso aiutarti: sono l’assistente dello showroom e conosco il catalogo della Collezione 2026. Posso parlarti di <b>prodotti, misure e finiture</b>, darti <b>sede e contatti</b> dell’azienda, oppure farti rispondere da un <b>consulente</b>.', chips: ['Dove posso vedere i prodotti?', 'Un tavolo rotondo', 'Parlare con un consulente'] };
+  };
+
+  Engine.prototype.finSearch = function (t) { const st = this.st; const m = finMatch(t); if (m) { const recs = Array.from(m[1]).map(byId).slice(0, 3); st.last = recs.map((p) => p.id); st.shown = Array.from(new Set(st.shown.concat(st.last))); st.cat = recs[0].cat;
+      const isDesigner = P.some((p) => norm(p.design).trim() === m[0]);
+      return { text: isDesigner ? `Alcuni prodotti disegnati da <b>${esc(recs[0].design)}</b>:` : `Ecco cosa ho in <b>${esc(m[0].replace(/\b\w/g, (c) => c.toUpperCase()))}</b> nella Collezione 2026:`, cards: recs.map((p) => cardOf(p)), after: 'Vuoi misure o finiture di uno di questi?', chips: recs.map((p) => 'Finiture di ' + p.name).slice(0, 2).concat(['Quanto costa?']) }; } return null; };
+
+
+
+  Engine.prototype.smart = function (t, raw, x) {
+    const st = this.st, { prods, mats, n, rug, outdoor, rooms, color, focus } = x;
+    const cat = x.cat;
+    const words = t.trim().split(' ').length;
+    const pick = (arr) => { arr = arr.filter(Boolean); st.last = arr.map((p) => p.id); st.shown = Array.from(new Set(st.shown.concat(st.last))); if (arr[0]) st.cat = arr[0].cat; return arr; };
+    const recSignal = mats.length || n || x.round || x.ext || x.swivel || rooms.length || color || outdoor || x.len || rug;
+
+    // --- about the assistant itself
+    if (has(t, ['chi sei', 'cosa sei', 'sei un bot', 'sei un robot', 'sei una persona', 'sei umano', 'sei reale', 'come ti chiami', 'sei un intelligenza artificiale', 'sei un ai', 'sei chatgpt', 'con chi parlo', 'con chi sto parlando']))
+      return { text: 'Sono l’<b>assistente virtuale dello showroom</b>: rispondo in base al catalogo della <b>Collezione 2026</b> di Cattelan Italia, su prodotti, misure, finiture e abbinamenti. Per prezzi, disponibilità e appuntamenti ti passo a un <b>consulente</b> in carne e ossa.', chips: ['Che categorie di prodotti vendete?', 'Un tavolo per 6 persone', 'Parla con un consulente'] };
+    // --- short confirmations depend on what was just offered
+    const tt = t.trim();
+    if (['ok', 'si', 'sì', 'va bene', 'certo', 'perfetto', 'esatto', 'yes', 'ok va bene', 'si grazie', 'volentieri', 'dai'].includes(tt))
+      return { text: 'Perfetto. Scegli una delle opzioni qui sotto, oppure scrivimi cosa ti serve.', chips: st.lastChips && st.lastChips.length ? st.lastChips : START.chips };
+    if (['no', 'no grazie', 'nient altro', 'basta cosi', 'a posto cosi', 'tutto qui'].includes(tt))
+      return { text: 'Va bene! Se ti viene in mente altro, sono qui. Quando vuoi, posso anche farti contattare da un consulente.', chips: ['Parla con un consulente', 'Che categorie di prodotti vendete?'] };
+    // --- contact details typed outside the form: keep them and ask only what is missing
+    { const em = raw.match(/[^\s@]+@[^\s@]+\.[a-z]{2,}/i), ph = raw.replace(/[\s.-]/g, '').match(/\+?\d{8,13}/);
+      if (em || ph) { focus.forEach((p) => { if (!st.interest.includes(p.name)) st.interest.push(p.name); }); st.lead = { step: 'name', data: { interest: st.interest.slice(), contact: em ? em[0] : ph[0], kind: em ? 'email' : 'telefono' } }; return { text: `Grazie, mi segno ${em ? 'l’email' : 'il numero'} <b>${esc(em ? em[0] : ph[0])}</b> per farti ricontattare da un consulente. <b>Come ti chiami?</b>`, chips: ['Annulla'], lead: true }; } }
+    if (/ siete (anche )?(a|in) [a-z]{3,}/.test(t) && !/ (aperti|chiusi|aperto) /.test(t)) { const f = faqMatch(' showroom '); return { text: f.a, chips: f.c }; }
+    // --- not in the collection
+    { const ns = NOTSOLD.filter((s) => has(t, s.k) || (s.w === 'cucine' && / (fate|vendete|producete|avete|fanno|realizzate|progettate) (anche )?(la |le |una |delle )?cucin/.test(t)));
+      if (ns.length) { const items = pick(ns[0].ids.map(byId)); const names = list(ns.map((s) => s.w)); return { text: `${names.charAt(0).toUpperCase() + names.slice(1)} non sono nella Collezione 2026: Cattelan Italia fa tavoli, sedute, divani, complementi, luci e tappeti. ${ns[0].alt}`, cards: items.map((p) => cardOf(p)), chips: ['Che categorie di prodotti vendete?', 'Parla con un consulente'] }; } }
+    if (has(t, ['mobile tv', 'mobile per la tv', 'mobile per tv', 'porta tv', 'mobile televisione', 'mobile per la televisione', 'tv'])) {
+      const items = pick(['chelsea', 'chelsea-drawers'].map(byId));
+      return { text: 'Un mobile TV specifico non c’è nella Collezione 2026, ma una madia bassa come la <b>Chelsea</b> (larga 137, 193 o 248 cm, profonda 46 cm) funziona bene sotto la TV. La <b>Chelsea Drawers</b> è la versione a cassetti.', cards: items.map((p) => cardOf(p, 'Misure: ' + (dimsText(p) || 'nella scheda tecnica') + '.')), chips: ['Finiture di Chelsea', 'Quanto costa?'] };
+    }
+    if (has(t, ['tavolo alto', 'tavoli alti', 'tavolo da bar', 'tavoli da bar', 'tavolo bar', 'tavolo snack', 'tavolo per sgabelli', 'tavolo alto da bar', 'tavolo da penisola'])) {
+      const items = pick(['magda-barre-sgabello', 'magda-ml-barre-sgabello'].map(byId));
+      return { text: 'Tavoli alti da bar non ce ne sono: i tavoli della Collezione 2026 sono alti <b>74–76 cm</b>. Per un bancone, un’isola o una penisola ci sono gli sgabelli <b>Magda</b>, con o senza braccioli:', cards: items.map((p) => cardOf(p)), chips: ['Che altezza hanno gli sgabelli?', 'Quanto costa?'] };
+    }
+    // --- money: no prices in the catalogue, so no budget filter either
+    if (has(t, ['budget', 'ho a disposizione', 'spendere', 'spesa massima', 'piu economico', 'piu economica', 'piu economici', 'costa meno', 'costano meno', 'economico', 'economici', 'low cost', 'prezzo basso', 'non costi tanto', 'che costi poco', 'costi poco']) || / \d{3,6} ?(euro|eur) /.test(t))
+      return { text: 'Il catalogo non riporta i prezzi, quindi non posso filtrare per budget né dirti qual è il più economico senza inventarlo. Un consulente sì: ti propone le soluzioni che rientrano nella tua cifra.', chips: ['Sì, contattatemi', 'Un tavolo per 6 persone', 'Che divani avete?'] };
+    // --- where to start
+    if (has(t, ['da dove comincio', 'da dove inizio', 'da dove parto', 'casa nuova', 'arredare casa', 'arredo una casa', 'arredare la casa', 'sto arredando', 'devo arredare']))
+      return { text: 'Di solito si parte dai pezzi più grandi, che danno il tono alla stanza: il <b>tavolo</b> in zona pranzo e il <b>divano</b> in soggiorno. Poi si scelgono sedie, tavolini, luci e tappeti in abbinamento. Da quale stanza vuoi cominciare?', chips: ['Zona pranzo', 'Soggiorno', 'Camera da letto', 'Ingresso'] };
+    if (['zona pranzo'].includes(tt)) return this.reply('tavolo da pranzo');
+    // --- pets and children: practical materials first
+    if (has(t, ['cane', 'cani', 'gatto', 'gatti', 'animali', 'animale', 'bambini', 'bambino', 'figli', 'bimbi', 'neonato'])) {
+      const pets = has(t, ['cane', 'cani', 'gatto', 'gatti', 'animali', 'animale']);
+      const c = cat || st.cat || (pets ? 'divano' : 'tavolo');
+      if (['divano', 'poltrona', 'pouf'].includes(c)) { const items = pick(P.filter((p) => p.cat === c && p.tags.includes('sfoderabile')).concat(P.filter((p) => p.cat === c && !p.tags.includes('sfoderabile'))).slice(0, 3));
+        return { text: `Con ${pets ? 'animali in casa' : 'bambini piccoli'} conviene un rivestimento <b>sfoderabile</b>, che si toglie e si lava: nella Collezione 2026 ce l’hanno <b>Gibson</b> e <b>Murphy</b>. Per il tessuto più resistente ti consiglio di vedere i campioni dal rivenditore.`, cards: items.map((p) => cardOf(p, p.desc, p.tags.includes('sfoderabile') ? 'Rivestimento sfoderabile.' : '')), chips: ['Differenza tra Gibson e Murphy?', 'Quanto costa?'] }; }
+      if (c === 'tavolo') { const items = pick(['gotham-keramik-drive', 'skorpio-marble-round', 'giano-marble'].map(byId));
+        return { text: `Con ${pets ? 'animali' : 'bambini'} in casa conta soprattutto il piano: la <b>ceramica</b> è la più resistente a graffi, macchie e calore, come nel <b>Gotham Keramik Drive</b>. Un tavolo <b>rotondo</b> non ha spigoli, ma i rotondi della collezione sono in marmo, più delicato.`, cards: items.map((p) => cardOf(p)), chips: ['Qual è il tavolo più resistente?', 'Misure di Gotham Keramik Drive'] }; }
+    }
+    // --- styles: a suggestion, said as such
+    { const sk = Object.keys(STYLE).find((k) => has(t, STYLE[k].k));
+      if (sk && !prods.length) { const S = STYLE[sk]; let items = S.ids.map(byId).filter(Boolean); if (cat) { const inCat = items.filter((p) => p.cat === cat); if (inCat.length) items = inCat; else items = null; }
+        if (items) { pick(items); return { text: `Per uno stile <b>${S.w}</b> ti propongo pezzi con ${S.why}. È un consiglio: lo stile resta una questione di gusto, e dal rivenditore puoi vedere le finiture dal vivo.`, cards: items.map((p) => cardOf(p)), chips: items.slice(0, 2).map((p) => 'Finiture di ' + p.name).concat(['Mostrami altro']) }; } } }
+    // --- a room with no product named: what the collection has for it
+    if (rooms.length && !cat && !x.roomCat && !color && !prods.length) {
+      const r = rooms[0], cats = ROOMSET[r] || [];
+      if (cats.length) { const items = pick(cats.map((c) => P.find((p) => p.cat === c && !p.outdoor))); const cnt = (c) => P.filter((p) => p.cat === c).length;
+        return { text: `${ROOMS[r].label.charAt(0).toUpperCase() + ROOMS[r].label.slice(1)}, nella Collezione 2026 trovi ${list(cats.map((c) => `${cnt(c) > 1 ? CAT[c].p : CAT[c].s} (${cnt(c)})`))}. Qualche idea per cominciare:`, cards: items.map((p) => cardOf(p)), chips: cats.slice(0, 3).map((c) => 'Che ' + CAT[c].p + ' avete?') }; }
+    }
+    // --- a colour of the room, but nothing to match yet
+    if (color && !cat && !prods.length && !x.roomCat && (has(t, INTERIOR) || has(t, ['pavimento', 'parquet']))) {
+      const C = COLORS[color]; st.opts = { rooms: [], color };
+      return { text: `${C.tip.charAt(0).toUpperCase() + C.tip.slice(1)}. Cosa vuoi abbinare?`, chips: ['Un tavolo', 'Un divano', 'Delle sedie', 'Un tappeto'] };
+    }
+    // --- "show me more / everything" without anything on screen yet
+    if (has(t, ['mostrami tutto', 'tutto il catalogo', 'tutti i prodotti', 'catalogo completo', 'fammi vedere tutto', 'cosa c e nel catalogo']) && !cat)
+      return this.topics(' che categorie ', raw, [], null, [], [], false, null);
+    if (isI(t, 'more') && !cat && !prods.length && !st.cat && words <= 3)
+      return { text: 'Altro di cosa? Dimmi il tipo di prodotto che ti interessa.', chips: ['Tavoli', 'Divani', 'Sedie', 'Tappeti'] };
+    if (cat && has(t, ['tutti', 'tutte', 'elenco', 'lista', 'tutta la gamma']) && !recSignal) {
+      const all = P.filter((p) => p.cat === cat); pick(all.slice(0, 3)); st.shown = Array.from(new Set(st.shown.concat(all.slice(0, 3).map((p) => p.id))));
+      return { text: `Ecco ${FEM.includes(cat) ? 'tutte le' : 'tutti i'} ${all.length} ${all.length > 1 ? CAT[cat].p : CAT[cat].s} della Collezione 2026: ${esc(list(all.map((p) => p.name)))}. I primi:`, cards: all.slice(0, 3).map((p) => cardOf(p)), chips: ['Mostrami altro', 'Misure di ' + all[0].name] };
+    }
+    // --- how big a table for N people
+    if (n && !prods.length && has(t, ['che misura', 'quale misura', 'che dimensione', 'quali dimensioni', 'quanto grande', 'quanto deve essere', 'che diametro', 'quale diametro', 'quanto lungo', 'quanto lunga', 'misura serve', 'misura ci vuole']) && (!cat || cat === 'tavolo')) {
+      const nd = needFor(n), roundQ = has(t, ['diametro', 'rotondo', 'tondo']);
+      const ok = P.filter((p) => p.cat === 'tavolo' && !p.outdoor && seatsFor(p, n)).sort((a, b) => (roundQ ? (b.D ? 1 : 0) - (a.D ? 1 : 0) : 0));
+      const items = pick(ok.slice(0, 3)); st.cat = 'tavolo'; st.opts = { rooms: [], n };
+      const s = `Per <b>${n} persone</b>, contando circa 60 cm a testa, serve un tavolo rettangolare di almeno <b>${nd.rect} cm</b>` + (nd.round ? ` oppure un rotondo da <b>Ø ${nd.round} cm</b>.` : '. Oltre le 8 persone un rotondo diventa scomodo, meglio un rettangolare.') + (nd.rect < 200 ? ' Nella collezione i rettangolari fissi partono da 200 cm, quindi stai largo.' : '');
+      return { text: s + (items.length ? ' Quelli adatti:' : ''), cards: items.map((p) => cardOf(p, `Per ${n} persone: ${vda(seatsFor(p, n))}.`)), chips: ['Mostrami altro', 'Quanto costa?'] };
+    }
+    // --- rugs: a given size, for a named rug or in general
+    if (rug && (prods.some((p) => p.rugs) || cat === 'tappeto' || (!cat && st.cat === 'tappeto'))) {
+      const fmt = rug[0] === 'Ø' ? 'Ø' + rug[1] : rug[0] + '×' + rug[1];
+      const area = (r) => { const m = r.match(/(\d+)×(\d+)/); return m ? +m[1] * +m[2] : Math.PI * Math.pow(+r.slice(1) / 2, 2); };
+      const pool = prods.filter((p) => p.rugs).length ? prods.filter((p) => p.rugs) : P.filter((p) => p.rugs);
+      const yes = pool.filter((p) => p.rugs.includes(fmt));
+      if (prods.length === 1 && pool.length === 1) { pick(pool); const p = pool[0]; return { text: yes.length ? `Sì, <b>${esc(p.name)}</b> esiste nel formato <b>${fmt} cm</b>. Gli altri formati sono ${esc(list(p.rugs.filter((r) => r !== fmt)))} cm.` : `<b>${esc(p.name)}</b> nel formato ${fmt} cm non c’è: esiste in ${esc(list(p.rugs))} cm.`, chips: ['Che colori ha?', 'Quanto costa?'] }; }
+      if (!yes.length) { const all = Array.from(new Set(P.filter((p) => p.rugs).flatMap((p) => p.rugs))); const near = all.filter((r) => r.startsWith('Ø') === (rug[0] === 'Ø')).sort((a, b) => Math.abs(area(a) - area(fmt)) - Math.abs(area(b) - area(fmt)))[0]; const items = pick(P.filter((p) => p.rugs && p.rugs.includes(near)));
+        return { text: `Il formato ${fmt} cm non c’è nella Collezione 2026. I formati disponibili sono ${esc(list(all))} cm: il più vicino a quello che cerchi è <b>${near} cm</b>.`, cards: items.map((p) => cardOf(p, 'Formati: ' + p.rugs.join(', ') + ' cm.')), chips: ['Quanto costa?', 'Mostrami altro'] }; }
+    }
+    // --- a designer named by surname ("Andrea Lucatello")
+    { const toks = t.trim().split(' ').filter((w) => w.length >= 5 && !['studio', 'design', 'cattelan', 'italia', 'paolo', 'giorgio', 'andrea'].includes(w));
+      const ds = Array.from(new Set(P.map((p) => p.design))).filter((d) => toks.some((w) => norm(d).includes(' ' + w)));
+      if (ds.length && !prods.length) { const items = pick(P.filter((p) => ds.includes(p.design)).slice(0, 4)); return { text: `Della Collezione 2026, ${ds.length === 1 ? 'con la firma' : 'con le firme'} <b>${esc(list(ds))}</b>:`, cards: items.map((p) => cardOf(p)), chips: ['Che designer lavorano con voi?', 'Misure di ' + items[0].name] }; } }
+    // --- two products side by side
+    if (prods.length >= 2 && (isI(t, 'compare') || has(t, ['meglio', 'rispetto', 'quale scelgo', 'quale dei due', 'consigli tra', 'o il', 'o lo', 'o la', 'o l']) || / o /.test(t))) return this.compare(prods.slice(0, 2), t);
+    // --- what goes with a named product ("che sedie con il Gotham")
+    if (cat && prods.length === 1 && prods[0].cat !== cat && ['sedia', 'sgabello', 'poltrona', 'tavolino', 'tappeto', 'lampada', 'madia', 'tavolo'].includes(cat)) {
+      const base = prods[0], bt = finTerms(base);
+      let pool = P.filter((p) => p.cat === cat && (base.outdoor || base.covered ? p.outdoor || p.covered : !p.outdoor || cat === 'tavolino'));
+      if (!pool.length) pool = P.filter((p) => p.cat === cat);
+      const scored = pool.map((p) => ({ p, sh: finTerms(p).filter((m) => bt.includes(m)) })).sort((a, b) => b.sh.length - a.sh.length);
+      const top = scored.slice(0, 3); pick(top.map((s) => s.p)); st.cat = cat;
+      const anyShared = top.some((s) => s.sh.length);
+      return { text: anyShared ? `Per abbinarle a <b>${esc(base.name)}</b> ho cercato ${FEM.includes(cat) ? 'quelle' : 'quelli'} che riprendono le sue finiture${bt.length ? ' (' + esc(list(bt.slice(0, 3))) + ')' : ''}:` : `Con <b>${esc(base.name)}</b> non ho ${CAT[cat].p} con le stesse finiture, ma questi stanno bene per materiali e stile:`, cards: top.map((s) => cardOf(s.p, s.p.desc, s.sh.length ? `Disponibile in ${list(s.sh.slice(0, 2))}, come ${esc(base.name)}.` : '')), after: 'L’abbinamento è un suggerimento: dal rivenditore puoi vedere i campioni affiancati.', chips: top.slice(0, 2).map((s) => 'Finiture di ' + s.p.name).concat(['Quanto costa?']) };
+    }
+    // --- features in the description: armrests, drawers, removable covers, wheels, floor or ceiling lamps
+    { const att = ATTR.filter((a) => has(t, a.k) && (!a.cats || a.cats.includes(cat) || prods.some((p) => a.cats.includes(p.cat)) || (!cat && !prods.length && a.cats.includes(st.cat))));
+      if (att.length) {
+        const a = att[0], neg = new RegExp(' senza (i |le |il |la )?' + a.k[0].slice(0, 6)).test(t);
+        const fits = (p) => (neg ? (!a.re.test(p.desc) || /con o senza/.test(p.desc)) : a.re.test(p.desc) || p.tags.some((g) => a.re.test(g)));
+        const targets = prods.length ? prods : focus.length && !cat && words <= 6 ? focus.slice(0, 2) : null;
+        if (targets) { pick(targets); return { text: targets.map((p) => fits(p) ? `Sì: ${/optional/.test(p.desc) && a.re.test(p.desc.split(';').pop()) ? 'come <b>optional</b>. ' : ''}<b>${esc(p.name)}</b>, ${esc(p.desc.charAt(0).toLowerCase() + p.desc.slice(1))}` : `Per <b>${esc(p.name)}</b> il catalogo non indica questa caratteristica (${esc(p.desc.charAt(0).toLowerCase() + p.desc.slice(1).replace(/\.$/, ''))}). Te lo può confermare un consulente con la scheda tecnica.`).join('<br><br>'), chips: ['Che misure ha?', 'E le finiture?', 'Mostrami alternative'] }; }
+        const c = cat || (a.cats ? a.cats[0] : null) || st.cat;
+        const pool = P.filter((p) => (!c || p.cat === c) && (outdoor ? p.outdoor : true));
+        const hit = pool.filter(fits);
+        if ((c || hit.length) && (!recSignal || a.cats)) {
+          if (!hit.length) return { text: `Tra ${c ? (FEM.includes(c) ? 'le ' : 'i ') + CAT[c].p : 'i prodotti'} della Collezione 2026 non ne trovo ${neg ? a.w.replace(/^con /, 'senza ') : a.w} nel catalogo. Vuoi vedere comunque i modelli?`, chips: [c ? 'Mostrami i ' + CAT[c].p : 'Che categorie avete?'] };
+          const items = pick(hit.slice(0, 3)); if (c) st.cat = c;
+          const lab = c ? CAT[c] : null, pl = hit.length > 1, fem = c && FEM.includes(c);
+          return { text: `${pl ? 'Ecco' : 'C’è'} ${lab ? (pl ? (fem ? 'le ' : 'i ') + lab.p : (fem ? 'una ' : 'un ') + lab.s) : 'i prodotti'} ${neg ? a.w.replace(/^con /, 'senza ') : a.w}${pl && hit.length > 3 ? ` (${hit.length} in tutto)` : ''}:`, cards: items.map((p) => cardOf(p)), chips: items.slice(0, 2).map((p) => 'Misure di ' + p.name).concat(['Quanto costa?']) };
+        }
+      }
+    }
+    // --- measures of a whole category ("che altezza hanno gli sgabelli?")
+    if (cat && !prods.length && !recSignal && has(t, ['misure', 'misura', 'dimensioni', 'altezza', 'alto', 'alti', 'alte', 'larghezza', 'lunghezza', 'diametro', 'quanto sono', 'ingombro', 'formati'])) {
+      const all = P.filter((p) => p.cat === cat); pick(all.slice(0, 3));
+      return { text: `Misure ${FEM.includes(cat) ? 'delle' : /^(s[^aeiou]|z|gn|ps)/.test(CAT[cat].p) ? 'degli' : 'dei'} ${CAT[cat].p} della Collezione 2026:<br>` + all.map((p) => `<b>${esc(p.name)}</b>: ${dimsText(p) ? esc(dimsText(p)) : 'misure nella scheda tecnica'}`).join('<br>') + (all.some((p) => !dimsText(p)) ? '<br><br>Dove non ho il dato, un consulente ti manda la scheda tecnica.' : ''), chips: ['Mi mandate la scheda tecnica?', 'Quanto costa?'] };
+    }
+    // --- lightest / heaviest: no weights in the catalogue
+    if (/ piu (legger|pesant)[oaie] /.test(t)) return { text: 'Il peso dei prodotti non è indicato nel catalogo, quindi non posso dirti qual è il più leggero senza inventarlo. Lo trovi nelle schede tecniche, che un consulente ti può mandare.', chips: ['Mandatemi le schede tecniche', 'Mostrami i ' + (cat ? CAT[cat].p : 'prodotti')] };
+    if (has(t, ['oro', 'dorato', 'dorata', 'dorati', 'dorate', 'color oro', 'champagne']) && !prods.length) {
+      const gold = P.filter((p) => (!cat || p.cat === cat) && /golden|oxybrass|ottone|champagne/i.test(Object.values(p.fin || {}).flat().join(' ') + ' ' + p.desc));
+      if (gold.length) { const items = pick(gold.slice(0, 3)); return { text: 'Finiture in oro vero non ce ne sono, ma ci sono toni dorati e caldi: l’<b>Oxybrass</b> (effetto ottone), i dettagli in <b>ottone</b>, il marmo <b>Golden Calacatta</b> e l’alluminio <b>Pink Champagne</b>. Li trovi qui:', cards: items.map((p) => cardOf(p, p.desc, 'Finitura: ' + (finishFor(p, ['golden', 'oxybrass', 'ottone', 'champagne']) || 'dettagli in ottone') + '.')), chips: items.slice(0, 2).map((p) => 'Finiture di ' + p.name) }; }
+    }
+    if (color && PCOL[color] && !cat && !prods.length && !st.cat && words <= 4 && !has(t, INTERIOR)) return { text: `In ${PCOL[color].w} di quale prodotto? Dimmi il tipo di mobile.`, chips: ['Tavoli', 'Sedie', 'Divani'] };
+    // --- "e in bianco?" after a list: colour of the product shown
+    if (color && PCOL[color] && !cat && !prods.length && st.cat && words <= 4 && !has(t, INTERIOR)) return this.topics(t, raw, [], st.cat, focus, [], outdoor, color);
+    return null;
+  };
+  Engine.prototype.compare = function (ps, t) {
+    const [a, b] = ps; const st = this.st;
+    st.last = ps.map((p) => p.id); st.shown = Array.from(new Set(st.shown.concat(st.last)));
+    const only = (x, y) => x.tags.filter((g) => TAGW[g] && !y.tags.includes(g)).map((g) => TAGW[g]);
+    const oa = only(a, b), ob = only(b, a);
+    let s = `<b>${esc(a.name)}</b> (design ${esc(a.design)}): ${esc(a.desc)}<br><b>${esc(b.name)}</b> (design ${esc(b.design)}): ${esc(b.desc)}`;
+    const diff = [];
+    if (oa.length) diff.push(`solo <b>${esc(a.name)}</b> ${list(oa)}`);
+    if (ob.length) diff.push(`solo <b>${esc(b.name)}</b> ${list(ob)}`);
+    if (diff.length) s += '<br><br>La differenza in breve: ' + diff.join('; ') + '.';
+    const da = dimsText(a), db = dimsText(b);
+    if (da || db) s += `<br><br>Misure: <b>${esc(a.name)}</b> ${da || 'in scheda tecnica'}; <b>${esc(b.name)}</b> ${db || 'in scheda tecnica'}.`;
+    if (has(t, ['meglio', 'quale scelgo', 'quale dei due', 'consigli'])) {
+      const order = ['ceramica', 'vetro', 'legno', 'marmo'], ma = matOf(a), mb = matOf(b);
+      const tips = [];
+      if (ma && mb && ma !== mb) { const pr = order.indexOf(ma) < order.indexOf(mb) ? a : b, ot = pr === a ? b : a; tips.push(`per l’uso di tutti i giorni è più pratico <b>${esc(pr.name)}</b> (${matOf(pr)}), mentre <b>${esc(ot.name)}</b> (${matOf(ot)}) punta di più sull’estetica`); }
+      if (a.tags.includes('allungabile') !== b.tags.includes('allungabile')) { const ex = a.tags.includes('allungabile') ? a : b; tips.push(`se ricevi spesso ospiti, <b>${esc(ex.name)}</b> si allunga`); }
+      if (a.tags.includes('sfoderabile') !== b.tags.includes('sfoderabile')) { const sf = a.tags.includes('sfoderabile') ? a : b; tips.push(`con bambini o animali aiuta il rivestimento sfoderabile di <b>${esc(sf.name)}</b>`); }
+      s += '<br><br>' + (tips.length ? 'Dipende da come lo usi: ' + tips.join('; ') + '.' : 'Sono simili per uso: la scelta è soprattutto di gusto e di design, meglio vederli dal vivo.');
+    }
+    return { text: s, cards: ps.map((p) => cardOf(p)), chips: ['Finiture di ' + a.name, 'Finiture di ' + b.name, 'Quanto costa?'] };
+  };
+  Engine.prototype.topics = function (t, raw, prods, c, focus, rooms, outdoor, color) {
+    const st = this.st;
+    // the whole range: categories and how many models each
+    if (!c && !prods.length && (has(t, ['categorie', 'categoria', 'tipi di prodotti', 'tipologie', 'cosa vendete', 'che cosa vendete', 'cosa fate', 'cosa producete', 'che prodotti', 'quali prodotti', 'cosa avete', 'gamma', 'assortimento', 'cosa trattate', 'di cosa vi occupate']) && !has(t, ['in marmo', 'in vetro', 'in ceramica', 'in legno', 'in pelle']) && !findMat(t).length && !rooms.length && !outdoor && !finMatch(t) && !/ avete (in|da|per|di|con) /.test(t))) {
+      const counts = {}; P.forEach((p) => (counts[p.cat] = (counts[p.cat] || 0) + 1));
+      const groups = [['Zona pranzo', ['tavolo', 'sedia', 'sgabello', 'madia']], ['Living', ['divano', 'poltrona', 'pouf', 'tavolino', 'tappeto', 'libreria']], ['Notte', ['letto', 'comodino']], ['Complementi e luce', ['consolle', 'specchio', 'lampada', 'complemento', 'scrivania']]];
+      const rows = groups.map(([g, cs]) => `<b>${g}</b>: ` + cs.filter((k) => counts[k]).map((k) => `${counts[k] > 1 ? CAT[k].p : CAT[k].s} (${counts[k]})`).join(', ')).join('<br>');
+      return { text: `Cattelan Italia fa arredamento di design. Nella <b>Collezione 2026</b> ci sono ${P.length} prodotti, divisi così:<br>${rows}<br><br>Il punto forte sono i tavoli, con piani in marmo, ceramica e cristallo. Cosa ti interessa?`, chips: ['Che tavoli avete?', 'Che divani avete?', 'Che tappeti avete?'] };
+    }
+    const pick = (arr) => { st.last = arr.map((p) => p.id); st.shown = Array.from(new Set(st.shown.concat(st.last))); if (arr[0]) st.cat = arr[0].cat; };
+    const tableCtx = c === 'tavolo' || (!c && st.cat === 'tavolo') || prods.some((p) => p.cat === 'tavolo');
+    // shapes the collection does not have
+    if (has(t, ['quadrato', 'quadrati', 'quadrata', 'quadrate']) && (tableCtx || c === 'tavolino')) {
+      const rnd = P.filter((p) => p.cat === (c || 'tavolo') && p.tags.includes('rotondo') && !p.outdoor);
+      pick(rnd.slice(0, 3));
+      return { text: `${c === 'tavolino' ? 'Tavolini' : 'Tavoli'} quadrati non ce ne sono nella Collezione 2026. Ci sono <b>rettangolari</b>, <b>rotondi</b> e alcune forme speciali: <b>biscuit</b> (Skorpio Marble, Tyron Marble) e <b>sagomata</b> (Bilbao Glass). Se cerchi un tavolo raccolto per 4 persone, un rotondo da Ø 140 cm è l’alternativa più vicina al quadrato:`, cards: rnd.slice(0, 3).map((p) => cardOf(p, 'Misure: ' + (dimsText(p) || 'nella scheda tecnica') + '.')), chips: ['Tavolo rotondo per 4', 'Il tavolo più piccolo', 'Mostrami i rettangolari'] };
+    }
+    if (has(t, ['ovale', 'ovali']) && tableCtx) {
+      const sh = ['skorpio-marble', 'tyron-marble', 'bilbao-glass'].map(byId).filter(Boolean);
+      pick(sh);
+      return { text: 'Tavoli ovali veri e propri non ce ne sono nella Collezione 2026. Le forme più vicine sono la <b>biscuit</b> di Skorpio Marble e Tyron Marble e la <b>sagomata</b> di Bilbao Glass:', cards: sh.map((p) => cardOf(p, 'Forme: ' + (p.shapes || 'vedi scheda') + '.')), chips: ['Misure di Skorpio Marble', 'Tavolo rotondo', 'Quanto costa?'] };
+    }
+    // sales data we do not have
+    if (has(t, ['piu venduto', 'piu venduti', 'piu venduta', 'piu richiesto', 'piu richiesti', 'piu popolare', 'piu gettonato', 'bestseller', 'best seller', 'va di piu', 'vende di piu', 'piu amato']))
+      return { text: 'Non ho dati di vendita, quindi non posso dirti quale sia il più venduto senza inventarlo. Posso però consigliarti il modello giusto per te: dimmi <b>dove va</b>, <b>per quante persone</b> e che <b>stile o colori</b> hai in casa.', chips: ['Un tavolo per la cucina, per 6', 'Un divano per il soggiorno', 'Parla con un consulente'] };
+    // what is new
+    if (has(t, ['novita', 'ultime uscite', 'ultimi arrivi', 'qualcosa di nuovo', 'cosa c e di nuovo', 'nuovi prodotti', 'nuovi modelli', 'ultima collezione', 'nuova collezione'])) {
+      const sel = ['gotham-keramik-drive', 'gibson', 'lagoon'].map(byId).filter(Boolean); pick(sel);
+      return { text: 'Quello che conosco è la <b>Collezione 2026</b> di Cattelan Italia: 49 prodotti, dai tavoli ai tappeti. Il catalogo non segna quali siano le novità assolute, quindi per questo ti conviene chiedere a un consulente. Intanto, alcuni pezzi della collezione:', cards: sel.map((p) => cardOf(p)), chips: ['Quanti tavoli avete?', 'Che divani avete?', 'Parla con un consulente'] };
+    }
+    // custom sizes
+    if (has(t, ['su misura', 'misura personalizzata', 'misure personalizzate', 'altra misura', 'misure speciali', 'fuori misura', 'misura diversa']))
+      return { text: `Le misure disponibili sono quelle a catalogo${focus.length ? ' (per <b>' + esc(focus[0].name) + '</b>: ' + (dimsText(focus[0]) || 'nella scheda tecnica') + ')' : ''}. Per una misura speciale serve una verifica con l’azienda: un consulente può chiedere se è fattibile per il modello che ti interessa.`, chips: ['Sì, contattatemi', 'Mostrami le misure disponibili'] };
+    // comfort is personal: say so, then give what the catalogue says
+    const seatCat = ['divano', 'poltrona', 'sedia', 'sgabello', 'pouf', 'letto'];
+    if (has(t, ['comodo', 'comoda', 'comodi', 'comode', 'comfort', 'morbido', 'morbida', 'confortevole']) && (seatCat.includes(c) || prods.some((p) => seatCat.includes(p.cat)) || (!c && seatCat.includes(st.cat)))) {
+      const cc = c || (prods[0] && prods[0].cat) || st.cat, pool = prods.length ? prods : P.filter((p) => p.cat === cc && !p.outdoor);
+      pick(pool.slice(0, 3));
+      return { text: `La comodità è personale e va provata: dipende da profondità e altezza della seduta e da quanto ti piace un’imbottitura morbida o sostenuta. Dal rivenditore puoi sederti su ognuno. Intanto, ecco cosa dice il catalogo:`, cards: pool.slice(0, 3).map((p) => cardOf(p)), after: 'Vuoi che ti fissi una visita per provarli?', chips: ['Sì, voglio provarli', 'Che rivestimenti ci sono?', 'Quanto costa?'] };
+    }
+    // materials: heat, stains, scratches
+    const mt = findMat(t).filter((m) => CARE[m]);
+    if (has(t, CAREQ.concat(['macchiare', 'si rovina', 'rovinarsi', 'si rompe', 'manutenzione'])) && mt.length && !prods.length && !c)
+      return { text: mt.map((m) => CARE[m].charAt(0).toUpperCase() + CARE[m].slice(1) + '.').join('<br><br>') + '<br><br>Sono indicazioni generali sul materiale: le istruzioni di cura ufficiali sono nella scheda di manutenzione del prodotto.', chips: ['Tavoli in ' + mt[0], 'Qual è il tavolo più resistente?'] };
+    if (has(t, CAREQ) && (prods.length || focus.length || c)) {
+      const pool = prods.length ? prods : !c && focus.length ? focus.slice(0, 2) : P.filter((p) => p.cat === c && matOf(p) && (outdoor ? p.outdoor : !p.outdoor));
+      const withMat = pool.filter(matOf);
+      if (withMat.length && (prods.length || (!c && focus.length))) {
+        pick(withMat);
+        const s = withMat.slice(0, 2).map((p) => `<b>${esc(p.name)}</b>: ${CARE[matOf(p)]}.`).join('<br><br>');
+        return { text: s + '<br><br>Sono indicazioni generali sul materiale: le istruzioni di cura ufficiali sono nella scheda di manutenzione.', chips: ['Qual è il più resistente?', 'Mi mandate la scheda tecnica?', 'Mostrami alternative'] };
+      }
+      if (withMat.length && !rooms.length) {
+        const order = ['ceramica', 'vetro', 'legno', 'marmo'];
+        const sorted = withMat.slice().sort((a, b) => order.indexOf(matOf(a)) - order.indexOf(matOf(b))).slice(0, 3);
+        pick(sorted);
+        const mats = Array.from(new Set(sorted.map(matOf)));
+        return { text: `Per resistere a calore, macchie e graffi conta soprattutto il materiale del piano. In ordine di praticità: ${mats.map((m) => CARE[m]).join('; ')}.`, cards: sorted.map((p) => cardOf(p, p.desc)), after: 'Sono indicazioni generali sul materiale: le istruzioni di cura ufficiali sono nella scheda di manutenzione.', chips: ['Misure di ' + sorted[0].name, 'Finiture di ' + sorted[0].name, 'Quanto costa?'] };
+      }
+    }
+    // a colour for the product itself ("tavoli bianchi", "divano grigio"), not the room
+    if (color && PCOL[color] && (c || prods.length) && !rooms.length && !has(t, INTERIOR)) {
+      const pool = (prods.length ? prods : P.filter((p) => p.cat === c && (outdoor ? p.outdoor : !p.outdoor || c === 'tavolino')));
+      const hits = pool.map((p) => ({ p, f: finishFor(p, PCOL[color].t) })).filter((x) => x.f);
+      const lab = c ? CAT[c] : CAT[prods[0].cat];
+      if (!hits.length && pool.some((p) => Object.values(p.fin || {}).flat().some((v) => /campionario/.test(v)))) return { text: `Per ${prods.length ? '<b>' + esc(list(prods.map((p) => p.name))) + '</b>' : 'i ' + lab.p} il colore si sceglie dal <b>campionario</b> di tessuti e pelli, che non è nel catalogo: dal rivenditore puoi vedere i campioni in ${PCOL[color].w} disponibili.`, cards: pool.slice(0, 3).map((p) => cardOf(p)), chips: ['Trova il rivenditore più vicino', 'Che rivestimenti ci sono?'] };
+      if (!hits.length) return { text: `In ${PCOL[color].w} non trovo finiture per ${prods.length ? '<b>' + esc(list(prods.map((p) => p.name))) + '</b>' : 'i ' + lab.p} nella Collezione 2026. Vuoi vedere le finiture disponibili?`, chips: prods.length ? ['Finiture di ' + prods[0].name] : ['Mostrami i ' + lab.p] };
+      pick(hits.slice(0, 3).map((x) => x.p));
+      return { text: `Sì, in ${PCOL[color].w} ho ${hits.length === 1 ? (FEM.includes(lab.s) ? 'questa' : 'questo') : (FEM.includes(lab.s) ? 'queste' : 'questi')}${prods.length ? '' : ' ' + (hits.length === 1 ? lab.s : lab.p)}, con la finitura giusta:`, cards: hits.slice(0, 3).map((x) => cardOf(x.p, x.p.desc, 'Finitura: ' + x.f + '.')), after: 'I colori a schermo sono indicativi: dal rivenditore puoi vedere i campioni veri.', chips: hits.slice(0, 2).map((x) => 'Finiture di ' + x.p.name).concat(['Quanto costa?']) };
+    }
+    return null;
+  };
+  Engine.prototype.aggregate = function (t, kind, prods, c, outdoor, rooms) {
+    const st = this.st;
+    const indoor = !outdoor && (has(t, ['interno', 'interni', 'dentro casa', 'in casa']) || rooms.length > 0);
+    if (!c && !(prods.length > 1)) {
+      if (!kind) return { text: `Nella Collezione 2026 ci sono <b>${P.length} prodotti</b> in ${Object.keys(CAT).length} categorie, dai tavoli ai tappeti. Di quale tipo vuoi sapere quanti modelli ci sono?`, chips: ['Quanti tavoli avete?', 'Quanti divani avete?', 'Quante sedie avete?'] };
+      return { text: `${SUPW[kind][0].charAt(0).toUpperCase() + SUPW[kind][0].slice(1)} in quale categoria? Dimmi il tipo di mobile.`, chips: [`Il tavolo ${SUPW[kind][0]}`, `Il tappeto ${SUPW[kind][0]}`, `La madia ${SUPW[kind][0].replace(/o$/, 'a')}`] };
+    }
+    let pool = prods.length > 1 ? prods : P.filter((p) => p.cat === c);
+    if (outdoor) pool = pool.filter((p) => p.outdoor || p.covered);
+    if (indoor) pool = pool.filter((p) => !p.outdoor && !p.covered);
+    const lab = c ? CAT[c] : { s: 'prodotto', p: 'prodotti' }, fem = c && FEM.includes(c);
+    const where = outdoor ? ' da esterno' : indoor ? ' per interni' : '';
+    if (!pool.length) return { text: `Nella Collezione 2026 non ho ${lab.p}${where}.`, chips: ['Mostrami i ' + lab.p, 'Parla con un consulente'] };
+    const pick = (ids) => { st.last = ids; st.shown = Array.from(new Set(st.shown.concat(ids))); if (c) st.cat = c; };
+
+    if (!kind) { // how many
+      pick(pool.slice(0, 3).map((p) => p.id));
+      const out = pool.filter((p) => p.outdoor || p.covered).length;
+      let s = `Nella Collezione 2026 ci sono <b>${pool.length} ${pool.length > 1 ? lab.p : lab.s}${where}</b>: ${esc(list(pool.map((p) => p.name)))}.`;
+      if (!outdoor && !indoor && out && out < pool.length) s += ` Di questi, ${out === 1 ? (fem ? 'una è' : 'uno è') : out + ' sono'} da esterno.`;
+      return { text: s, chips: [`Il ${lab.s} ${SUPW.big[0]}`, 'Mostrami i ' + lab.p, 'Quanto costa?'].map((x) => (fem ? x.replace(/^Il /, 'La ').replace(/grande$/, 'grande') : x)).slice(0, 3) };
+    }
+    const word = kind ? (fem ? SUPW[kind][0].replace(/o$/, 'a') : SUPW[kind][0]) : '';
+    const plw = kind ? (fem ? SUPW[kind][1].replace(/i$/, kind === 'big' ? 'i' : 'e') : SUPW[kind][1]) : '';
+    const one = (g, pre) => (g.length > 1 ? (fem ? 'le ' : 'i ') + plw + ' sono' : (fem ? 'la ' : 'il ') + word + ' è');
+    const sized = pool.map((p) => ({ p, s: sizeOf(p, kind) })).filter((x) => x.s);
+    const missing = pool.filter((p) => !sizeOf(p, kind));
+    if (!sized.length) { pick(pool.slice(0, 3).map((p) => p.id)); return { text: `Per ${fem ? 'le' : 'i'} ${lab.p} non ho in questa demo le misure di ogni modello, quindi non posso dirti con certezza ${fem ? 'quale' : 'quale'} sia ${fem ? 'la' : 'il'} ${word}. I modelli sono: ${esc(list(pool.map((p) => p.name)))}. Un consulente ti può mandare le schede tecniche con tutte le misure.`, cards: pool.slice(0, 3).map((p) => cardOf(p)), chips: ['Mandatemi le schede tecniche', 'Mostrami i ' + lab.p] }; }
+    const maxi = kind === 'big' || kind === 'high';
+    const best = (arr) => { if (!arr.length) return []; const v = maxi ? Math.max(...arr.map((x) => x.s[0])) : Math.min(...arr.map((x) => x.s[0])); return arr.filter((x) => x.s[0] === v); };
+    const names = (g) => g.map((x) => '<b>' + esc(x.p.name) + '</b>' + ((x.p.outdoor || x.p.covered) && !outdoor && !g.every((y) => y.p.outdoor || y.p.covered) ? ' (da esterno)' : '')).join(g.length > 2 ? ', ' : ' e ').replace(/, ([^,]*)$/, ' e $1');
+    const parts = [];
+    let shown = [];
+    if (kind === 'big' || kind === 'small') {
+      const rect = sized.filter((x) => x.s[2] === 'rect'), rnd = sized.filter((x) => x.s[2] === 'round'), other = sized.filter((x) => !['rect', 'round'].includes(x.s[2]));
+      if (rect.length) {
+        let g = best(rect);
+        const isOut = g.every((x) => x.p.outdoor || x.p.covered) && !outdoor;
+        parts.push(`${rnd.length ? 'Tra i rettangolari, ' + (g.length > 1 ? (fem ? 'le ' : 'i ') + plw + ' sono' : (fem ? 'la' : 'il') + ' ' + word + ' è') : (g.length > 1 ? (fem ? 'Le ' : 'I ') + lab.p + ' ' + plw + where + ' sono' : (fem ? 'La' : 'Il') + ' ' + lab.s + ' ' + word + where + ' è')} ${names(g)}: ${esc(g[0].s[1])}${isOut ? ', ma è da esterno' : ''}.`);
+        shown = shown.concat(g.map((x) => x.p));
+        if (isOut) { const ins = best(rect.filter((x) => !x.p.outdoor && !x.p.covered)); if (ins.length) { parts.push(`Per interni, ${ins.length > 1 ? (fem ? 'le ' : 'i ') + plw + ' sono' : (fem ? 'la' : 'il') + ' ' + word + ' è'} ${names(ins)}: ${esc(ins[0].s[1])}.`); shown = shown.concat(ins.map((x) => x.p)); } }
+        if (kind === 'small' && g.every((x) => x.p.Lc)) { const fx = best(rect.filter((x) => !x.p.Lc)); if (fx.length) { parts.push(`Tra quelli non allungabili si parte da ${fx[0].s[0]} cm: ${names(fx)}.`); } }
+        if (kind === 'big') { const e2 = rect.filter((x) => x.p.Lc && !shown.includes(x.p)); e2.forEach((x) => parts.push(`${names([x])} è allungabile e arriva a ${Math.max(...x.p.L)} cm aperto.`)); }
+      }
+      if (rnd.length) { const g = best(rnd); parts.push(`${rect.length ? 'Tra i rotondi, ' : ''}${!rect.length ? (g.length > 1 ? (fem ? 'Le ' : 'I ') + lab.p + ' ' + plw + where + ' sono' : (fem ? 'La ' : 'Il ') + lab.s + ' ' + word + where + ' è') + ' ' : ''}${rect.length ? one(g) + ' ' : ''}${names(g)}, ${esc(g[0].s[1])}.`); shown = shown.concat(g.map((x) => x.p)); }
+      if (other.length) { const g = best(other); parts.push(`${g.length > 1 ? (fem ? 'Le ' : 'I ') + lab.p + ' ' + plw + where + ' sono' : (fem ? 'La ' : 'Il ') + lab.s + ' ' + word + where + ' è'} ${names(g)}, nel formato ${esc(g[0].s[1])}.`); shown = shown.concat(g.map((x) => x.p)); }
+    } else {
+      const g = best(sized); parts.push(`${g.length > 1 ? (fem ? 'Le ' : 'I ') + lab.p + ' ' + plw + where + ' sono' : (fem ? 'La ' : 'Il ') + lab.s + ' ' + word + where + ' è'} ${names(g)}: ${esc(g[0].s[1])}.`); shown = g.map((x) => x.p);
+    }
+    if (prods.length > 1 && (kind === 'big' || kind === 'small') && best(sized).length === sized.length && sized.length > 1) { parts.length = 0; parts.push(`${sized.length === 2 ? 'Arrivano entrambi' : 'Arrivano tutti'} alla stessa misura ${kind === 'big' ? 'massima' : 'minima'}: ${esc(sized[0].s[1])}. Cambiano per materiale e forma del piano.`); }
+    if (missing.length) parts.push(`Per ${esc(list(missing.map((p) => p.name)))} non ho le misure in questa demo: sono nella scheda tecnica.`);
+    shown = Array.from(new Set(shown)).slice(0, 4);
+    pick(shown.map((p) => p.id));
+    const cards = shown.map((p) => cardOf(p, 'Misure: ' + (dimsText(p) || 'nella scheda tecnica') + '.'));
+    const chips = kind === 'big' ? [`E ${fem ? 'la' : 'il'} più ${fem ? 'piccola' : 'piccolo'}?`] : kind === 'small' ? [`E ${fem ? 'la' : 'il'} più grande?`] : [];
+    return { text: parts.join(' '), cards, after: c === 'tavolo' ? 'Per orientarti: a tavola servono circa 60 cm a persona. Vuoi che ti consigli la misura per il tuo numero di ospiti?' : 'Vuoi le finiture di uno di questi?', chips: chips.concat(['Mi mandate la scheda tecnica?', 'Quanto costa?']) };
+  };
+  // ---------- lead capture ----------
+  Engine.prototype.openLead = function (focus, why) {
+    const st = this.st;
+    focus.forEach((p) => { if (!st.interest.includes(p.name)) st.interest.push(p.name); });
+    st.lead = { step: 'name', data: { interest: st.interest.slice() } };
+    return { text: why + '<br><br>Per cominciare, <b>come ti chiami?</b>', chips: ['Annulla'], lead: true };
+  };
+  Engine.prototype.leadStep = function (raw, t) {
+    const st = this.st, L = st.lead, v = raw.trim();
+    if (has(t, INT.cancel) || t.trim() === 'annulla') { st.lead = null; return { text: 'Nessun problema, ho annullato. Posso aiutarti con altro?', chips: START.chips.slice(0, 3) }; }
+    const offTopic = L.step !== 'consent' && (raw.includes('?') || findCat(t) || findProducts(t).length || supKind(t) || isCount(t) || faqMatch(t)) && !(L.step === 'contact' && /@|\d{6,}/.test(v));
+    if (offTopic) { st.lead = null; const r = this.reply(raw); r.text = 'Lascio in sospeso la richiesta di contatto: la riprendiamo quando vuoi. ' + r.text; return r; }
+    if (L.step === 'name') {
+      const name = v.replace(/^(mi chiamo|sono|io sono|il mio nome e|il mio nome è)\s+/i, '').split(/[,.]/)[0].trim().slice(0, 40);
+      if (name.length < 2) return { text: 'Scusa, non ho capito il nome. Come ti chiami?', chips: ['Annulla'] };
+      L.data.name = name.replace(/\b\w/g, (c) => c.toUpperCase()); L.step = L.data.contact ? 'city' : 'contact';
+      if (L.data.contact) return { text: `Piacere, ${esc(L.data.name)}. In che <b>città</b> o provincia sei? Così ti indirizziamo al rivenditore più vicino.`, chips: ['Treviso', 'Milano', 'Annulla'] };
+      return { text: `Piacere, ${esc(L.data.name)}. Mi lasci un’<b>email</b> o un <b>numero di telefono</b>?`, chips: ['Annulla'] };
+    }
+    if (L.step === 'contact') {
+      const email = v.match(/[^\s@]+@[^\s@]+\.[a-z]{2,}/i), phone = v.replace(/[\s.-]/g, '').match(/\+?\d{8,13}/);
+      if (!email && !phone) return { text: 'Mi serve un’email valida (es. nome@dominio.it) o un numero di telefono.', chips: ['Annulla'] };
+      L.data.contact = email ? email[0] : phone[0]; L.data.kind = email ? 'email' : 'telefono'; L.step = 'city';
+      return { text: 'Grazie. In che <b>città</b> o provincia sei? Così ti indirizziamo al rivenditore più vicino.', chips: ['Treviso', 'Milano', 'Annulla'] };
+    }
+    if (L.step === 'city') {
+      if (v.length < 2) return { text: 'In che città o provincia sei?', chips: ['Annulla'] };
+      L.data.city = v.slice(0, 40).replace(/\b\w/g, (c) => c.toUpperCase()); L.step = 'consent';
+      const what = L.data.interest.length ? list(L.data.interest) : 'la Collezione 2026';
+      return { text: `Riepilogo: <b>${esc(L.data.name)}</b>, ${esc(L.data.contact)}, ${esc(L.data.city)}. Interesse: <b>${esc(what)}</b>.<br><br>Acconsenti a essere ricontattato per questa richiesta? (Demo: i dati restano solo in questo browser.)`, chips: ['Acconsento', 'Annulla'] };
+    }
+    if (L.step === 'consent') {
+      if (!has(t, ['acconsento', 'si', 'ok', 'va bene', 'certo', 'confermo', 'sì'])) return { text: 'Per inviare la richiesta mi serve il tuo consenso. Confermi?', chips: ['Acconsento', 'Annulla'] };
+      const lead = Object.assign({ at: new Date() }, L.data); st.lead = null;
+      return { text: `Fatto, ${esc(lead.name)}! La richiesta è registrata: un consulente ti ricontatterà via ${lead.kind} con ${lead.interest.length ? 'informazioni su <b>' + esc(list(lead.interest)) + '</b>' : 'le informazioni richieste'}. Intanto, posso aiutarti con altro?`, chips: ['Un tavolino abbinato', 'Che tappeti avete?'], newLead: lead };
+    }
+  };
+  window.ShowroomEngine = Engine;
+  window.__norm = norm;
+})();
+</script>
+<script>
+(function () {
+  const E = new ShowroomEngine();
+  const $ = (id) => document.getElementById(id);
+  const msgs = $('msgs'), inp = $('inp'), form = $('form'), send = $('send');
+  const imgSrc = (k) => (window.IMGS && window.IMGS[k]) || ('img/' + k + '.jpg');
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  $('n-prod').textContent = window.PRODUCTS.length;
+  let busy = false, playing = null, leads = [];
+  try { leads = JSON.parse(localStorage.getItem('showroom-leads') || '[]'); } catch (e) {}
+  const save = () => { try { localStorage.setItem('showroom-leads', JSON.stringify(leads)); } catch (e) {} };
+  const scroll = () => { msgs.scrollTop = msgs.scrollHeight; };
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+  const clearChips = () => msgs.querySelectorAll('.chips').forEach((c) => c.remove());
+
+  function addUser(text) { clearChips(); const d = document.createElement('div'); d.className = 'msg user'; d.textContent = text; msgs.appendChild(d); scroll(); }
+  function addBot(r) {
+    const d = document.createElement('div'); d.className = 'msg bot' + (r.newLead ? ' lead-ok' : ''); d.innerHTML = r.text; msgs.appendChild(d);
+    if (r.cards && r.cards.length) {
+      const row = document.createElement('div'); row.className = 'cards';
+      r.cards.forEach((c) => {
+        const el = document.createElement('article'); el.className = 'card';
+        el.innerHTML = `<img src="${imgSrc(c.img)}" alt="${esc(c.name)}" loading="lazy"><div class="ct"><span class="k">${esc(c.cat)}</span><h3>${esc(c.name)}</h3>${c.why ? `<p class="why"><b>Perché te lo propongo</b>${esc(c.why)}</p>` : ""}<p>${esc(c.line)}</p><div class="acts"><button type="button" data-q="Misure di ${esc(c.name)}">Misure</button><button type="button" data-q="Finiture di ${esc(c.name)}">Finiture</button></div></div>`;
+        row.appendChild(el);
+      });
+      msgs.appendChild(row);
+    }
+    if (r.after) { const a = document.createElement('div'); a.className = 'msg bot'; a.innerHTML = r.after; msgs.appendChild(a); }
+    if (r.chips && r.chips.length) {
+      const c = document.createElement('div'); c.className = 'chips';
+      r.chips.forEach((t) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = t; b.dataset.q = t; c.appendChild(b); });
+      msgs.appendChild(c);
+    }
+    if (r.newLead) addLead(r.newLead);
+    scroll();
+  }
+  async function ask(text) {
+    if (!text.trim() || busy) return; busy = true; setDisabled(true);
+    addUser(text);
+    const t = document.createElement('div'); t.className = 'msg bot typing'; t.innerHTML = '<i></i><i></i><i></i>'; msgs.appendChild(t); scroll();
+    const r = E.reply(text);
+    await sleep(450 + Math.min(900, (r.text || '').length * 3));
+    t.remove(); addBot(r);
+    busy = false; if (!playing) setDisabled(false);
+  }
+  function setDisabled(v) { inp.disabled = v; send.disabled = v; if (!v) inp.focus({ preventScroll: true }); }
+  function reset() { E.reset(); msgs.innerHTML = ''; addBot(E.start()); }
+
+  // no <form> submit: sandboxed previews block form submission, so Enter and the button call ask() directly
+  const submit = () => { const v = inp.value; if (!v.trim() || busy || playing) return; inp.value = ''; ask(v); };
+  inp.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); submit(); } });
+  send.addEventListener('click', submit);
+  msgs.addEventListener('click', (e) => { const b = e.target.closest('button[data-q]'); if (b && !playing) ask(b.dataset.q === 'Annulla' ? 'annulla' : b.dataset.q); });
+  $('reset').addEventListener('click', () => { if (!playing) reset(); });
+
+  // ---------- leads ----------
+  function addLead(l) { leads.unshift({ name: l.name, contact: l.contact, city: l.city, interest: l.interest, at: new Date(l.at).toISOString(), fresh: true }); save(); renderLeads(); }
+  function renderLeads() {
+    $('lead-count').textContent = leads.length ? '(' + leads.length + ')' : '';
+    const box = $('leads');
+    if (!leads.length) { box.innerHTML = '<div class="empty">Nessun lead ancora. Prova la conversazione “Preventivo”.</div>'; return; }
+    box.innerHTML = leads.map((l, i) => `<div class="lead"><div class="top"><span>${esc(l.name)} ${i === 0 && l.fresh ? '<span class="tag-new">nuovo</span>' : ''}</span><small>${new Date(l.at).toLocaleString('it-IT', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}</small></div>
+      <dl><dt>Contatto</dt><dd>${esc(l.contact)}</dd><dt>Città</dt><dd>${esc(l.city)}</dd><dt>Interesse</dt><dd>${esc(l.interest && l.interest.length ? l.interest.join(', ') : 'Collezione 2026')}</dd><dt>Fonte</dt><dd>Chat showroom</dd></dl></div>`).join('');
+  }
+  $('clear').addEventListener('click', () => { leads = []; save(); renderLeads(); });
+  $('copy-csv').addEventListener('click', async (e) => {
+    const rows = [['data', 'nome', 'contatto', 'citta', 'interesse']].concat(leads.map((l) => [l.at, l.name, l.contact, l.city, (l.interest || []).join('; ')]));
+    const csv = rows.map((r) => r.map((x) => '"' + String(x).replace(/"/g, '""') + '"').join(',')).join('\n');
+    try { await navigator.clipboard.writeText(csv); e.target.textContent = 'Copiato'; } catch (err) { e.target.textContent = 'Copia non disponibile'; }
+    setTimeout(() => (e.target.textContent = 'Copia CSV'), 1600);
+  });
+
+  // ---------- tabs ----------
+  document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
+  function showTab(id) { document.querySelectorAll('.tabs button').forEach((x) => x.setAttribute('aria-selected', x.dataset.tab === id)); document.querySelectorAll('.tab').forEach((x) => x.classList.toggle('on', x.id === id)); }
+
+  // ---------- example conversations, played through the real engine ----------
+  const DEMOS = [
+    { t: 'Tavolo per 8 persone', s: 'Consiglio, misure e finiture con il contesto', q: ['Cerco un tavolo in marmo per 8 persone', 'Che misure ha lo Skorpio Marble?', 'E le finiture della base?'] },
+    { t: 'Arredo da esterno', s: 'Avvisa quando un prodotto va solo all’esterno coperto', q: ['Mi serve un tavolo da esterno', 'Il Napoleon può stare sotto la pioggia?', 'Mostrami le sedie da esterno'] },
+    { t: 'Cucina con interni rossi', s: 'Capisce stanza e colori e spiega ogni proposta', q: ['Mi serve un tavolo da mettere in cucina per mangiare, ho gli interni rossi', 'Che misure ha il Gotham?', 'Dove posso vederlo dal vivo?'] },
+    { t: 'Soggiorno', s: 'Tavolino e tappeto nel formato giusto', q: ['Vorrei un tavolino rotondo in vetro', 'Che misure ha il Lagoon?', 'E un tappeto 300x400?'] },
+    { t: 'Preventivo', s: 'Dalla domanda sul prezzo a un lead nel CRM', q: ['Quanto costa il Bilbao Glass?', 'Giulia Rossi', 'giulia.rossi@esempio.it', 'Treviso', 'Acconsento'], then: 't-leads' },
+    { t: 'Divano', s: 'Categoria, designer e dove vederlo dal vivo', q: ['Cerco un divano componibile', 'Chi ha disegnato il Murphy?', 'Dove posso vederlo dal vivo?'] },
+  ];
+  const dbox = $('demos');
+  DEMOS.forEach((d, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'demo'; b.innerHTML = `<b>${esc(d.t)}</b><span>${esc(d.s)}</span>`; b.addEventListener('click', () => play(i, b)); dbox.appendChild(b); });
+  async function play(i, btn) {
+    if (playing) return; playing = DEMOS[i]; btn.classList.add('playing'); setDisabled(true); reset();
+    if (window.matchMedia('(max-width:880px)').matches) document.querySelector('.chat').scrollIntoView({ behavior: 'smooth' });
+    for (const q of playing.q) {
+      await sleep(700);
+      for (let k = 1; k <= q.length; k++) { inp.value = q.slice(0, k); await sleep(18); }
+      inp.value = ''; await ask(q); await sleep(500);
+    }
+    if (playing.then) { await sleep(600); showTab(playing.then); }
+    btn.classList.remove('playing'); playing = null; setDisabled(false);
+  }
+  window.__play = play; window.__demos = DEMOS;
+
+  renderLeads(); reset();
+})();
+</script>
+</body>
+</html>
